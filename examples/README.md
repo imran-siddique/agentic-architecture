@@ -47,6 +47,29 @@ python examples/headless_agent_example.py
 - 90%+ cost reduction
 - Structured metrics showing deterministic behavior
 
+### 3. Semantic Firewall (`semantic_firewall_example.py`)
+
+Demonstrates how to use multidimensional knowledge graphs to block hallucinations before they reach users.
+
+**Features:**
+- Multidimensional knowledge graph (entities, relationships, temporal, confidence)
+- Six validation rules (entity existence, relationship validity, temporal consistency, confidence threshold, source verification, contradiction detection)
+- Temporal relationship validation
+- Proactive hallucination prevention
+- Clear audit trail with reasons for blocking
+
+**Run:**
+```bash
+python examples/semantic_firewall_example.py
+```
+
+**Expected Output:**
+- 100% correct validation of test cases
+- Expired relationships blocked (e.g., "Steve Jobs is CEO of Apple")
+- Unknown entities blocked
+- Valid current facts allowed
+- Historical facts validated with temporal context
+
 ## Running All Examples
 
 ```bash
@@ -54,6 +77,8 @@ python examples/headless_agent_example.py
 python examples/compute_to_lookup_example.py
 echo ""
 python examples/headless_agent_example.py
+echo ""
+python examples/semantic_firewall_example.py
 ```
 
 ## Key Insights
@@ -64,6 +89,7 @@ These examples demonstrate:
 - **10-100x speedup**: Through lookup optimization and eliminating language overhead
 - **90%+ cost reduction**: By minimizing expensive LLM calls
 - **Predictable performance**: Deterministic behavior with structured data
+- **Zero hallucinations**: Through structural validation
 
 ### Architecture Patterns
 
@@ -73,6 +99,7 @@ Each example shows how to:
 3. **Implement fallback strategies**: Graceful degradation
 4. **Track structured metrics**: Observability without log parsing
 5. **Optimize compute-to-lookup ratio**: Target 90% lookup, 10% compute
+6. **Validate facts proactively**: Block hallucinations before generation
 
 ## Integration
 
@@ -81,12 +108,15 @@ These examples can be combined to build complete systems:
 ```python
 from examples.compute_to_lookup_example import MultiTierLookupSystem
 from examples.headless_agent_example import SilentSwarm, HeadlessAgent
+from examples.semantic_firewall_example import SemanticFirewall, MultidimensionalKnowledgeGraph
 
 # Combine patterns for optimal system
 class OptimalAgenticSystem:
     def __init__(self):
         self.lookup_system = MultiTierLookupSystem()
         self.agent_swarm = SilentSwarm()
+        self.knowledge_graph = MultidimensionalKnowledgeGraph()
+        self.firewall = SemanticFirewall(self.knowledge_graph)
         
     def process_request(self, query):
         # Use lookup-first strategy
@@ -94,13 +124,22 @@ class OptimalAgenticSystem:
         
         if result.source != 'llm':
             # Fast path: Retrieved from cache/DB
-            return result
+            # Still validate through firewall
+            validation = self.firewall.validate(result.data)
+            if validation.passed:
+                return result
         
         # Slow path: Use silent swarm for complex processing
         workflow = self.decompose_to_tasks(query)
         results = self.agent_swarm.execute_workflow(workflow)
         
-        # Cache result for future lookups
+        # Validate through semantic firewall
+        validation = self.firewall.validate(results)
+        if not validation.passed:
+            # Hallucination detected - return safe fallback
+            return self.generate_fallback_response(validation.reason)
+        
+        # Cache validated result for future lookups
         self.lookup_system.cache_result(query, results)
         
         return results
