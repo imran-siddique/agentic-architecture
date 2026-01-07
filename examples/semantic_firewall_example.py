@@ -164,16 +164,25 @@ class SemanticFirewall:
     def _extract_facts(self, text: str) -> List[Fact]:
         """
         Extract structured facts from text
-        In production, this would use NER and relation extraction
+        
+        NOTE: In production, this would use:
+        - Named Entity Recognition (NER) models
+        - Relation extraction models
+        - Entity linking to knowledge graph
+        
+        This example overrides this method in main() for testing purposes
+        to demonstrate the validation rules without requiring NLP models.
         """
         # Simplified extraction for demonstration
+        # In this example, facts are manually constructed in main()
+        # to demonstrate the validation capabilities
         facts = []
         
-        # Look for common patterns
-        if "CEO" in text or "chief executive" in text.lower():
-            # Extract CEO relationship
-            # This is simplified - real implementation would use NLP
-            pass
+        # Production implementation would:
+        # 1. Use NER to extract entities (e.g., spaCy, Stanford NER)
+        # 2. Use relation extraction to identify relationships
+        # 3. Link entities to knowledge graph IDs
+        # 4. Build Fact objects with confidence scores
         
         return facts
     
@@ -257,18 +266,52 @@ class SemanticFirewall:
         # Check for temporal impossibilities
         for i, fact1 in enumerate(facts):
             for fact2 in facts[i+1:]:
-                # Check if facts conflict temporally
-                # (Simplified - real implementation would be more sophisticated)
-                pass
+                # Check if same subject has contradictory relationships at same time
+                if (fact1.relationship.subject.id == fact2.relationship.subject.id and
+                    fact1.relationship.predicate == fact2.relationship.predicate and
+                    fact1.relationship.object.id != fact2.relationship.object.id):
+                    
+                    # Check if time periods overlap
+                    r1_start = fact1.relationship.valid_from
+                    r1_end = fact1.relationship.valid_until or datetime.max
+                    r2_start = fact2.relationship.valid_from
+                    r2_end = fact2.relationship.valid_until or datetime.max
+                    
+                    # If periods overlap, it's a temporal contradiction
+                    if not (r1_end < r2_start or r2_end < r1_start):
+                        return ValidationResult(
+                            passed=False,
+                            reason=f"Temporal contradiction: {fact1.relationship.subject.name} cannot have two {fact1.relationship.predicate} relationships at once",
+                            failed_rule="temporal_consistency",
+                            suggested_fix="Check for overlapping time periods"
+                        )
         
         return ValidationResult(passed=True)
     
     def _check_contradictions(self, facts: List[Fact]) -> ValidationResult:
         """Rule 6: Detect contradictions with existing knowledge"""
         for fact in facts:
-            # Check if fact contradicts known information
-            # (Simplified - real implementation would use semantic reasoning)
-            pass
+            rel = fact.relationship
+            
+            # Find all existing relationships for this subject and predicate
+            existing = [
+                r for r in self.kg.relationships
+                if (r.subject.id == rel.subject.id and 
+                    r.predicate == rel.predicate and
+                    r.object.id != rel.object.id)
+            ]
+            
+            # Check if fact contradicts current knowledge
+            for existing_rel in existing:
+                # If existing relationship is currently valid and different, it's a contradiction
+                if self.kg.is_relationship_valid(existing_rel, datetime.now()):
+                    if existing_rel.object.id != rel.object.id:
+                        return ValidationResult(
+                            passed=False,
+                            reason=f"Contradiction: {rel.subject.name} {rel.predicate} {existing_rel.object.name} (known), but claimed {rel.object.name}",
+                            failed_rule="contradiction_detection",
+                            suggested_fix="Verify against current knowledge base"
+                        )
         
         return ValidationResult(passed=True)
 
