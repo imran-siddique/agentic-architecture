@@ -46,6 +46,7 @@ python examples/compute_to_lookup_example.py
 python examples/multidimensional_kg_example.py
 python examples/semantic_firewall_example.py
 python examples/headless_agent_example.py
+python examples/silent_swarm_example.py
 ```
 
 You'll see:
@@ -53,6 +54,7 @@ You'll see:
 - 90%+ cost reduction
 - Zero hallucinations through validation
 - Intelligent routing preventing the Inference Trap
+- Security by Silence architecture
 
 ### Step 3: Read One Concept (2 minutes)
 
@@ -75,6 +77,9 @@ Pick the concept most relevant to your current challenge:
 
 **If inter-agent coordination is slow:**
 → Read [Headless Agent](./docs/headless-agent.md)
+
+**If you need security-focused agent architecture:**
+→ Read [Silent Swarm](./docs/silent-swarm.md)
 
 **If you're designing a new system:**
 → Read [Cognitive Systems Architect](./docs/cognitive-systems-architect.md)

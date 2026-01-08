@@ -82,7 +82,19 @@ Challenging the assumption that agents must communicate through natural language
 
 **Key Insight**: Language is for humans. Code is for machines. Keep them separate.
 
-### 7. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
+### 7. [The Silent Swarm](./docs/silent-swarm.md)
+**Function Over Form: Scale by Subtraction Through "Security by Silence".**
+
+The AI industry suffers from a "Chatbot Hangover"—we design systems as if conversation is mandatory. This document challenges that assumption:
+- The Code Review Paradox: We want the work, not the worker's personality
+- Separation of Concerns: "The Face" (can talk, no tools) vs. "The Hands" (can execute, no talk)
+- Security by Silence: Jailbreak-resistant architecture
+- 90% of agents should be mute
+- Function over form in multi-agent coordination
+
+**Key Insight**: Stop judging agents by how well they chat. Start judging them by how well they shut up and work.
+
+### 8. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 **The new role that replaces the traditional Software Engineer.**
 
 As AI agents become capable of writing code, the human role shifts to knowledge architecture and system design. This document explores:
@@ -161,6 +173,7 @@ These concepts work together to form a complete architectural philosophy:
    - Explore [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md) for context precision through constraint-based filtering
    - Understand [Semantic Firewall](./docs/semantic-firewall.md) for reliability and trust
    - Learn [Headless Agent](./docs/headless-agent.md) for efficient coordination
+   - Discover [Silent Swarm](./docs/silent-swarm.md) for security-focused function-over-form architecture
    - Review [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) for the holistic view
 
 2. **Assess your current system**:
@@ -255,6 +268,8 @@ Start with the concept most relevant to your current challenges, or read them in
 > "Don't detect hallucinations after generation—prevent them structurally before they reach users."
 
 > "Language is for humans. Code is for machines. Keep them separate."
+
+> "Stop judging agents by how well they chat. Start judging them by how well they shut up and work."
 
 > "The best code is no code. The best architect designs systems that don't need to compute what they can look up."
 

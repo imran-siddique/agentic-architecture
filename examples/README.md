@@ -70,7 +70,30 @@ python examples/headless_agent_example.py
 - 90%+ cost reduction
 - Structured metrics showing deterministic behavior
 
-### 4. Semantic Firewall (`semantic_firewall_example.py`)
+### 4. Silent Swarm (`silent_swarm_example.py`)
+
+Demonstrates the "Function Over Form" principle with security-focused agent architecture separating "The Face" from "The Hands".
+
+**Features:**
+- Experience Agent (The Face): Can talk, no tools
+- Specialized Agents (The Hands): Can execute, no talk
+- Authorization Gateway with Security by Silence
+- Code Review example showing function over form
+- Jailbreak-resistant architecture
+
+**Run:**
+```bash
+python examples/silent_swarm_example.py
+```
+
+**Expected Output:**
+- Code review returning structured results without personality
+- Authorization checks blocking unauthorized requests
+- 10x faster performance vs conversational approach
+- 95% cost reduction through minimal LLM usage
+- 90% smaller attack surface
+
+### 5. Semantic Firewall (`semantic_firewall_example.py`)
 
 Demonstrates how to use multidimensional knowledge graphs to block hallucinations before they reach users.
 
@@ -102,6 +125,8 @@ echo ""
 python examples/compute_to_lookup_example.py
 echo ""
 python examples/headless_agent_example.py
+echo ""
+python examples/silent_swarm_example.py
 echo ""
 python examples/semantic_firewall_example.py
 ```
@@ -175,4 +200,5 @@ class OptimalAgenticSystem:
 - [Compute-to-Lookup Ratio Documentation](../docs/compute-to-lookup-ratio.md)
 - [Semantic Firewall Documentation](../docs/semantic-firewall.md)
 - [Headless Agent Documentation](../docs/headless-agent.md)
+- [Silent Swarm Documentation](../docs/silent-swarm.md)
 - [Cognitive Systems Architect Documentation](../docs/cognitive-systems-architect.md)
