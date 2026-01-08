@@ -700,6 +700,130 @@ firewall_rules = {
    - Features = new knowledge + new agents
    - Design knowledge first, implementation follows
 
+### 6. Recursive Ontology Management
+
+**Design self-updating knowledge systems that evolve autonomously.**
+
+Traditional knowledge graphs require manual curation. The Cognitive Systems Architect designs systems that update themselves based on feedback loops and agent telemetry.
+
+```python
+# Cognitive Systems Architect designs the evolution strategy
+class RecursiveOntologyArchitecture:
+    """
+    Self-updating knowledge system design
+    
+    KEY DESIGN DECISIONS:
+    
+    1. Feedback Loops:
+       - What signals indicate knowledge gaps?
+       - Which failures should trigger updates?
+       - How to prioritize healing actions?
+    
+    2. Ephemeral Graphs:
+       - OrgGraph: Rebuild on HR events
+       - ProductGraph: Rebuild on doc changes
+       - ContextGraph: Lifetime = project duration
+    
+    3. Statistical Supervision:
+       - Sample rate: 5% human review
+       - High-variance always reviewed
+       - Critical domains always reviewed
+    
+    4. Healing Strategy:
+       - Pattern detection thresholds
+       - Auto-heal vs. human review criteria
+       - Immediate vs. batched updates
+    """
+    
+    def design_feedback_loop(self):
+        """
+        What signals should agents emit?
+        """
+        return {
+            'entity_missing': {
+                'trigger': 'query_failed_no_entity',
+                'severity_calc': 'frequency * impact',
+                'action': 'trigger_entity_discovery'
+            },
+            'knowledge_stale': {
+                'trigger': 'data_age > 30_days',
+                'severity_calc': 'age * query_frequency',
+                'action': 'rebuild_graph_sector'
+            },
+            'relationship_unknown': {
+                'trigger': 'query_failed_no_relationship',
+                'severity_calc': 'frequency',
+                'action': 'trigger_relationship_discovery'
+            }
+        }
+    
+    def design_ephemeral_strategy(self):
+        """
+        Which graphs should be ephemeral?
+        What triggers rebuilds?
+        """
+        return {
+            'OrgGraph': {
+                'lifetime': 'event_driven',
+                'rebuild_triggers': [
+                    'employee.hired',
+                    'employee.transferred',
+                    'employee.terminated',
+                    'org.restructure'
+                ],
+                'fallback': 'rebuild_if_older_than_24h'
+            },
+            'ProductGraph': {
+                'lifetime': 'commit_driven',
+                'rebuild_triggers': [
+                    'git.push.docs/**',
+                    'release.published'
+                ],
+                'validation': 'check_documentation_coverage'
+            },
+            'ContextGraph': {
+                'lifetime': 'project_duration',
+                'ttl': '30_days',
+                'expire_if_idle': '7_days',
+                'cleanup': 'automatic'
+            }
+        }
+    
+    def design_supervision_strategy(self):
+        """
+        What should humans review?
+        What can be auto-approved?
+        """
+        return {
+            'always_review': [
+                'confidence_variance > 0.3',
+                'entity_type in [financial, healthcare, legal]',
+                'impact_radius > 100'
+            ],
+            'statistical_sample': {
+                'rate': 0.05,  # 5%
+                'stratified_by': ['entity_type', 'update_type'],
+                'priority': 'variance_desc'
+            },
+            'auto_approve': [
+                'confidence > 0.95',
+                'confidence_variance < 0.1',
+                'impact_radius < 10',
+                'entity_type = general'
+            ]
+        }
+```
+
+**Example Design Task:**
+```
+Design self-healing strategy for customer support KB:
+- When do agent failures signal knowledge gaps?
+- How often should KB sectors be rebuilt?
+- What percentage of updates need human review?
+- How to balance freshness vs. stability?
+- What's the pattern detection threshold?
+```
+
 ## The Future
 
 As AI agents become more capable, the Cognitive Systems Architect role will:
@@ -711,14 +835,17 @@ As AI agents become more capable, the Cognitive Systems Architect role will:
 2. **Focus on knowledge**
    - Knowledge as first-class asset
    - Knowledge graph as product
+   - Self-updating systems as norm
 
 3. **Embrace emergence**
    - Design for emergent behaviors
    - Orchestrate rather than program
+   - Systems that evolve autonomously
 
 4. **Prioritize trust**
    - Validation over generation
    - Verification over faith
+   - Statistical supervision over gatekeeping
 
 ## Conclusion
 
@@ -729,13 +856,15 @@ The Cognitive Systems Architect is not just a new job title—it's a fundamental
 - **System optimization**: Maximizing lookup over compute
 - **Quality assurance**: Preventing hallucinations through structure
 - **Observability**: Understanding system behavior
+- **Recursive ontology management**: Designing self-updating knowledge systems
 
 This role bridges traditional software engineering, data architecture, AI/ML engineering, and system design. It's the future of building intelligent systems.
 
-**The best code is no code. The best architect designs systems that don't need to compute what they can look up.**
+**The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.**
 
 ## Further Reading
 
 - [Compute-to-Lookup Ratio](./compute-to-lookup-ratio.md)
 - [Semantic Firewall Architecture](./semantic-firewall.md)
 - [Headless Agent Patterns](./headless-agent.md)
+- [Recursive Ontologies](./recursive-ontologies.md)

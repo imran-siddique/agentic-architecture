@@ -11,13 +11,16 @@ This repository teaches you revolutionary patterns for building production-grade
 3. **Compute-to-Lookup Ratio**: Optimize for 80-90% lookups, 10-20% reasoning
 4. **Semantic Firewall**: Block hallucinations before they reach users
 5. **Headless Agents**: Silent swarms that communicate via structured data
-6. **Cognitive Systems Architect**: The new engineering role for AI systems
+6. **Recursive Ontologies**: Self-updating knowledge systems that never become stale
+7. **Cognitive Systems Architect**: The new engineering role for AI systems
 
 ## 5-Minute Quick Start
 
 ### Step 1: Understand the Philosophy (1 minute)
 
 The core insight: **If your agent is "thinking" for every request, you haven't built an agent—you've built a philosophy major.**
+
+But there's more: **If your knowledge graph needs manual updates, you haven't built a system—you've built a maintenance nightmare.**
 
 Traditional AI systems (The Inference Trap):
 ```
@@ -47,6 +50,7 @@ python examples/multidimensional_kg_example.py
 python examples/semantic_firewall_example.py
 python examples/headless_agent_example.py
 python examples/silent_swarm_example.py
+python examples/recursive_ontology_example.py  # New: Self-updating systems
 ```
 
 You'll see:
@@ -55,6 +59,7 @@ You'll see:
 - Zero hallucinations through validation
 - Intelligent routing preventing the Inference Trap
 - Security by Silence architecture
+- Self-updating knowledge graphs that never become stale
 
 ### Step 3: Read One Concept (2 minutes)
 
@@ -80,6 +85,9 @@ Pick the concept most relevant to your current challenge:
 
 **If you need security-focused agent architecture:**
 → Read [Silent Swarm](./docs/silent-swarm.md)
+
+**If your knowledge graphs become stale or need manual updates:**
+→ Read [Recursive Ontologies](./docs/recursive-ontologies.md)
 
 **If you're designing a new system:**
 → Read [Cognitive Systems Architect](./docs/cognitive-systems-architect.md)

@@ -94,18 +94,31 @@ The AI industry suffers from a "Chatbot Hangover"—we design systems as if conv
 
 **Key Insight**: Stop judging agents by how well they chat. Start judging them by how well they shut up and work.
 
-### 8. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
+### 8. [Recursive Ontologies](./docs/recursive-ontologies.md)
+**Self-Updating Semantic Firewalls (Part 4).**
+
+Static systems die. In a world where data changes every second, knowledge graphs cannot remain static. This document introduces recursive ontologies—systems that update themselves:
+- The Feedback Loop: Agents as telemetry (failures as signals)
+- Ephemeral Graphs: Event-driven, just-in-time knowledge bases
+- Human Wisdom: Statistical supervision (5% review, 95% automation)
+- The Analyst System: Pattern detection and self-healing
+- Real-world implementation of self-updating architectures
+- The death of manual knowledge curation
+
+**Key Insight**: When an agent fails to find an answer, that is not an error—it is a signal. The system heals its own knowledge gaps based on the friction points of the agents living inside it.
+
+### 9. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 **The new role that replaces the traditional Software Engineer.**
 
 As AI agents become capable of writing code, the human role shifts to knowledge architecture and system design. This document explores:
-- Core responsibilities (knowledge architecture, cognitive orchestration, optimization)
+- Core responsibilities (knowledge architecture, cognitive orchestration, optimization, recursive ontology management)
 - Key skills (information architecture, system design, performance engineering)
 - Day-to-day activities and deliverables
 - Tools and technologies
 - Career path from junior to principal architect
 - Transition guide for software engineers
 
-**Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up.
+**Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.
 
 ## Design Principles
 
@@ -162,6 +175,44 @@ These concepts work together to form a complete architectural philosophy:
          └───────────────────────────────┘      Architect
 ```
 
+### Evolution Layer: Recursive Ontologies
+
+The architecture above describes the core system, but static systems die. **Recursive Ontologies** add a self-updating layer:
+
+```
+          ┌───────────────────────────────┐
+          │     Agent Telemetry           │ ◄─── Every agent
+          │   (Failures as Signals)       │      contributes feedback
+          └───────────┬───────────────────┘
+                      │
+                      ▼
+          ┌───────────────────────────────┐
+          │    Analyst System             │ ◄─── Pattern detection
+          │  (Pattern Detection)          │      & self-healing
+          └───────────┬───────────────────┘
+                      │
+         ┌────────────┼────────────┐
+         │            │            │
+         ▼            ▼            ▼
+    ┌────────┐  ┌─────────┐  ┌──────────┐
+    │  Auto   │  │ Human   │  │ Rebuild  │
+    │  Heal   │  │ Review  │  │ Graph    │
+    │  (95%)  │  │  (5%)   │  │ Sectors  │
+    └────┬────┘  └────┬────┘  └────┬─────┘
+         │            │            │
+         └────────────┼────────────┘
+                      │
+                      ▼
+          ┌───────────────────────────────┐
+          │   Ephemeral Graphs            │
+          │  • OrgGraph (HR events)       │
+          │  • ProductGraph (Git events)  │
+          │  • ContextGraph (project TTL) │
+          └───────────────────────────────┘
+```
+
+**Key Insight**: The system doesn't need manual updates. Agent failures signal knowledge gaps. The Analyst System detects patterns and triggers automatic healing. Ephemeral graphs rebuild on events, staying perpetually current.
+
 ## Quick Start
 
 ### For Developers
@@ -174,6 +225,7 @@ These concepts work together to form a complete architectural philosophy:
    - Understand [Semantic Firewall](./docs/semantic-firewall.md) for reliability and trust
    - Learn [Headless Agent](./docs/headless-agent.md) for efficient coordination
    - Discover [Silent Swarm](./docs/silent-swarm.md) for security-focused function-over-form architecture
+   - **Master [Recursive Ontologies](./docs/recursive-ontologies.md) for self-updating knowledge systems**
    - Review [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) for the holistic view
 
 2. **Assess your current system**:
@@ -272,6 +324,10 @@ Start with the concept most relevant to your current challenges, or read them in
 > "Stop judging agents by how well they chat. Start judging them by how well they shut up and work."
 
 > "The best code is no code. The best architect designs systems that don't need to compute what they can look up."
+
+> "When an agent fails to find an answer, that is not an error—it is a signal. The system heals its own knowledge gaps."
+
+> "Static systems die. The architecture that survives is the one that updates itself."
 
 ---
 
