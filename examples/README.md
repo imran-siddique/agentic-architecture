@@ -4,7 +4,30 @@ This directory contains working code examples demonstrating the key agentic arch
 
 ## Available Examples
 
-### 1. Compute-to-Lookup Ratio (`compute_to_lookup_example.py`)
+### 1. Guardrail Router (`guardrail_router_example.py`)
+
+Demonstrates how to implement a Guardrail Router that prevents the Inference Trap by intelligently routing requests between lookup and reasoning operations.
+
+**Features:**
+- Request classification using pattern matching
+- Constraint enforcement to maintain 80-90% lookup ratio
+- Multi-tier lookup system (cache, vector DB, database)
+- Automatic caching of reasoning results
+- Comprehensive metrics tracking
+
+**Run:**
+```bash
+python examples/guardrail_router_example.py
+```
+
+**Expected Output:**
+- System should achieve 80-90% lookup ratio
+- 70-90% cost savings vs all-reasoning approach
+- Average latency under 500ms
+- Detailed breakdown of routing decisions
+- Demonstration of constraint enforcement
+
+### 2. Compute-to-Lookup Ratio (`compute_to_lookup_example.py`)
 
 Demonstrates how to implement a multi-tier lookup system that achieves the 90/10 target ratio.
 
@@ -25,7 +48,7 @@ python examples/compute_to_lookup_example.py
 - Detailed breakdown by cache tier
 - Cost comparison showing 10-100x savings
 
-### 2. Headless Agent / Silent Swarm (`headless_agent_example.py`)
+### 3. Headless Agent / Silent Swarm (`headless_agent_example.py`)
 
 Demonstrates how headless agents communicate through structured data rather than natural language.
 
@@ -47,7 +70,7 @@ python examples/headless_agent_example.py
 - 90%+ cost reduction
 - Structured metrics showing deterministic behavior
 
-### 3. Semantic Firewall (`semantic_firewall_example.py`)
+### 4. Semantic Firewall (`semantic_firewall_example.py`)
 
 Demonstrates how to use multidimensional knowledge graphs to block hallucinations before they reach users.
 
@@ -74,6 +97,8 @@ python examples/semantic_firewall_example.py
 
 ```bash
 # Run all examples
+python examples/guardrail_router_example.py
+echo ""
 python examples/compute_to_lookup_example.py
 echo ""
 python examples/headless_agent_example.py
@@ -86,6 +111,7 @@ python examples/semantic_firewall_example.py
 ### Performance
 
 These examples demonstrate:
+- **Avoiding the Inference Trap**: Intelligent routing prevents unnecessary reasoning
 - **10-100x speedup**: Through lookup optimization and eliminating language overhead
 - **90%+ cost reduction**: By minimizing expensive LLM calls
 - **Predictable performance**: Deterministic behavior with structured data
@@ -94,18 +120,20 @@ These examples demonstrate:
 ### Architecture Patterns
 
 Each example shows how to:
-1. **Structure data for optimal retrieval**: Multi-dimensional indexing
-2. **Design type-safe protocols**: Eliminate ambiguity
-3. **Implement fallback strategies**: Graceful degradation
-4. **Track structured metrics**: Observability without log parsing
-5. **Optimize compute-to-lookup ratio**: Target 90% lookup, 10% compute
-6. **Validate facts proactively**: Block hallucinations before generation
+1. **Prevent the Inference Trap**: Route intelligently between lookup and reasoning
+2. **Structure data for optimal retrieval**: Multi-dimensional indexing
+3. **Design type-safe protocols**: Eliminate ambiguity
+4. **Implement fallback strategies**: Graceful degradation
+5. **Track structured metrics**: Observability without log parsing
+6. **Optimize compute-to-lookup ratio**: Target 80-90% lookup, 10-20% reasoning
+7. **Validate facts proactively**: Block hallucinations before generation
 
 ## Integration
 
 These examples can be combined to build complete systems:
 
 ```python
+from examples.guardrail_router_example import GuardrailRouter
 from examples.compute_to_lookup_example import MultiTierLookupSystem
 from examples.headless_agent_example import SilentSwarm, HeadlessAgent
 from examples.semantic_firewall_example import SemanticFirewall, MultidimensionalKnowledgeGraph
@@ -117,21 +145,19 @@ class OptimalAgenticSystem:
         self.agent_swarm = SilentSwarm()
         self.knowledge_graph = MultidimensionalKnowledgeGraph()
         self.firewall = SemanticFirewall(self.knowledge_graph)
+        self.router = GuardrailRouter(max_reasoning_ratio=0.2)
         
     def process_request(self, query):
-        # Use lookup-first strategy
-        result = self.lookup_system.query(query)
+        # Use Guardrail Router to prevent Inference Trap
+        routing_decision = self.router.route(query)
         
-        if result.source != 'llm':
-            # Fast path: Retrieved from cache/DB
-            # Still validate through firewall
-            validation = self.firewall.validate(result.data)
-            if validation.passed:
-                return result
-        
-        # Slow path: Use silent swarm for complex processing
-        workflow = self.decompose_to_tasks(query)
-        results = self.agent_swarm.execute_workflow(workflow)
+        if routing_decision['reasoning_used']:
+            # Reasoning path: Use silent swarm for complex processing
+            workflow = self.decompose_to_tasks(query)
+            results = self.agent_swarm.execute_workflow(workflow)
+        else:
+            # Lookup path: Fast retrieval
+            results = routing_decision['data']
         
         # Validate through semantic firewall
         validation = self.firewall.validate(results)
@@ -139,14 +165,13 @@ class OptimalAgenticSystem:
             # Hallucination detected - return safe fallback
             return self.generate_fallback_response(validation.reason)
         
-        # Cache validated result for future lookups
-        self.lookup_system.cache_result(query, results)
-        
         return results
 ```
 
 ## Further Reading
 
+- [The Inference Trap Documentation](../docs/inference-trap.md)
+- [Guardrail Router Documentation](../docs/guardrail-router.md)
 - [Compute-to-Lookup Ratio Documentation](../docs/compute-to-lookup-ratio.md)
 - [Semantic Firewall Documentation](../docs/semantic-firewall.md)
 - [Headless Agent Documentation](../docs/headless-agent.md)

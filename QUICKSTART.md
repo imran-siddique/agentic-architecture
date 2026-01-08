@@ -4,29 +4,33 @@ Get started with agentic architecture patterns in 5 minutes.
 
 ## What You'll Learn
 
-This repository teaches you four revolutionary patterns for building production-grade AI agent systems:
+This repository teaches you revolutionary patterns for building production-grade AI agent systems:
 
-1. **Compute-to-Lookup Ratio**: Optimize for 90% lookups, 10% computation
-2. **Semantic Firewall**: Block hallucinations before they reach users
-3. **Headless Agents**: Silent swarms that communicate via structured data
-4. **Cognitive Systems Architect**: The new engineering role for AI systems
+1. **The Inference Trap**: Why "thinking" is a technical debt and how to avoid it
+2. **The Guardrail Router**: Intelligently route between lookup and reasoning
+3. **Compute-to-Lookup Ratio**: Optimize for 80-90% lookups, 10-20% reasoning
+4. **Semantic Firewall**: Block hallucinations before they reach users
+5. **Headless Agents**: Silent swarms that communicate via structured data
+6. **Cognitive Systems Architect**: The new engineering role for AI systems
 
 ## 5-Minute Quick Start
 
 ### Step 1: Understand the Philosophy (1 minute)
 
-The core insight: **The smartest systems aren't the ones that compute the most—they're the ones that look up efficiently.**
+The core insight: **If your agent is "thinking" for every request, you haven't built an agent—you've built a philosophy major.**
 
-Traditional AI systems:
+Traditional AI systems (The Inference Trap):
 ```
-User Query → LLM thinks hard → Response (slow, expensive, unreliable)
+User Query → LLM thinks hard for everything → Response (slow, expensive, unreliable)
 ```
 
-Modern agentic systems:
+Modern agentic systems (With Guardrail Router):
 ```
-User Query → Lookup in knowledge graph → Response (fast, cheap, reliable)
-           ↓ (only if needed)
-           LLM for novel cases → Cache result → Future lookups
+User Query → Guardrail Router → Decision: Lookup or Reasoning?
+                                    ↓                ↓
+                              Lookup (90%)    Reasoning (10%)
+                              50-200ms        2-10 seconds
+                              $0.001          $0.01
 ```
 
 ### Step 2: Run the Examples (2 minutes)
@@ -37,6 +41,7 @@ git clone https://github.com/imran-siddique/agentic-architecture.git
 cd agentic-architecture
 
 # Run examples to see the patterns in action
+python examples/guardrail_router_example.py
 python examples/compute_to_lookup_example.py
 python examples/headless_agent_example.py
 python examples/semantic_firewall_example.py
@@ -46,10 +51,17 @@ You'll see:
 - 10-100x performance improvements
 - 90%+ cost reduction
 - Zero hallucinations through validation
+- Intelligent routing preventing the Inference Trap
 
 ### Step 3: Read One Concept (2 minutes)
 
 Pick the concept most relevant to your current challenge:
+
+**If you're using expensive reasoning for everything:**
+→ Read [The Inference Trap](./docs/inference-trap.md)
+
+**If you need to decide when to use reasoning vs lookup:**
+→ Read [The Guardrail Router](./docs/guardrail-router.md)
 
 **If you want to reduce costs and latency:**
 → Read [Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md)
@@ -144,7 +156,14 @@ if not validation.passed:
 
 ## Implementation Checklist
 
+### Phase 0: Diagnosis (Day 1)
+- [ ] Identify if you're falling into the Inference Trap
+- [ ] Measure current reasoning vs lookup ratio
+- [ ] Calculate cost of all-reasoning approach
+- [ ] Identify queries that should be lookups
+
 ### Phase 1: Foundation (Week 1)
+- [ ] Implement basic Guardrail Router
 - [ ] Audit current system to measure compute-to-lookup ratio
 - [ ] Identify top 100 most common queries
 - [ ] Set up caching infrastructure (Redis or similar)
@@ -154,13 +173,15 @@ if not validation.passed:
 - [ ] Pre-compute common query results
 - [ ] Implement semantic indexing for queries
 - [ ] Add vector similarity search
-- [ ] Target: Achieve 70% lookup ratio
+- [ ] Fine-tune Guardrail Router classification
+- [ ] Target: Achieve 80% lookup ratio
 
 ### Phase 3: Validation (Week 3)
 - [ ] Implement semantic firewall
 - [ ] Define validation rules for your domain
 - [ ] Set confidence thresholds
 - [ ] Track blocked hallucinations
+- [ ] Monitor Guardrail Router metrics
 
 ### Phase 4: Agent Coordination (Week 4)
 - [ ] Identify conversational bottlenecks between agents
