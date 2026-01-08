@@ -455,9 +455,11 @@ class CacheManager:
             # Check for database queries without try/catch
             if ".query." in content or "fetch_" in content:
                 if "try:" not in content and "except" not in content:
+                    # In production, use AST parsing to get exact line numbers
+                    line_hint = "query_operation"
                     issues.append({
                         "severity": "medium",
-                        "location": f"{file_path}:line_with_query",
+                        "location": f"{file_path}:{line_hint}",
                         "issue_type": "uncaught_exception",
                         "description": "Database operation without error handling",
                         "recommendation": "Wrap in try/except block with proper error logging"
@@ -473,9 +475,11 @@ class CacheManager:
             # Check for unbounded collections
             if "self.cache = []" in content and "append" in content:
                 if "evict" not in content and "remove" not in content:
+                    # In production, use AST parsing to get exact line numbers
+                    line_hint = "cache_initialization"
                     risks.append({
                         "severity": "high",
-                        "location": f"{file_path}:cache_definition",
+                        "location": f"{file_path}:{line_hint}",
                         "issue_type": "unbounded_growth",
                         "description": "Cache with no eviction policy",
                         "recommendation": "Implement LRU eviction or TTL-based cleanup"
@@ -484,20 +488,30 @@ class CacheManager:
         return risks
     
     def _check_security(self, code: Dict[str, str]) -> List[Dict[str, Any]]:
-        """Check for security vulnerabilities"""
+        """
+        Check for security vulnerabilities.
+        Note: This is a simplified demonstration. Production systems should use
+        comprehensive static analysis tools like Bandit, Semgrep, or CodeQL.
+        """
         issues = []
         
         for file_path, content in code.items():
-            # Check for SQL injection risks (simplified)
-            if "query.filter_by" in content or "query.filter" in content:
-                if "request.args.get" in content or "request.form.get" in content:
-                    # This is a simplified check
+            # Example: Check for potential SQL injection patterns
+            # This is intentionally simplified for demonstration
+            if ("query.filter_by" in content or "query.filter" in content):
+                if ("request.args.get" in content or "request.form.get" in content):
+                    # In production, use proper AST analysis
+                    # This simplified check would need context analysis
                     pass
         
         return issues
     
     def _issue_to_dict(self, issue: Dict[str, Any]) -> Dict[str, Any]:
-        """Convert issue to dictionary (already is one in this impl)"""
+        """
+        Convert issue to dictionary format.
+        In this implementation, issues are already dictionaries,
+        but this method provides a hook for future formatting changes.
+        """
         return issue
 
 
