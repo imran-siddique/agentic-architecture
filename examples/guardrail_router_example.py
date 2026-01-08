@@ -599,7 +599,7 @@ def main():
     
     print(f"\n   Performance:")
     print(f"      Avg response time: {metrics['avg_latency_ms']:.0f}ms")
-    print(f"      vs All-Reasoning approach: {metrics['total_requests'] * 2000 / metrics['total_requests']:.0f}ms")
+    print(f"      vs All-Reasoning approach: 2000ms")
     print(f"      Speedup: {(2000 / metrics['avg_latency_ms']):.1f}x faster")
     
     print("\n5. Conclusion")
