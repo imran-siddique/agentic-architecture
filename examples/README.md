@@ -116,6 +116,53 @@ python examples/semantic_firewall_example.py
 - Valid current facts allowed
 - Historical facts validated with temporal context
 
+### 6. Multidimensional Knowledge Graphs (`multidimensional_kg_example.py`)
+
+Demonstrates how to build and query multidimensional knowledge graphs with constraint-based filtering.
+
+**Features:**
+- Six-dimensional knowledge graph (Identity & Scope, Organizational Hierarchy, Service Ownership, Dependencies, Temporal Weight, Authority)
+- Constraint-based filtering (subtracting 99% of noise)
+- Graph traversal for complex queries
+- Comparison with flat RAG approach
+- Real-world query examples
+
+**Run:**
+```bash
+python examples/multidimensional_kg_example.py
+```
+
+**Expected Output:**
+- Complex queries answered through graph constraints
+- Demonstration of dimensional filtering
+- Performance comparison vs RAG
+
+### 7. Recursive Ontologies (`recursive_ontology_example.py`)
+
+Demonstrates self-updating knowledge systems with feedback loops and ephemeral graphs.
+
+**Features:**
+- Agent telemetry capturing failures as signals
+- Ephemeral knowledge graphs (OrgGraph, ProductGraph, ContextGraph)
+- Event-driven graph rebuilding
+- Statistical supervision (5% human review, 95% auto)
+- Analyst system for pattern detection and self-healing
+- Automatic knowledge gap detection and filling
+
+**Run:**
+```bash
+python examples/recursive_ontology_example.py
+```
+
+**Expected Output:**
+- Agent failures captured as signals (not errors)
+- Automatic pattern detection from repeated failures
+- OrgGraph rebuilds on HR events
+- ProductGraph rebuilds on documentation changes
+- ContextGraph created per-project with automatic expiration
+- Self-healing actions triggered automatically
+- Health reports showing system evolution
+
 ## Running All Examples
 
 ```bash
@@ -129,6 +176,10 @@ echo ""
 python examples/silent_swarm_example.py
 echo ""
 python examples/semantic_firewall_example.py
+echo ""
+python examples/multidimensional_kg_example.py
+echo ""
+python examples/recursive_ontology_example.py
 ```
 
 ## Key Insights
@@ -141,6 +192,7 @@ These examples demonstrate:
 - **90%+ cost reduction**: By minimizing expensive LLM calls
 - **Predictable performance**: Deterministic behavior with structured data
 - **Zero hallucinations**: Through structural validation
+- **Self-updating systems**: Knowledge graphs that evolve automatically
 
 ### Architecture Patterns
 
@@ -152,6 +204,7 @@ Each example shows how to:
 5. **Track structured metrics**: Observability without log parsing
 6. **Optimize compute-to-lookup ratio**: Target 80-90% lookup, 10-20% reasoning
 7. **Validate facts proactively**: Block hallucinations before generation
+8. **Enable self-healing**: Systems that update themselves based on agent feedback
 
 ## Integration
 
@@ -162,17 +215,18 @@ from examples.guardrail_router_example import GuardrailRouter
 from examples.compute_to_lookup_example import MultiTierLookupSystem
 from examples.headless_agent_example import SilentSwarm, HeadlessAgent
 from examples.semantic_firewall_example import SemanticFirewall, MultidimensionalKnowledgeGraph
+from examples.recursive_ontology_example import RecursiveOntologySystem
 
 # Combine patterns for optimal system
 class OptimalAgenticSystem:
     def __init__(self):
         self.lookup_system = MultiTierLookupSystem()
         self.agent_swarm = SilentSwarm()
-        self.knowledge_graph = MultidimensionalKnowledgeGraph()
-        self.firewall = SemanticFirewall(self.knowledge_graph)
+        self.recursive_ontology = RecursiveOntologySystem()
+        self.firewall = self.recursive_ontology.semantic_firewall
         self.router = GuardrailRouter(max_reasoning_ratio=0.2)
         
-    def process_request(self, query):
+    def process_request(self, query, agent_id, context):
         # Use Guardrail Router to prevent Inference Trap
         routing_decision = self.router.route(query)
         
@@ -181,8 +235,13 @@ class OptimalAgenticSystem:
             workflow = self.decompose_to_tasks(query)
             results = self.agent_swarm.execute_workflow(workflow)
         else:
-            # Lookup path: Fast retrieval
-            results = routing_decision['data']
+            # Lookup path: Try recursive ontology system first
+            results = self.recursive_ontology.query(query, agent_id, context)
+            
+            # If not found, signals are automatically captured
+            if not results['success']:
+                # System will self-heal for future queries
+                return self.generate_fallback_response()
         
         # Validate through semantic firewall
         validation = self.firewall.validate(results)
@@ -191,6 +250,10 @@ class OptimalAgenticSystem:
             return self.generate_fallback_response(validation.reason)
         
         return results
+        
+    # Background task: Run healing cycle every 15 minutes
+    def run_maintenance(self):
+        self.recursive_ontology.run_healing_cycle()
 ```
 
 ## Further Reading
@@ -198,7 +261,9 @@ class OptimalAgenticSystem:
 - [The Inference Trap Documentation](../docs/inference-trap.md)
 - [Guardrail Router Documentation](../docs/guardrail-router.md)
 - [Compute-to-Lookup Ratio Documentation](../docs/compute-to-lookup-ratio.md)
+- [Multidimensional Knowledge Graphs Documentation](../docs/multidimensional-knowledge-graphs.md)
 - [Semantic Firewall Documentation](../docs/semantic-firewall.md)
 - [Headless Agent Documentation](../docs/headless-agent.md)
 - [Silent Swarm Documentation](../docs/silent-swarm.md)
+- [Recursive Ontologies Documentation](../docs/recursive-ontologies.md)
 - [Cognitive Systems Architect Documentation](../docs/cognitive-systems-architect.md)
