@@ -213,15 +213,18 @@ class DependencyDimension:
 class TemporalDimension:
     """Dimension 5: Apply temporal weighting"""
     
+    # Temporal decay half-life in days (configurable)
+    DECAY_HALF_LIFE_DAYS = 30
+    
     def apply_temporal_weight(self, items: List[WorkItem], current_time: datetime) -> List[WorkItem]:
         """
         Weight items by recency using exponential decay
-        weight = e^(-age_days / 30)
+        weight = e^(-age_days / DECAY_HALF_LIFE_DAYS)
         """
         for item in items:
             age_days = (current_time - item.created_at).days
-            # Exponential decay: items lose ~63% relevance after 30 days
-            item.temporal_weight = math.exp(-age_days / 30)
+            # Exponential decay: items lose ~63% relevance after DECAY_HALF_LIFE_DAYS
+            item.temporal_weight = math.exp(-age_days / self.DECAY_HALF_LIFE_DAYS)
         
         # Sort by temporal weight (most recent first)
         return sorted(items, key=lambda x: x.temporal_weight, reverse=True)
@@ -230,6 +233,7 @@ class TemporalDimension:
 class AuthorityDimension:
     """Dimension 6: Weight by source authority"""
     
+    # Source authority scores (configurable per organization)
     SOURCE_AUTHORITY = {
         SourceType.JIRA: 1.0,
         SourceType.SERVICENOW: 1.0,
@@ -238,6 +242,7 @@ class AuthorityDimension:
         SourceType.SLACK: 0.5,
     }
     
+    # Minimum authority threshold (configurable per use case)
     MIN_AUTHORITY_THRESHOLD = 0.7
     
     def apply_authority_weight(self, items: List[WorkItem]) -> List[WorkItem]:
@@ -261,6 +266,13 @@ class MultidimensionalKnowledgeGraph:
     This implements the "Semantic Firewall" concept where 99% of noise
     is subtracted deterministically before the LLM sees anything.
     """
+    
+    # Relevance score weights (configurable)
+    TEMPORAL_WEIGHT_FACTOR = 0.4
+    AUTHORITY_WEIGHT_FACTOR = 0.3
+    SEVERITY_WEIGHT_FACTOR = 0.3
+    HIGH_SEVERITY_SCORE = 1.0
+    MEDIUM_SEVERITY_SCORE = 0.5
     
     def __init__(self):
         # Core entities
@@ -311,15 +323,16 @@ class MultidimensionalKnowledgeGraph:
         
         # Start with all work items
         candidates = self.work_items.copy()
+        initial_count = len(candidates)  # Store for efficiency
         
         print(f"\n📊 Applying Multidimensional Filters:")
-        print(f"   Initial candidates: {len(candidates)}")
+        print(f"   Initial candidates: {initial_count}")
         
         # Dimension 1: Identity & Scope (Manager View)
         candidates = self.dimensions['identity'].apply_filter(user, candidates)
         reduction_1 = len(candidates)
         print(f"   After Identity filter: {reduction_1} "
-              f"({self._calc_reduction(len(self.work_items), reduction_1)}% reduction)")
+              f"({self._calc_reduction(initial_count, reduction_1)}% reduction)")
         
         # Dimension 2: Organizational Hierarchy
         candidates = self.dimensions['organizational'].expand_scope(user, candidates)
@@ -352,16 +365,21 @@ class MultidimensionalKnowledgeGraph:
               f"({self._calc_reduction(reduction_5, final_count)}% reduction)")
         
         # Calculate total reduction
-        total_reduction = self._calc_reduction(len(self.work_items), final_count)
+        total_reduction = self._calc_reduction(initial_count, final_count)
         print(f"\n   ✨ Total noise reduction: {total_reduction}%")
         print(f"   📊 Signal extraction: {final_count} items ({100-total_reduction}% of original)")
         
-        # Compute final relevance scores
+        # Compute final relevance scores using configurable weights
         for item in candidates:
+            severity_score = (
+                self.HIGH_SEVERITY_SCORE 
+                if item.severity in [Severity.CRITICAL, Severity.HIGH] 
+                else self.MEDIUM_SEVERITY_SCORE
+            )
             item.relevance_score = (
-                item.temporal_weight * 0.4 +
-                item.authority_weight * 0.3 +
-                (1.0 if item.severity in [Severity.CRITICAL, Severity.HIGH] else 0.5) * 0.3
+                item.temporal_weight * self.TEMPORAL_WEIGHT_FACTOR +
+                item.authority_weight * self.AUTHORITY_WEIGHT_FACTOR +
+                severity_score * self.SEVERITY_WEIGHT_FACTOR
             )
         
         # Return top items sorted by relevance
