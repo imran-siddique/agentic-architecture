@@ -455,8 +455,9 @@ class CacheManager:
             # Check for database queries without try/catch
             if ".query." in content or "fetch_" in content:
                 if "try:" not in content and "except" not in content:
-                    # In production, use AST parsing to get exact line numbers
-                    line_hint = "query_operation"
+                    # Note: In production, use AST parsing to get exact line numbers
+                    # This hint describes the issue type for the demo
+                    line_hint = "database_query_without_error_handling"
                     issues.append({
                         "severity": "medium",
                         "location": f"{file_path}:{line_hint}",
@@ -475,8 +476,9 @@ class CacheManager:
             # Check for unbounded collections
             if "self.cache = []" in content and "append" in content:
                 if "evict" not in content and "remove" not in content:
-                    # In production, use AST parsing to get exact line numbers
-                    line_hint = "cache_initialization"
+                    # Note: In production, use AST parsing to get exact line numbers
+                    # This hint describes the issue type for the demo
+                    line_hint = "unbounded_cache_without_eviction"
                     risks.append({
                         "severity": "high",
                         "location": f"{file_path}:{line_hint}",
@@ -490,18 +492,27 @@ class CacheManager:
     def _check_security(self, code: Dict[str, str]) -> List[Dict[str, Any]]:
         """
         Check for security vulnerabilities.
-        Note: This is a simplified demonstration. Production systems should use
-        comprehensive static analysis tools like Bandit, Semgrep, or CodeQL.
+        
+        Note: This is a SIMPLIFIED DEMONSTRATION for educational purposes.
+        Production systems should use comprehensive static analysis tools like:
+        - Bandit (Python security linter)
+        - Semgrep (pattern-based security scanning)
+        - CodeQL (semantic code analysis)
+        
+        This method demonstrates the PATTERN of security checking in the
+        Silent Swarm architecture, not a complete security implementation.
         """
         issues = []
         
+        # Example pattern (intentionally incomplete for demo purposes):
+        # In a real system, this would use AST parsing and semantic analysis
         for file_path, content in code.items():
-            # Example: Check for potential SQL injection patterns
-            # This is intentionally simplified for demonstration
+            # Placeholder for SQL injection detection
+            # Real implementation would parse AST and analyze data flow
             if ("query.filter_by" in content or "query.filter" in content):
                 if ("request.args.get" in content or "request.form.get" in content):
-                    # In production, use proper AST analysis
-                    # This simplified check would need context analysis
+                    # Production: Use proper AST analysis to detect actual SQL injection
+                    # This demo focuses on the architecture, not security detection logic
                     pass
         
         return issues
