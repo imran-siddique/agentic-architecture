@@ -6,6 +6,11 @@ This example demonstrates:
 2. Ephemeral knowledge graphs (event-driven, temporary)
 3. Statistical supervision (human-in-the-loop sampling)
 4. Analyst system for self-healing
+
+NOTE: This example includes a simplified MultidimensionalKnowledgeGraph class
+for self-contained demonstration. In production, you would use a shared
+knowledge graph library. Each example in this repository is intentionally
+self-contained for educational clarity.
 """
 
 from typing import Dict, Any, List, Optional
@@ -280,7 +285,9 @@ class ProductGraph:
         Parse documentation to build knowledge graph
         Documentation IS the knowledge graph
         """
-        print(f"\n   📚 Rebuilding ProductGraph from commit: {commit[:7]}")
+        # Safely truncate commit hash
+        commit_short = commit[:min(len(commit), 7)]
+        print(f"\n   📚 Rebuilding ProductGraph from commit: {commit_short}")
         self.rebuild_count += 1
         
         # Build new graph
@@ -635,10 +642,14 @@ class RecursiveOntologySystem:
             # Knowledge not found - this is a signal!
             print(f"   ✗ Not found in any graph")
             
+            # Extract entity ID from query (avoid redundant split)
+            query_parts = agent_query.split()
+            entity_id = query_parts[-1] if query_parts else 'unknown'
+            
             self.telemetry.capture_signal(
                 signal_type=SignalType.ENTITY_MISSING,
                 context={
-                    'entity_id': agent_query.split()[-1] if agent_query.split() else 'unknown',
+                    'entity_id': entity_id,
                     'attempted_graphs': [g.name for g in graphs],
                     'occurrence_count': 1
                 },

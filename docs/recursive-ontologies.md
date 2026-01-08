@@ -86,6 +86,16 @@ class AgentTelemetry:
         - Frequency: How often has this been signaled?
         - Impact: How many users/agents affected?
         - Confidence: How sure are we this is a gap?
+        
+        Thresholds (configurable per deployment):
+        - Critical: >10 occurrences AND >5 agents affected
+          (High volume indicates systemic issue requiring immediate attention)
+        - High: >5 occurrences OR >3 agents affected
+          (Moderate volume or multi-agent impact needs prompt handling)
+        - Medium: >2 occurrences
+          (Pattern emerging, should be addressed in batch)
+        - Low: 1-2 occurrences
+          (May be edge case, monitor for pattern)
         """
         frequency = context.get('occurrence_count', 1)
         impact = context.get('affected_agents', 1)
