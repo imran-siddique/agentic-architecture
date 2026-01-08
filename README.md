@@ -44,7 +44,20 @@ Modern agentic systems achieve optimal performance by prioritizing fast, reliabl
 
 **Key Insight**: The smartest agents aren't the ones that think the hardest—they're the ones that know where to look.
 
-### 4. [The Semantic Firewall](./docs/semantic-firewall.md)
+### 4. [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md)
+**Beyond Flat Context: Scale by Subtraction Using Graph Constraints.**
+
+Context is not just a pile of documents in a Vector Database. RAG is flat—it finds similar words but doesn't understand the structure of reality. This document covers:
+- The problem with flat context (RAG limitations)
+- The graph as a semantic firewall (constraint wrapper)
+- Six dimensions: Identity & Scope, Organizational Hierarchy, Service Ownership, Dependencies, Temporal Weight, Authority
+- Real-world example: "What pending items do I have on my plate?"
+- The constraint outcome: Subtracting 99% of noise before the LLM sees anything
+- Comparing RAG vs. Multidimensional approaches
+
+**Key Insight**: The Graph doesn't answer questions. It eliminates wrong answers. By filtering the universe through dimensional constraints, we subtract 99% of noise using deterministic graph logic, leaving the AI with the easy job of summarizing the 1% of signal that remains.
+
+### 5. [The Semantic Firewall](./docs/semantic-firewall.md)
 **Using Multidimensional Knowledge Graphs to block hallucinations before they happen.**
 
 A defense-in-depth architecture that prevents AI hallucinations through structural validation against knowledge graphs. This document covers:
@@ -56,7 +69,7 @@ A defense-in-depth architecture that prevents AI hallucinations through structur
 
 **Key Insight**: Don't detect hallucinations after generation—prevent them structurally before they reach users.
 
-### 5. [The "Headless" Agent](./docs/headless-agent.md)
+### 6. [The "Headless" Agent](./docs/headless-agent.md)
 **Why the best agents are the ones that can't talk (Silent Swarms).**
 
 Challenging the assumption that agents must communicate through natural language, this document presents:
@@ -69,7 +82,7 @@ Challenging the assumption that agents must communicate through natural language
 
 **Key Insight**: Language is for humans. Code is for machines. Keep them separate.
 
-### 6. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
+### 7. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 **The new role that replaces the traditional Software Engineer.**
 
 As AI agents become capable of writing code, the human role shifts to knowledge architecture and system design. This document explores:
@@ -145,8 +158,9 @@ These concepts work together to form a complete architectural philosophy:
    - Start with [The Inference Trap](./docs/inference-trap.md) to understand the core problem
    - Learn [The Guardrail Router](./docs/guardrail-router.md) to prevent expensive reasoning misuse
    - Study [Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md) to understand the performance foundation
-   - Explore [Semantic Firewall](./docs/semantic-firewall.md) for reliability and trust
-   - Understand [Headless Agent](./docs/headless-agent.md) for efficient coordination
+   - Explore [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md) for context precision through constraint-based filtering
+   - Understand [Semantic Firewall](./docs/semantic-firewall.md) for reliability and trust
+   - Learn [Headless Agent](./docs/headless-agent.md) for efficient coordination
    - Review [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) for the holistic view
 
 2. **Assess your current system**:

@@ -43,8 +43,9 @@ cd agentic-architecture
 # Run examples to see the patterns in action
 python examples/guardrail_router_example.py
 python examples/compute_to_lookup_example.py
-python examples/headless_agent_example.py
+python examples/multidimensional_kg_example.py
 python examples/semantic_firewall_example.py
+python examples/headless_agent_example.py
 ```
 
 You'll see:
@@ -65,6 +66,9 @@ Pick the concept most relevant to your current challenge:
 
 **If you want to reduce costs and latency:**
 → Read [Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md)
+
+**If you need context precision and want to filter out noise:**
+→ Read [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md)
 
 **If you struggle with hallucinations:**
 → Read [Semantic Firewall](./docs/semantic-firewall.md)
