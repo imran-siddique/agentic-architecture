@@ -4,6 +4,8 @@
 
 The **Semantic Firewall** is a defense-in-depth architecture pattern that prevents AI hallucinations by validating LLM outputs against structured knowledge representations before they reach end users. Unlike traditional approaches that detect hallucinations after generation, the Semantic Firewall blocks them proactively.
 
+> **Note**: This document focuses on validation and verification patterns. For a comprehensive guide on using multidimensional knowledge graphs for context filtering and "Scale by Subtraction," see [Multidimensional Knowledge Graphs](./multidimensional-knowledge-graphs.md).
+
 ## The Hallucination Problem
 
 Large Language Models (LLMs) can generate plausible-sounding but factually incorrect information. Traditional approaches include:
@@ -544,6 +546,7 @@ The Semantic Firewall transforms AI systems from "creative but unreliable" to "c
 
 ## Further Reading
 
-- [Compute-to-Lookup Ratio](./compute-to-lookup-ratio.md)
-- [Headless Agent Patterns](./headless-agent.md)
-- [Cognitive Systems Architect Role](./cognitive-systems-architect.md)
+- [Multidimensional Knowledge Graphs](./multidimensional-knowledge-graphs.md) - Beyond flat context: constraint-based filtering
+- [Compute-to-Lookup Ratio](./compute-to-lookup-ratio.md) - Optimization strategies
+- [Headless Agent Patterns](./headless-agent.md) - Efficient coordination
+- [Cognitive Systems Architect Role](./cognitive-systems-architect.md) - The role that builds these systems
