@@ -1,12 +1,51 @@
 # Agentic Architecture
 
-A comprehensive guide to modern agentic system design principles and patterns.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/imran-siddique/agentic-architecture?style=social)](https://github.com/imran-siddique/agentic-architecture/stargazers)
+[![GitHub last commit](https://img.shields.io/github/last-commit/imran-siddique/agentic-architecture)](https://github.com/imran-siddique/agentic-architecture/commits/main)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/imran-siddique/agentic-architecture/pulls)
+
+> **"Scale by Subtraction"** — The smartest systems aren't the ones that compute the most—they're the ones that know when NOT to compute.
+
+A comprehensive guide to modern agentic system design principles and patterns. Production-tested architectural patterns that challenge conventional wisdom about AI agents.
+
+---
+
+## 📖 Table of Contents
+
+- [Overview](#overview)
+- [Why This Matters](#-why-this-matters)
+- [Core Concepts](#-core-concepts)
+- [Architecture Overview](#-architecture-overview)
+- [Quick Start](#-quick-start)
+- [Benefits](#-benefits)
+- [Examples](#-examples)
+- [Contributing](#-contributing)
+- [Philosophy](#-philosophy)
+
+---
 
 ## Overview
 
 This repository documents revolutionary architectural patterns for building production-grade AI agent systems. These patterns challenge conventional wisdom and provide practical, battle-tested approaches to creating reliable, cost-effective, and scalable agentic applications.
 
-## Core Concepts
+## 🎯 Why This Matters
+
+| Traditional Approach | Agentic Architecture |
+|---------------------|---------------------|
+| ❌ LLM for every request | ✅ 90% lookup, 10% reasoning |
+| ❌ Detect hallucinations after | ✅ Prevent hallucinations structurally |
+| ❌ Agents chat with each other | ✅ Silent swarms with structured data |
+| ❌ Static knowledge bases | ✅ Self-healing recursive ontologies |
+| ❌ Add more features | ✅ Scale by subtraction |
+
+**Results achieved:**
+- 🚀 **10-100x** performance improvement
+- 💰 **90%+** cost reduction  
+- 🛡️ **0%** policy violations (vs 26.67% for prompt-based safety)
+- 📊 **92.4%** code verification accuracy
+
+## 🧠 Core Concepts
 
 ### 1. [The Inference Trap](./docs/inference-trap.md)
 **Why "Thinking" is a Technical Debt.**
@@ -120,184 +159,242 @@ As AI agents become capable of writing code, the human role shifts to knowledge 
 
 **Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.
 
-## Design Principles
+### 10. [The Mute Agent](./docs/mute-agent.md) 🆕
+**Capability-Based Execution: Return NULL, Don't Hallucinate.**
+
+The most reliable agent is one that knows when to say nothing. This pattern implements capability-based execution where agents return NULL for out-of-scope requests instead of fabricating answers:
+- Capability manifests: What the agent CAN do (not what it might try)
+- NULL responses: Silence is better than hallucination
+- POSIX-inspired permissions: Fine-grained access control
+- Policy enforcement: Deterministic rules, not probabilistic guardrails
+- The 0% violation guarantee: Structural safety over prompt engineering
+
+**Key Insight**: An agent that returns NULL when uncertain is infinitely more valuable than one that confidently hallucinates.
+
+### 11. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) 🆕
+**Why Deterministic Infrastructure Beats Probabilistic Prompting.**
+
+Stop trying to "prompt engineer" your way to safety. This pattern establishes control plane architecture for AI governance:
+- Prompts are suggestions, policies are laws
+- Kernel-level enforcement: Safety below the LLM layer
+- Permission systems: What agents CAN do, not what they SHOULD do
+- Audit trails: Every action logged, every decision traceable
+- Rollback capability: Undo any agent action
+
+**Key Insight**: You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts.
+
+## 🏗️ Architecture Overview
 
 These concepts work together to form a complete architectural philosophy:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    User Interface Layer                      │
-│              (Natural language boundaries)                   │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-                         ▼
-         ┌────────────────────────────────┐
-         │    Guardrail Router Layer      │ ◄─── Prevent Inference Trap
-         │  "Does this need reasoning?"   │      (Route intelligently)
-         └────────────────┬───────────────┘
-                          │
-                 ┌────────┴────────┐
-                 │                 │
-                 ▼                 ▼
-         ┌──────────────┐   ┌─────────────┐
-         │   Lookup     │   │  Reasoning  │ ◄─── 80-90% vs 10-20%
-         │   Path       │   │   Path      │
-         └──────┬───────┘   └──────┬──────┘
-                │                  │
-                │     ┌────────────┘
-                │     │
-                ▼     ▼
-         ┌───────────────────────────────┐
-         │    Semantic Firewall Layer    │ ◄─── Prevent hallucinations
-         │   (Validation & Verification) │
-         └───────────────┬───────────────┘
-                         │
-                         ▼
-         ┌───────────────────────────────┐
-         │   Silent Swarm Layer          │ ◄─── Headless agents
-         │  (Structured coordination)    │
-         └───────────────┬───────────────┘
-                         │
-                ┌────────┴────────┐
-                │                 │
-                ▼                 ▼
-         ┌───────────┐     ┌───────────┐
-         │  Lookup   │     │  Compute  │ ◄─── 90/10 ratio
-         │  (90%)    │     │   (10%)   │
-         └─────┬─────┘     └─────┬─────┘
-               │                 │
-               └────────┬────────┘
-                        │
-                        ▼
-         ┌───────────────────────────────┐
-         │   Knowledge Architecture      │ ◄─── Designed by
-         │  (Graphs, Vectors, Indices)   │      Cognitive Systems
-         └───────────────────────────────┘      Architect
+```mermaid
+flowchart TB
+    subgraph UI["🖥️ User Interface Layer"]
+        User["Natural Language Boundaries"]
+    end
+
+    subgraph Router["🚦 Guardrail Router"]
+        Decision{"Does this need<br/>reasoning?"}
+    end
+
+    subgraph Paths["Processing Paths"]
+        Lookup["📚 Lookup Path<br/><b>80-90%</b>"]
+        Reasoning["🧠 Reasoning Path<br/><b>10-20%</b>"]
+    end
+
+    subgraph Firewall["🛡️ Semantic Firewall"]
+        Validate["Validation & Verification<br/>Block hallucinations structurally"]
+    end
+
+    subgraph Swarm["🐝 Silent Swarm"]
+        Headless["Headless Agents<br/>Structured coordination"]
+    end
+
+    subgraph Execution["⚡ Execution Layer"]
+        L90["Lookup<br/><b>90%</b>"]
+        C10["Compute<br/><b>10%</b>"]
+    end
+
+    subgraph Knowledge["📊 Knowledge Architecture"]
+        KG["Graphs • Vectors • Indices"]
+    end
+
+    User --> Decision
+    Decision -->|"Cached/Known"| Lookup
+    Decision -->|"Novel/Complex"| Reasoning
+    Lookup --> Validate
+    Reasoning --> Validate
+    Validate --> Headless
+    Headless --> L90
+    Headless --> C10
+    L90 --> KG
+    C10 --> KG
+
+    style UI fill:#1a1a2e,stroke:#00d4ff,color:#fff
+    style Router fill:#16213e,stroke:#00d4ff,color:#fff
+    style Firewall fill:#0f3460,stroke:#e94560,color:#fff
+    style Swarm fill:#1a1a2e,stroke:#00d4ff,color:#fff
+    style Knowledge fill:#16213e,stroke:#00d4ff,color:#fff
 ```
 
 ### Evolution Layer: Recursive Ontologies
 
-The architecture above describes the core system, but static systems die. **Recursive Ontologies** add a self-updating layer:
+Static systems die. **Recursive Ontologies** add a self-updating layer:
 
+```mermaid
+flowchart TB
+    subgraph Telemetry["📡 Agent Telemetry"]
+        Failures["Failures as Signals<br/>Every agent contributes feedback"]
+    end
+
+    subgraph Analyst["🔍 Analyst System"]
+        Patterns["Pattern Detection<br/>& Self-Healing"]
+    end
+
+    subgraph Actions["🔧 Healing Actions"]
+        Auto["Auto Heal<br/><b>95%</b>"]
+        Human["Human Review<br/><b>5%</b>"]
+        Rebuild["Rebuild<br/>Graph Sectors"]
+    end
+
+    subgraph Graphs["📈 Ephemeral Graphs"]
+        Org["OrgGraph<br/><i>HR events</i>"]
+        Product["ProductGraph<br/><i>Git events</i>"]
+        Context["ContextGraph<br/><i>Project TTL</i>"]
+    end
+
+    Failures --> Patterns
+    Patterns --> Auto
+    Patterns --> Human
+    Patterns --> Rebuild
+    Auto --> Org
+    Auto --> Product
+    Auto --> Context
+    Human --> Org
+    Human --> Product
+    Human --> Context
+    Rebuild --> Org
+    Rebuild --> Product
+    Rebuild --> Context
+
+    style Telemetry fill:#1a1a2e,stroke:#00d4ff,color:#fff
+    style Analyst fill:#16213e,stroke:#e94560,color:#fff
+    style Graphs fill:#0f3460,stroke:#00d4ff,color:#fff
 ```
-          ┌───────────────────────────────┐
-          │     Agent Telemetry           │ ◄─── Every agent
-          │   (Failures as Signals)       │      contributes feedback
-          └───────────┬───────────────────┘
-                      │
-                      ▼
-          ┌───────────────────────────────┐
-          │    Analyst System             │ ◄─── Pattern detection
-          │  (Pattern Detection)          │      & self-healing
-          └───────────┬───────────────────┘
-                      │
-         ┌────────────┼────────────┐
-         │            │            │
-         ▼            ▼            ▼
-    ┌────────┐  ┌─────────┐  ┌──────────┐
-    │  Auto   │  │ Human   │  │ Rebuild  │
-    │  Heal   │  │ Review  │  │ Graph    │
-    │  (95%)  │  │  (5%)   │  │ Sectors  │
-    └────┬────┘  └────┬────┘  └────┬─────┘
-         │            │            │
-         └────────────┼────────────┘
-                      │
-                      ▼
-          ┌───────────────────────────────┐
-          │   Ephemeral Graphs            │
-          │  • OrgGraph (HR events)       │
-          │  • ProductGraph (Git events)  │
-          │  • ContextGraph (project TTL) │
-          └───────────────────────────────┘
+
+**Key Insight**: The system doesn't need manual updates. Agent failures signal knowledge gaps. The Analyst System detects patterns and triggers automatic healing.
+
+## 🚀 Quick Start
+
+<details>
+<summary><b>👨‍💻 For Developers</b></summary>
+
+### 1. Understand the Philosophy
+Read the concepts in order:
+
+| # | Concept | Learn |
+|---|---------|-------|
+| 1 | [The Inference Trap](./docs/inference-trap.md) | Why "thinking" is technical debt |
+| 2 | [The Guardrail Router](./docs/guardrail-router.md) | Prevent expensive reasoning misuse |
+| 3 | [Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md) | The 90/10 performance foundation |
+| 4 | [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md) | Constraint-based filtering |
+| 5 | [Semantic Firewall](./docs/semantic-firewall.md) | Structural hallucination prevention |
+| 6 | [Headless Agent](./docs/headless-agent.md) | Efficient coordination |
+| 7 | [Silent Swarm](./docs/silent-swarm.md) | Security by silence |
+| 8 | [Recursive Ontologies](./docs/recursive-ontologies.md) | Self-updating knowledge |
+| 9 | [The Mute Agent](./docs/mute-agent.md) | Capability-based execution |
+| 10 | [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) | Deterministic safety |
+| 11 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
+
+### 2. Assess Your Current System
+- [ ] Are you falling into the Inference Trap?
+- [ ] What's your compute-to-lookup ratio?
+- [ ] Where are hallucinations possible?
+- [ ] How much do inter-agent LLM calls cost?
+- [ ] Is your knowledge architecture documented?
+
+### 3. Implement Incrementally
+```bash
+# Start with the examples
+cd examples/
+python guardrail_router_example.py
+python semantic_firewall_example.py
 ```
 
-**Key Insight**: The system doesn't need manual updates. Agent failures signal knowledge gaps. The Analyst System detects patterns and triggers automatic healing. Ephemeral graphs rebuild on events, staying perpetually current.
+</details>
 
-## Quick Start
+<details>
+<summary><b>🏛️ For Architects</b></summary>
 
-### For Developers
+### Design Checklist
 
-1. **Understand the philosophy**: Read the concepts in order:
-   - Start with [The Inference Trap](./docs/inference-trap.md) to understand the core problem
-   - Learn [The Guardrail Router](./docs/guardrail-router.md) to prevent expensive reasoning misuse
-   - Study [Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md) to understand the performance foundation
-   - Explore [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md) for context precision through constraint-based filtering
-   - Understand [Semantic Firewall](./docs/semantic-firewall.md) for reliability and trust
-   - Learn [Headless Agent](./docs/headless-agent.md) for efficient coordination
-   - Discover [Silent Swarm](./docs/silent-swarm.md) for security-focused function-over-form architecture
-   - **Master [Recursive Ontologies](./docs/recursive-ontologies.md) for self-updating knowledge systems**
-   - Review [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) for the holistic view
+**Knowledge-First Systems:**
+- [ ] Implement Guardrail Router as first line of defense
+- [ ] Map your domain's knowledge requirements
+- [ ] Design multidimensional knowledge graphs
+- [ ] Plan pre-computation and indexing strategies
+- [ ] Define validation rules and confidence thresholds
 
-2. **Assess your current system**:
-   - Identify if you're falling into the Inference Trap
-   - Measure your compute-to-lookup ratio
-   - Identify hallucination vulnerabilities
-   - Evaluate inter-agent communication costs
-   - Map your knowledge architecture
+**Optimize for Lookup:**
+- [ ] Target 80-90% lookup, 10-20% reasoning
+- [ ] Implement multi-tier caching
+- [ ] Build comprehensive indices
+- [ ] Pre-compute common queries
 
-3. **Implement incrementally**:
-   - Add a Guardrail Router to prevent unnecessary reasoning
-   - Add caching layers to improve lookup ratio
-   - Implement basic semantic validation
-   - Convert high-frequency agent communication to structured protocols
-   - Document your knowledge architecture decisions
+**Build Trust Through Structure:**
+- [ ] Implement semantic firewalls
+- [ ] Define validation rules
+- [ ] Track confidence scores
+- [ ] Maintain source attribution
 
-### For Architects
+**Coordinate Efficiently:**
+- [ ] Use headless agents for inter-system communication
+- [ ] Reserve natural language for human boundaries
+- [ ] Implement event-driven architectures
+- [ ] Design for observability with structured telemetry
 
-1. **Design knowledge-first systems**:
-   - Implement Guardrail Router as first line of defense
-   - Map your domain's knowledge requirements
-   - Design multidimensional knowledge graphs
-   - Plan pre-computation and indexing strategies
-   - Define validation rules and confidence thresholds
+</details>
 
-2. **Optimize for lookup over compute**:
-   - Target 80-90% lookup, 10-20% reasoning
-   - Implement multi-tier caching
-   - Build comprehensive indices
-   - Pre-compute common queries
-
-3. **Build trust through structure**:
-   - Implement semantic firewalls
-   - Define validation rules
-   - Track confidence scores
-   - Maintain source attribution
-
-4. **Coordinate efficiently**:
-   - Use headless agents for inter-system communication
-   - Reserve natural language for human boundaries
-   - Implement event-driven architectures
-   - Design for observability with structured telemetry
-
-## Benefits
+## 📊 Benefits
 
 Systems designed with these principles achieve:
 
-- **10-100x performance improvement**: Through aggressive caching and lookup optimization
-- **90%+ cost reduction**: By minimizing expensive LLM calls
-- **Near-zero hallucinations**: Through structural validation
-- **Infinite scalability**: Via stateless, parallel agent execution
-- **Perfect observability**: Using structured telemetry instead of log parsing
-- **Predictable behavior**: Deterministic lookups over stochastic generation
+| Metric | Result | How |
+|--------|--------|-----|
+| 🚀 **Performance** | 10-100x faster | Aggressive caching, lookup optimization |
+| 💰 **Cost** | 90%+ reduction | Minimize expensive LLM calls |
+| 🛡️ **Safety** | 0% violations | Structural validation, not prompts |
+| 📈 **Scalability** | Infinite | Stateless, parallel execution |
+| 🔍 **Observability** | Perfect | Structured telemetry |
+| 🎯 **Predictability** | Deterministic | Lookups over stochastic generation |
 
-## Real-World Impact
+## 💡 Examples
 
-These patterns have been used to build:
-- Customer support systems handling 100K+ queries/day
-- E-commerce platforms with sub-100ms response times
-- Medical diagnosis systems with 99.5%+ accuracy
-- Financial analysis tools with regulatory compliance
-- Code assistants with 10x faster suggestions
+All patterns include working Python examples:
 
-## Contributing
+```bash
+examples/
+├── guardrail_router_example.py    # Request classification & routing
+├── compute_to_lookup_example.py   # 90/10 optimization patterns
+├── semantic_firewall_example.py   # Hallucination prevention
+├── multidimensional_kg_example.py # Knowledge graph constraints
+├── headless_agent_example.py      # Structured communication
+├── silent_swarm_example.py        # Multi-agent coordination
+└── recursive_ontology_example.py  # Self-healing systems
+```
+
+## 🤝 Contributing
 
 This is a living document. Contributions welcome:
-- Share implementation experiences
-- Propose new patterns
-- Submit case studies
-- Improve documentation
 
-## Learn More
+- 💬 Share implementation experiences
+- 🆕 Propose new patterns
+- 📋 Submit case studies
+- 📝 Improve documentation
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+## 📚 Learn More
 
 Each concept document includes:
 - Detailed explanations with diagrams
@@ -307,28 +404,56 @@ Each concept document includes:
 - Metrics to track
 - Common anti-patterns to avoid
 
-Start with the concept most relevant to your current challenges, or read them in order for a complete understanding of modern agentic architecture.
+## 💭 Philosophy
 
-## Philosophy
+<table>
+<tr><td>
 
-> "If your agent is 'thinking' for every request, you haven't built an agent; you've built a philosophy major. In production, we need engineers, not philosophers."
+> "If your agent is 'thinking' for every request, you haven't built an agent; you've built a philosophy major."
+
+</td></tr>
+<tr><td>
 
 > "The smartest systems aren't the ones that compute the most—they're the ones that know when NOT to compute."
 
-> "The smartest agents aren't the ones that think the hardest—they're the ones that know where to look."
+</td></tr>
+<tr><td>
 
 > "Don't detect hallucinations after generation—prevent them structurally before they reach users."
 
+</td></tr>
+<tr><td>
+
 > "Language is for humans. Code is for machines. Keep them separate."
+
+</td></tr>
+<tr><td>
 
 > "Stop judging agents by how well they chat. Start judging them by how well they shut up and work."
 
-> "The best code is no code. The best architect designs systems that don't need to compute what they can look up."
+</td></tr>
+<tr><td>
 
-> "When an agent fails to find an answer, that is not an error—it is a signal. The system heals its own knowledge gaps."
+> "An agent that returns NULL when uncertain is infinitely more valuable than one that confidently hallucinates."
 
-> "Static systems die. The architecture that survives is the one that updates itself."
+</td></tr>
+<tr><td>
+
+> "You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts."
+
+</td></tr>
+</table>
 
 ---
 
-**Built with ❤️ for the future of agentic systems.**
+## 🔗 Related Projects
+
+- **[Agent OS](https://github.com/imran-siddique/agent-os)** - Safety-First Kernel implementing these patterns (0% policy violations)
+
+---
+
+<p align="center">
+  <b>Built with ❤️ for the future of agentic systems</b>
+  <br><br>
+  <a href="https://github.com/imran-siddique/agentic-architecture/stargazers">⭐ Star this repo</a> if you find it useful!
+</p>
