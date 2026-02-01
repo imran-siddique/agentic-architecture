@@ -449,6 +449,12 @@ Each concept document includes:
 ## 🔗 Related Projects
 
 - **[Agent OS](https://github.com/imran-siddique/agent-os)** - Safety-First Kernel implementing these patterns (0% policy violations)
+- **[AgentMesh](https://github.com/imran-siddique/agent-mesh)** - The Secure Nervous System for Cloud-Native Agent Ecosystems
+
+## 📚 Additional Documentation
+
+- **[Agent Mesh Patterns](./docs/agent-mesh-patterns.md)** - Identity, Trust, Governance, Reward patterns
+- **[Production Deployment Guide](./docs/production-deployment-guide.md)** - CI/CD, observability, operational best practices
 
 ---
 
