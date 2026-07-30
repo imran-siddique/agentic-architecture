@@ -5,7 +5,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/imran-siddique/agentic-architecture)](https://github.com/imran-siddique/agentic-architecture/commits/main)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/imran-siddique/agentic-architecture/pulls)
 
-> **"Scale by Subtraction"** — The smartest systems aren't the ones that compute the most—they're the ones that know when NOT to compute.
+> **"Scale by Subtraction"**: the smartest systems aren't the ones that compute the most. They're the ones that know when NOT to compute.
 
 A comprehensive guide to modern agentic system design principles and patterns. Production-tested architectural patterns that challenge conventional wisdom about AI agents.
 
@@ -69,7 +69,7 @@ The Guardrail Router is a critical component that sits before your AI system and
 - Metrics tracking and optimization
 - Real-world implementation patterns
 
-**Key Insight**: The smartest systems aren't the ones that compute the most—they're the ones that know when NOT to compute.
+**Key Insight**: The smartest systems aren't the ones that compute the most. They're the ones that know when NOT to compute.
 
 ### 3. [The Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md)
 **Why 90% of your agent's work should be "dumb" lookup, not "smart" reasoning.**
@@ -81,12 +81,12 @@ Modern agentic systems achieve optimal performance by prioritizing fast, reliabl
 - Real-world examples with 10x performance improvements
 - Metrics to track and optimize
 
-**Key Insight**: The smartest agents aren't the ones that think the hardest—they're the ones that know where to look.
+**Key Insight**: The smartest agents aren't the ones that think the hardest. They're the ones that know where to look.
 
 ### 4. [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md)
 **Beyond Flat Context: Scale by Subtraction Using Graph Constraints.**
 
-Context is not just a pile of documents in a Vector Database. RAG is flat—it finds similar words but doesn't understand the structure of reality. This document covers:
+Context is not just a pile of documents in a Vector Database. RAG is flat. It finds similar words but doesn't understand the structure of reality. This document covers:
 - The problem with flat context (RAG limitations)
 - The graph as a semantic firewall (constraint wrapper)
 - Six dimensions: Identity & Scope, Organizational Hierarchy, Service Ownership, Dependencies, Temporal Weight, Authority
@@ -106,7 +106,7 @@ A defense-in-depth architecture that prevents AI hallucinations through structur
 - Benefits over post-generation detection
 - Real-world implementation examples
 
-**Key Insight**: Don't detect hallucinations after generation—prevent them structurally before they reach users.
+**Key Insight**: Don't detect hallucinations after generation. Prevent them structurally before they reach users.
 
 ### 6. [The "Headless" Agent](./docs/headless-agent.md)
 **Why the best agents are the ones that can't talk (Silent Swarms).**
@@ -124,7 +124,7 @@ Challenging the assumption that agents must communicate through natural language
 ### 7. [The Silent Swarm](./docs/silent-swarm.md)
 **Function Over Form: Scale by Subtraction Through "Security by Silence".**
 
-The AI industry suffers from a "Chatbot Hangover"—we design systems as if conversation is mandatory. This document challenges that assumption:
+The AI industry suffers from a "Chatbot Hangover". We design systems as if conversation is mandatory. This document challenges that assumption:
 - The Code Review Paradox: We want the work, not the worker's personality
 - Separation of Concerns: "The Face" (can talk, no tools) vs. "The Hands" (can execute, no talk)
 - Security by Silence: Jailbreak-resistant architecture
@@ -136,7 +136,7 @@ The AI industry suffers from a "Chatbot Hangover"—we design systems as if conv
 ### 8. [Recursive Ontologies](./docs/recursive-ontologies.md)
 **Self-Updating Semantic Firewalls (Part 4).**
 
-Static systems die. In a world where data changes every second, knowledge graphs cannot remain static. This document introduces recursive ontologies—systems that update themselves:
+Static systems die. In a world where data changes every second, knowledge graphs cannot remain static. This document introduces recursive ontologies, systems that update themselves:
 - The Feedback Loop: Agents as telemetry (failures as signals)
 - Ephemeral Graphs: Event-driven, just-in-time knowledge bases
 - Human Wisdom: Statistical supervision (5% review, 95% automation)
@@ -144,7 +144,7 @@ Static systems die. In a world where data changes every second, knowledge graphs
 - Real-world implementation of self-updating architectures
 - The death of manual knowledge curation
 
-**Key Insight**: When an agent fails to find an answer, that is not an error—it is a signal. The system heals its own knowledge gaps based on the friction points of the agents living inside it.
+**Key Insight**: When an agent fails to find an answer, that is not an error. It is a signal. The system heals its own knowledge gaps based on the friction points of the agents living inside it.
 
 ### 9. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 **The new role that replaces the traditional Software Engineer.**
@@ -414,12 +414,12 @@ Each concept document includes:
 </td></tr>
 <tr><td>
 
-> "The smartest systems aren't the ones that compute the most—they're the ones that know when NOT to compute."
+> "The smartest systems aren't the ones that compute the most. They're the ones that know when NOT to compute."
 
 </td></tr>
 <tr><td>
 
-> "Don't detect hallucinations after generation—prevent them structurally before they reach users."
+> "Don't detect hallucinations after generation. Prevent them structurally before they reach users."
 
 </td></tr>
 <tr><td>
@@ -448,8 +448,8 @@ Each concept document includes:
 
 ## 🔗 Related Projects
 
-- **[Agent OS](https://github.com/imran-siddique/agent-os)** - Safety-First Kernel implementing these patterns (0% policy violations)
-- **[AgentMesh](https://github.com/imran-siddique/agent-mesh)** - The Secure Nervous System for Cloud-Native Agent Ecosystems
+- **[Agent OS](https://github.com/microsoft/agent-governance-toolkit)** - Safety-First Kernel implementing these patterns (0% policy violations)
+- **[AgentMesh](https://github.com/microsoft/agent-governance-toolkit)** - The Secure Nervous System for Cloud-Native Agent Ecosystems
 
 ## 📚 Additional Documentation
 
