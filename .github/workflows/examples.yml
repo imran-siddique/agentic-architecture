@@ -15,6 +15,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Lint
+        run: |
+          pip install --quiet ruff==0.16.3
+          ruff check examples tests
       - name: Compile examples
         run: python -m compileall -q examples tests
       - name: Run executable checks

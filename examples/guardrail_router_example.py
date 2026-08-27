@@ -12,11 +12,10 @@ Key Concepts:
 - Automatic caching of reasoning results
 """
 
-from typing import Dict, Any, Optional, List
-from dataclasses import dataclass
-from datetime import datetime
-import time
 import re
+import time
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -67,13 +66,13 @@ class RequestClassifier:
         request_lower = request.lower()
         
         # Check lookup patterns
-        for category, patterns in self.LOOKUP_PATTERNS.items():
+        for patterns in self.LOOKUP_PATTERNS.values():
             for pattern in patterns:
                 if re.search(pattern, request_lower):
                     return 'lookup'
         
         # Check reasoning patterns
-        for category, patterns in self.REASONING_PATTERNS.items():
+        for patterns in self.REASONING_PATTERNS.values():
             for pattern in patterns:
                 if re.search(pattern, request_lower):
                     return 'reasoning'
@@ -559,7 +558,7 @@ def main():
     
     print("\n   Ratio Analysis:")
     print(f"      Current Reasoning Ratio: {metrics['reasoning_ratio']:.1%}")
-    print(f"      Target Reasoning Ratio: ≤20%")
+    print("      Target Reasoning Ratio: ≤20%")
     print(f"      Status: {'✓ TARGET MET' if metrics['target_met'] else '✗ OVER TARGET'}")
     
     print("\n   Performance Metrics:")
@@ -592,14 +591,14 @@ def main():
         print("   → Recommendation: Expand knowledge base coverage")
         print("   → Recommendation: Review request classification rules")
     
-    print(f"\n   Cost Efficiency:")
+    print("\n   Cost Efficiency:")
     print(f"      If all requests used reasoning: ${metrics['total_requests'] * 0.01:.2f}")
     print(f"      Actual cost with Guardrail Router: ${metrics['total_cost']:.2f}")
     print(f"      Savings: ${(metrics['total_requests'] * 0.01) - metrics['total_cost']:.2f}")
     
-    print(f"\n   Performance:")
+    print("\n   Performance:")
     print(f"      Avg response time: {metrics['avg_latency_ms']:.0f}ms")
-    print(f"      vs All-Reasoning approach: 2000ms")
+    print("      vs All-Reasoning approach: 2000ms")
     print(f"      Speedup: {(2000 / metrics['avg_latency_ms']):.1f}x faster")
     
     print("\n5. Conclusion")

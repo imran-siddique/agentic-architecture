@@ -1,0 +1,32 @@
+name: Experience report
+description: Report what happened when you applied one of these patterns
+labels: ["experience"]
+body:
+  - type: input
+    id: pattern
+    attributes:
+      label: Which pattern
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Workload, scale, and constraints. Enough that a reader can judge whether it transfers.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What happened
+      description: >
+        If you report numbers, include how you measured them and in what
+        environment. Unsourced numbers will be removed before this is cited
+        anywhere in the repository.
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: What did not work
+      description: The part the documentation got wrong or left out.

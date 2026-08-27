@@ -10,11 +10,10 @@ This example demonstrates the "Function Over Form" principle where:
 Key insight: 90% of agents should be mute.
 """
 
-from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
-from enum import Enum
 from datetime import datetime
-import json
+from enum import Enum
+from typing import Any, Dict, List, Optional
 
 
 class AgentType(Enum):
@@ -506,7 +505,7 @@ class CacheManager:
         
         # Example pattern (intentionally incomplete for demo purposes):
         # In a real system, this would use AST parsing and semantic analysis
-        for file_path, content in code.items():
+        for content in code.values():
             # Placeholder for SQL injection detection
             # Real implementation would parse AST and analyze data flow
             if ("query.filter_by" in content or "query.filter" in content):
