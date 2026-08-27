@@ -868,7 +868,7 @@ This role bridges traditional software engineering, data architecture, AI/ML eng
 
 ## Further Reading
 
-- [Compute-to-Lookup Ratio](./compute-to-lookup-ratio.md)
+- [Routing before reasoning](./patterns/routing.md) - Classify the request before answering it
 - [Semantic Firewall Architecture](./semantic-firewall.md)
 - [Headless Agent Patterns](./headless-agent.md)
 - [Recursive Ontologies](./recursive-ontologies.md)

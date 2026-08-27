@@ -285,9 +285,7 @@ class OptimalAgenticSystem:
 
 ## Further Reading
 
-- [The Inference Trap Documentation](../docs/inference-trap.md)
-- [Guardrail Router Documentation](../docs/guardrail-router.md)
-- [Compute-to-Lookup Ratio Documentation](../docs/compute-to-lookup-ratio.md)
+- [Routing before reasoning](../docs/patterns/routing.md)
 - [Multidimensional Knowledge Graphs Documentation](../docs/multidimensional-knowledge-graphs.md)
 - [Semantic Firewall Documentation](../docs/semantic-firewall.md)
 - [Headless Agent Documentation](../docs/headless-agent.md)

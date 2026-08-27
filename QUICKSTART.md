@@ -71,14 +71,9 @@ See `tests/test_evidence_plane.py`.
 
 Pick the concept most relevant to your current challenge:
 
-**If you're using expensive reasoning for everything:**
-→ Read [The Inference Trap](./docs/inference-trap.md)
-
-**If you need to decide when to use reasoning vs lookup:**
-→ Read [The Guardrail Router](./docs/guardrail-router.md)
-
-**If you want to reduce costs and latency:**
-→ Read [Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md)
+**If you're using expensive reasoning for everything, or you need to decide
+when reasoning is worth it, or you want to cut cost and latency:**
+→ Read [Routing before reasoning](./docs/patterns/routing.md)
 
 **If you need context precision and want to filter out noise:**
 → Read [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md)
@@ -326,7 +321,7 @@ agent1.send(CustomerSearchResult(
 ## Getting Help
 
 ### Documentation
-- [Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md) - Full guide
+- [Compute-to-Lookup Ratio](./docs/patterns/routing.md) - Full guide
 - [Semantic Firewall](./docs/semantic-firewall.md) - Validation patterns
 - [Headless Agent](./docs/headless-agent.md) - Silent swarm architecture
 - [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) - The new role

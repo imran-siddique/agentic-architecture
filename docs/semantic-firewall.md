@@ -560,6 +560,6 @@ The Semantic Firewall transforms AI systems from "creative but unreliable" to "c
 ## Further Reading
 
 - [Multidimensional Knowledge Graphs](./multidimensional-knowledge-graphs.md) - Beyond flat context: constraint-based filtering
-- [Compute-to-Lookup Ratio](./compute-to-lookup-ratio.md) - Optimization strategies
+- [Routing before reasoning](./patterns/routing.md) - Classify the request before answering it
 - [Headless Agent Patterns](./headless-agent.md) - Efficient coordination
 - [Cognitive Systems Architect Role](./cognitive-systems-architect.md) - The role that builds these systems
