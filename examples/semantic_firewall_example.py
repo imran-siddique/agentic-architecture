@@ -5,10 +5,10 @@ This example demonstrates how to use multidimensional knowledge graphs
 to block hallucinations before they reach users.
 """
 
-from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime
 from enum import Enum
+from typing import Any, Dict, List, Optional
 
 
 class Severity(Enum):
@@ -429,7 +429,7 @@ def main():
                 original_text=test["output"],
                 confidence=0.95
             )
-            firewall._extract_facts = lambda text: [fact] if "Tim Cook" in text else []
+            firewall._extract_facts = lambda text, fact=fact: [fact] if "Tim Cook" in text else []
         elif "Steve Jobs" in test["output"]:
             fact = Fact(
                 entities=[steve_jobs, apple],
@@ -437,7 +437,7 @@ def main():
                 original_text=test["output"],
                 confidence=0.95
             )
-            firewall._extract_facts = lambda text: [fact] if "Steve Jobs" in text else []
+            firewall._extract_facts = lambda text, fact=fact: [fact] if "Steve Jobs" in text else []
         elif "John Doe" in test["output"]:
             unknown_person = Entity(id="john_doe", name="John Doe", type="person")
             fact = Fact(
@@ -453,7 +453,7 @@ def main():
                 original_text=test["output"],
                 confidence=0.95
             )
-            firewall._extract_facts = lambda text: [fact] if "John Doe" in text else []
+            firewall._extract_facts = lambda text, fact=fact: [fact] if "John Doe" in text else []
         else:
             firewall._extract_facts = lambda text: []
         

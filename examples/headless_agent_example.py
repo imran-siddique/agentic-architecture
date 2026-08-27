@@ -6,11 +6,11 @@ structured data rather than natural language, achieving significant
 performance and cost improvements.
 """
 
-from typing import Dict, Any, List, Optional
+import time
 from dataclasses import dataclass, field
-from enum import Enum
 from datetime import datetime
-import json
+from enum import Enum
+from typing import Any, Dict, List, Optional
 
 
 class TaskType(Enum):
@@ -82,14 +82,14 @@ class HeadlessAgent:
         """
         Execute task with structured input/output (no language)
         """
-        start = datetime.now()
+        start = time.perf_counter()
         
         try:
             # Route to appropriate handler based on task type
             handler = self._get_handler(task.task_type)
             data = handler(task.parameters, context or {})
             
-            duration = (datetime.now() - start).total_seconds() * 1000
+            duration = (time.perf_counter() - start) * 1000
             
             # Record structured metric
             self.metrics.append(Metric(
@@ -107,7 +107,7 @@ class HeadlessAgent:
             )
         
         except Exception as e:
-            duration = (datetime.now() - start).total_seconds() * 1000
+            duration = (time.perf_counter() - start) * 1000
             
             self.metrics.append(Metric(
                 agent_id=self.agent_id,
@@ -143,9 +143,9 @@ class HeadlessAgent:
         
         # Validation logic (pure data operations)
         errors = []
-        for field, rules in schema.items():
-            if field not in data:
-                errors.append({'field': field, 'error': 'missing'})
+        for field_name in schema:
+            if field_name not in data:
+                errors.append({'field': field_name, 'error': 'missing'})
         
         return {
             'valid': len(errors) == 0,
@@ -155,7 +155,6 @@ class HeadlessAgent:
     def _handle_fetch(self, params: Dict, context: Dict) -> Dict:
         """Fetch data from source (no language needed)"""
         source = params.get('source')
-        query = params.get('query', {})
         
         # Simulated data fetch
         return {
@@ -216,7 +215,6 @@ class HeadlessAgent:
         """Send notification (structured, not conversational)"""
         recipient = params.get('recipient')
         event_type = params.get('event_type')
-        payload = params.get('payload', {})
         
         # Notification logic (structured message)
         return {
@@ -449,9 +447,9 @@ def main():
     
     # Execute workflow (no language generation)
     print("\n3. Executing workflow (no language, pure data flow)...")
-    start = datetime.now()
+    start = time.perf_counter()
     results = swarm.execute_workflow(workflow)
-    duration = (datetime.now() - start).total_seconds() * 1000
+    duration = (time.perf_counter() - start) * 1000
     
     print(f"   Workflow completed in {duration:.1f}ms")
     print(f"   {len(results)} tasks executed")
@@ -486,9 +484,9 @@ def main():
     print("-" * 60)
     print("   Headless Approach (This Implementation):")
     print(f"      - Total time: {duration:.1f}ms")
-    print(f"      - LLM calls: 0 (zero natural language)")
-    print(f"      - Cost: ~$0.0001 (pure data operations)")
-    print(f"      - Ambiguity: 0% (type-safe)")
+    print("      - LLM calls: 0 (zero natural language)")
+    print("      - Cost: ~$0.0001 (pure data operations)")
+    print("      - Ambiguity: 0% (type-safe)")
     
     print("\n   Conversational Approach (Traditional):")
     estimated_conversational_time = len(workflow) * 2000  # ~2s per LLM call
@@ -496,7 +494,7 @@ def main():
     print(f"      - Total time: ~{estimated_conversational_time}ms")
     print(f"      - LLM calls: {len(workflow) * 2} (agent messages)")
     print(f"      - Cost: ~${estimated_conversational_cost:.4f}")
-    print(f"      - Ambiguity: High (NL parsing errors)")
+    print("      - Ambiguity: High (NL parsing errors)")
     
     speedup = estimated_conversational_time / duration
     cost_reduction = (1 - (0.0001 / estimated_conversational_cost)) * 100

@@ -1,0 +1,29 @@
+name: Documentation problem
+description: A doc is wrong, stale, unclear, or makes a claim it does not support
+labels: ["docs"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: File and line
+      description: For example, docs/evidence-plane.md:42
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Unsupported claim
+        - Stale link or reference
+        - Incorrect statement
+        - Unclear explanation
+        - Example does not run
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: Detail
+    validations:
+      required: true

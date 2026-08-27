@@ -5,10 +5,9 @@ This example demonstrates how to build a system that prioritizes lookup
 over computation, achieving the 90/10 target ratio.
 """
 
-from typing import Dict, Any, Optional, List
-from dataclasses import dataclass
-from datetime import datetime
 import hashlib
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -55,7 +54,6 @@ class MultiTierLookupSystem:
         Execute query with lookup-first strategy
         """
         self.metrics['total_queries'] += 1
-        start = datetime.now()
         
         # Generate cache key
         cache_key = self._generate_cache_key(query, context)
@@ -239,7 +237,7 @@ class MultiTierLookupSystem:
         """
         Pre-compute and index common queries to improve lookup ratio
         """
-        for query, answer in zip(queries, answers):
+        for query, answer in zip(queries, answers, strict=True):
             # Index in vector store for semantic search
             self.vector_store[query] = answer
             # Also cache directly

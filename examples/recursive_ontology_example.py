@@ -13,12 +13,12 @@ knowledge graph library. Each example in this repository is intentionally
 self-contained for educational clarity.
 """
 
-from typing import Dict, Any, List, Optional
+import random
+from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
-import random
-from collections import defaultdict
+from typing import Any, Dict, List, Optional
 
 
 class SignalType(Enum):
@@ -172,7 +172,7 @@ class AgentTelemetry:
         
         # Real-time critical signals trigger immediate action
         if severity == Severity.CRITICAL and self.analyst:
-            print(f"   🚨 CRITICAL signal - triggering immediate healing")
+            print("   🚨 CRITICAL signal - triggering immediate healing")
             self.analyst.handle_critical_signal(signal)
         
         return signal
@@ -550,12 +550,12 @@ class AnalystSystem:
             approved = self.supervisor.simulate_human_review(update)
             
             if approved:
-                print(f"      ✓ Human approved - applying update")
+                print("      ✓ Human approved - applying update")
                 self._apply_update(update)
             else:
-                print(f"      ✗ Human rejected - update not applied")
+                print("      ✗ Human rejected - update not applied")
         else:
-            print(f"      ⚡ Auto-applying (low risk)")
+            print("      ⚡ Auto-applying (low risk)")
             self._apply_update(update)
         
         # Record healing action
@@ -572,7 +572,7 @@ class AnalystSystem:
     
     def handle_critical_signal(self, signal: Signal):
         """Handle critical signal immediately"""
-        print(f"      🚨 Critical signal - immediate action required")
+        print("      🚨 Critical signal - immediate action required")
         
         # Take immediate action without waiting for batch analysis
         if signal.type == SignalType.ENTITY_MISSING:
@@ -640,7 +640,7 @@ class RecursiveOntologySystem:
             }
         else:
             # Knowledge not found - this is a signal!
-            print(f"   ✗ Not found in any graph")
+            print("   ✗ Not found in any graph")
             
             # Extract entity ID from query (avoid redundant split)
             query_parts = agent_query.split()
@@ -710,8 +710,8 @@ class RecursiveOntologySystem:
         print("🏥 HEALING CYCLE")
         print("="*60)
         
-        # Analyze accumulated signals
-        patterns = self.analyst.analyze_signals()
+        # Analyze accumulated signals. The analyst queues healing actions as a side effect.
+        self.analyst.analyze_signals()
         
         # Cleanup expired context graphs
         self._cleanup_expired_contexts()
@@ -762,7 +762,7 @@ class RecursiveOntologySystem:
         print(f"   ProductGraph Rebuilds: {report['product_graph_rebuilds']}")
         
         if report['signal_types']:
-            print(f"\n   Signals by Type:")
+            print("\n   Signals by Type:")
             for sig_type, count in report['signal_types'].items():
                 print(f"      {sig_type}: {count}")
         
@@ -835,7 +835,7 @@ def main():
     # Run healing cycle
     print("\n7. Scenario: Automated Healing Cycle")
     print("-"*60)
-    report = system.run_healing_cycle()
+    system.run_healing_cycle()
     
     # Final Summary
     print("\n" + "="*60)

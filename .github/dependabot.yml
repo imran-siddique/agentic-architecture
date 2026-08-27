@@ -1,0 +1,9 @@
+version: 2
+updates:
+  # The repository has no runtime dependencies. Actions are the only supply chain.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"

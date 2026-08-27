@@ -1,0 +1,40 @@
+name: Pattern proposal
+description: Propose a new architectural pattern for the catalog
+labels: ["pattern"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What failure or cost does this pattern remove? Be concrete.
+    validations:
+      required: true
+  - type: textarea
+    id: mechanism
+    attributes:
+      label: The mechanism
+      description: What does the system actually do differently? Not the benefit, the mechanism.
+    validations:
+      required: true
+  - type: textarea
+    id: invariant
+    attributes:
+      label: The invariant
+      description: >
+        State one thing that must be true, phrased so it can fail. For example,
+        "changing the artifact must make verification fail." A pattern with no
+        falsifiable invariant is advice, not a pattern.
+    validations:
+      required: true
+  - type: textarea
+    id: not-for
+    attributes:
+      label: When not to use this
+      description: Name at least one situation where this pattern is the wrong choice.
+    validations:
+      required: true
+  - type: input
+    id: prior-art
+    attributes:
+      label: Prior art
+      description: Existing implementations, papers, or specifications that already cover this.

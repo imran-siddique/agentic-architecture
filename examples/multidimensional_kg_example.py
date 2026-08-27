@@ -8,11 +8,11 @@ philosophy where 99% of noise is removed deterministically before the LLM sees a
 Real-world query: "What pending items do I have on my plate?"
 """
 
-from typing import Dict, Any, List, Optional, Set
+import math
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
-import math
+from typing import Dict, List, Optional, Set
 
 
 class Role(Enum):
@@ -325,7 +325,7 @@ class MultidimensionalKnowledgeGraph:
         candidates = self.work_items.copy()
         initial_count = len(candidates)  # Store for efficiency
         
-        print(f"\n📊 Applying Multidimensional Filters:")
+        print("\n📊 Applying Multidimensional Filters:")
         print(f"   Initial candidates: {initial_count}")
         
         # Dimension 1: Identity & Scope (Manager View)

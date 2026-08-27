@@ -1,0 +1,13 @@
+# Lint configuration for the reference examples.
+# The repository is dependency-free at runtime; ruff is a CI-only tool.
+
+target-version = "py312"
+line-length = 100
+
+[lint]
+# E4/E7/E9 + F are ruff's defaults. B catches bug-prone constructs such as
+# late-binding closures. I keeps import order stable across contributors.
+select = ["E4", "E7", "E9", "F", "B", "I"]
+
+[format]
+quote-style = "preserve"
