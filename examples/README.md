@@ -1,6 +1,15 @@
 # Examples
 
-This directory contains working code examples demonstrating the key agentic architecture patterns.
+This directory contains runnable examples of the patterns. Each file is
+dependency-free and self-contained so you can read the whole mechanism in one
+place.
+
+**None of these examples call a model, and none of them measure anything.**
+Latencies and costs printed by an example are constants written into that file
+so the control flow is readable. Each example prints this at startup.
+
+Only `evidence_plane_example.py` is covered by tests that can fail. Everything
+else is a walkthrough.
 
 ## Available Examples
 
@@ -32,12 +41,11 @@ Demonstrates how to implement a Guardrail Router that prevents the Inference Tra
 python examples/guardrail_router_example.py
 ```
 
-**Expected Output:**
-- System should achieve 80-90% lookup ratio
-- 70-90% cost savings vs all-reasoning approach
-- Average latency under 500ms
-- Detailed breakdown of routing decisions
-- Demonstration of constraint enforcement
+**What you will see:**
+- The lookup ratio the router held under the sample request mix
+- A routing decision for every request, and the rule that produced it
+- The constraint refusing a reasoning call once the budget is spent
+- A simulated cost and latency total, derived from constants in the file
 
 ### 2. Compute-to-Lookup Ratio (`compute_to_lookup_example.py`)
 
@@ -54,11 +62,10 @@ Demonstrates how to implement a multi-tier lookup system that achieves the 90/10
 python examples/compute_to_lookup_example.py
 ```
 
-**Expected Output:**
-- System should achieve >90% lookup ratio
-- Average latency under 500ms
-- Detailed breakdown by cache tier
-- Cost comparison showing 10-100x savings
+**What you will see:**
+- Which tier answered each query, and the fallthrough order
+- The lookup ratio produced by the sample query mix
+- A simulated cost and latency breakdown per tier
 
 ### 3. Headless Agent / Silent Swarm (`headless_agent_example.py`)
 
@@ -76,11 +83,11 @@ Demonstrates how headless agents communicate through structured data rather than
 python examples/headless_agent_example.py
 ```
 
-**Expected Output:**
-- Complete workflow execution without any LLM calls
-- 10-100x performance improvement over conversational
-- 90%+ cost reduction
-- Structured metrics showing deterministic behavior
+**What you will see:**
+- A workflow completing with zero model calls in the coordination layer
+- Typed results at every hop, with nothing to parse
+- A conversational baseline printed as assumptions, with no ratio computed
+  from them, because a ratio of two guesses is a guess
 
 ### 4. Silent Swarm (`silent_swarm_example.py`)
 
@@ -98,12 +105,11 @@ Demonstrates the "Function Over Form" principle with security-focused agent arch
 python examples/silent_swarm_example.py
 ```
 
-**Expected Output:**
-- Code review returning structured results without personality
-- Authorization checks blocking unauthorized requests
-- 10x faster performance vs conversational approach
-- 95% cost reduction through minimal LLM usage
-- 90% smaller attack surface
+**What you will see:**
+- A code review returning a structured result with no prose
+- The authorization gateway refusing a request without explaining itself
+- The structural comparison the example can actually make: how many components
+  accept free text and hold a capability at the same time
 
 ### 5. Semantic Firewall (`semantic_firewall_example.py`)
 
@@ -121,12 +127,14 @@ Demonstrates how to use multidimensional knowledge graphs to block hallucination
 python examples/semantic_firewall_example.py
 ```
 
-**Expected Output:**
-- 100% correct validation of test cases
-- Expired relationships blocked (e.g., "Steve Jobs is CEO of Apple")
-- Unknown entities blocked
-- Valid current facts allowed
-- Historical facts validated with temporal context
+**What you will see:**
+- An expired relationship blocked, for example "Steve Jobs is CEO of Apple"
+- An unknown entity blocked
+- A current fact allowed, and a historical one allowed with temporal context
+- The reason attached to every block
+
+The example passes its own cases because those cases were written for it. It
+tells you the rules fire, not that the rules are sufficient.
 
 ### 6. Multidimensional Knowledge Graphs (`multidimensional_kg_example.py`)
 
@@ -134,7 +142,7 @@ Demonstrates how to build and query multidimensional knowledge graphs with const
 
 **Features:**
 - Six-dimensional knowledge graph (Identity & Scope, Organizational Hierarchy, Service Ownership, Dependencies, Temporal Weight, Authority)
-- Constraint-based filtering (subtracting 99% of noise)
+- Constraint-based filtering, which removes candidates deterministically
 - Graph traversal for complex queries
 - Comparison with flat RAG approach
 - Real-world query examples
@@ -144,10 +152,10 @@ Demonstrates how to build and query multidimensional knowledge graphs with const
 python examples/multidimensional_kg_example.py
 ```
 
-**Expected Output:**
-- Complex queries answered through graph constraints
-- Demonstration of dimensional filtering
-- Performance comparison vs RAG
+**What you will see:**
+- A query answered by traversing constraints rather than by similarity
+- The candidate count after each dimension is applied
+- A side-by-side with the flat retrieval approach on the same sample graph
 
 ### 7. Recursive Ontologies (`recursive_ontology_example.py`)
 
@@ -166,7 +174,7 @@ Demonstrates self-updating knowledge systems with feedback loops and ephemeral g
 python examples/recursive_ontology_example.py
 ```
 
-**Expected Output:**
+**What you will see:**
 - Agent failures captured as signals (not errors)
 - Automatic pattern detection from repeated failures
 - OrgGraph rebuilds on HR events
@@ -192,19 +200,26 @@ echo ""
 python examples/multidimensional_kg_example.py
 echo ""
 python examples/recursive_ontology_example.py
+echo ""
+python examples/evidence_plane_example.py
 ```
+
+On Windows, prefix with `PYTHONIOENCODING=utf-8`; the examples print characters
+outside cp1252.
 
 ## Key Insights
 
-### Performance
+### What these mechanisms change
 
-These examples illustrate mechanisms to evaluate:
-- **Avoiding the Inference Trap**: Intelligent routing prevents unnecessary reasoning
-- **Potential speedup**: Through lookup optimization and eliminating language overhead
-- **Potential cost reduction**: By minimizing expensive LLM calls
-- **Predictable performance**: Deterministic behavior with structured data
-- **Narrower unsupported-output paths**: Through structural validation of modeled facts
-- **Self-updating systems**: Knowledge graphs that evolve automatically
+- **Routing**: reasoning becomes a decision with a rule behind it, not a default
+- **Latency and cost**: both follow the reasoning share rather than request volume
+- **Predictability**: a typed contract fails loudly where prose fails quietly
+- **Unsupported output**: a claim the graph cannot support is blocked before release,
+  within the limits of what the extractor recognises
+- **Staleness**: failure signals drive graph updates instead of a curation backlog
+
+How much any of this is worth in your system is a measurement you have to take.
+No number in this directory is transferable.
 
 ### Architecture Patterns
 

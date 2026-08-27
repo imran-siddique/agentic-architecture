@@ -785,6 +785,10 @@ def main():
     print("RECURSIVE ONTOLOGY SYSTEM")
     print("Self-Updating Semantic Firewalls")
     print("="*60)
+    print("SIMULATION. No model is called. Every latency and cost printed below")
+    print("is a constant written into this file so the control flow is readable.")
+    print("None of it is a measurement. See CONTRIBUTING.md for the standard.")
+    print()
     
     # Create the system
     print("\n1. Initializing Recursive Ontology System...")

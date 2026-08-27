@@ -385,6 +385,10 @@ def main():
     print("=" * 60)
     print("Headless Agent (Silent Swarm) Example")
     print("=" * 60)
+    print("SIMULATION. No model is called. Every latency and cost printed below")
+    print("is a constant written into this file so the control flow is readable.")
+    print("None of it is a measurement. See CONTRIBUTING.md for the standard.")
+    print()
     
     # Create silent swarm
     swarm = SilentSwarm()
@@ -482,33 +486,34 @@ def main():
     # Compare with conversational approach
     print("\n6. Comparison: Headless vs. Conversational:")
     print("-" * 60)
-    print("   Headless Approach (This Implementation):")
-    print(f"      - Total time: {duration:.1f}ms")
-    print("      - LLM calls: 0 (zero natural language)")
-    print("      - Cost: ~$0.0001 (pure data operations)")
-    print("      - Ambiguity: 0% (type-safe)")
+    print("   Headless approach (this implementation):")
+    print(f"      Wall clock for the workflow: {duration:.1f}ms (simulated handlers)")
+    print("      Model calls: 0")
+    print("      Messages needing natural language parsing: 0")
     
-    print("\n   Conversational Approach (Traditional):")
-    estimated_conversational_time = len(workflow) * 2000  # ~2s per LLM call
-    estimated_conversational_cost = len(workflow) * 0.002  # ~$0.002 per message
-    print(f"      - Total time: ~{estimated_conversational_time}ms")
-    print(f"      - LLM calls: {len(workflow) * 2} (agent messages)")
-    print(f"      - Cost: ~${estimated_conversational_cost:.4f}")
-    print("      - Ambiguity: High (NL parsing errors)")
-    
-    speedup = estimated_conversational_time / duration
-    cost_reduction = (1 - (0.0001 / estimated_conversational_cost)) * 100
-    
-    print(f"\n   Performance Improvement: {speedup:.0f}x faster")
-    print(f"   Cost Reduction: {cost_reduction:.1f}%")
+    print("")
+    print("   Conversational baseline, on assumed unit prices:")
+    estimated_conversational_time = len(workflow) * 2000  # assumed 2s per model call
+    estimated_conversational_cost = len(workflow) * 0.002  # assumed $0.002 per message
+    print(f"      Assumed time: ~{estimated_conversational_time}ms")
+    print(f"      Model calls:  {len(workflow) * 2} (agent messages)")
+    print(f"      Assumed cost: ~${estimated_conversational_cost:.4f}")
+    print("")
+    print("   The two assumptions above are the entire claim. Any ratio computed")
+    print("   from them is arithmetic on guesses, so this example does not print")
+    print("   one. Substitute your own call count and unit price, or measure.")
+    print("")
+    print("   What this run does establish, because it is structural:")
+    print("      Model calls made by the coordination layer: 0")
+    print("      Messages that required parsing:             0")
     
     print("\n7. Key Benefits:")
     print("-" * 60)
     print("   ✓ Zero natural language overhead")
     print("   ✓ Type-safe communication")
     print("   ✓ Deterministic execution")
-    print("   ✓ Perfect observability (structured metrics)")
-    print("   ✓ Horizontally scalable")
+    print("   ✓ Every hop emits a typed record rather than prose")
+    print("   ✓ Workers hold no conversation state, so they scale horizontally")
     print("   ✓ No LLM costs for coordination")
     
     print("\n" + "=" * 60)
