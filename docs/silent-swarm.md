@@ -855,6 +855,6 @@ The future of Agentic AI isn't a chat window. It's a **silent backend process** 
 ## Further Reading
 
 - [Headless Agent Architecture](./headless-agent.md) - Technical implementation details
-- [Semantic Firewall](./semantic-firewall.md) - Validation without conversation
+- [Grounded context](./patterns/grounded-context.md) - Structure the context, enforce it, keep it current
 - [Routing before reasoning](./patterns/routing.md) - Classify the request before answering it
 - [Cognitive Systems Architect](./cognitive-systems-architect.md) - Designing silent systems

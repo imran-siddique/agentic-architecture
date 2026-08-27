@@ -281,5 +281,5 @@ Safety is not a suggestion. It is infrastructure.
 
 **Related Patterns:**
 - [The Mute Agent](./mute-agent.md) - Capability-based execution
-- [Semantic Firewall](./semantic-firewall.md) - Structural validation
+- [Grounded context](./patterns/grounded-context.md) - Structure the context, enforce it, keep it current
 - [Routing before reasoning](./patterns/routing.md) - Classify the request before answering it

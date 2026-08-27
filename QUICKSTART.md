@@ -75,20 +75,15 @@ Pick the concept most relevant to your current challenge:
 when reasoning is worth it, or you want to cut cost and latency:**
 → Read [Routing before reasoning](./docs/patterns/routing.md)
 
-**If you need context precision and want to filter out noise:**
-→ Read [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md)
-
-**If you struggle with hallucinations:**
-→ Read [Semantic Firewall](./docs/semantic-firewall.md)
+**If you need context precision, if you struggle with hallucinations, or if
+your knowledge goes stale faster than anyone can curate it:**
+→ Read [Grounded context](./docs/patterns/grounded-context.md)
 
 **If inter-agent coordination is slow:**
 → Read [Headless Agent](./docs/headless-agent.md)
 
 **If you need security-focused agent architecture:**
 → Read [Silent Swarm](./docs/silent-swarm.md)
-
-**If your knowledge graphs become stale or need manual updates:**
-→ Read [Recursive Ontologies](./docs/recursive-ontologies.md)
 
 **If you're designing a new system:**
 → Read [Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
@@ -322,7 +317,7 @@ agent1.send(CustomerSearchResult(
 
 ### Documentation
 - [Compute-to-Lookup Ratio](./docs/patterns/routing.md) - Full guide
-- [Semantic Firewall](./docs/semantic-firewall.md) - Validation patterns
+- [Semantic Firewall](./docs/patterns/grounded-context.md) - Validation patterns
 - [Headless Agent](./docs/headless-agent.md) - Silent swarm architecture
 - [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) - The new role
 

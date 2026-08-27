@@ -499,8 +499,7 @@ is a constant in the file.
 
 ## Related patterns
 
-- [The Semantic Firewall](../semantic-firewall.md), for what the retrieval path is allowed to return
-- [Multidimensional Knowledge Graphs](../multidimensional-knowledge-graphs.md), for building that retrieval path
+- [Grounded context](./grounded-context.md), for building the retrieval path and policing what it returns
 - [The Silent Swarm](../silent-swarm.md), for what happens after the route is chosen
 - [The Evidence Plane](../evidence-plane.md), for making the decision checkable afterwards
 

@@ -246,6 +246,6 @@ The most reliable agent is one that knows when to say nothing.
 ---
 
 **Related Patterns:**
-- [Semantic Firewall](./semantic-firewall.md) - Structural hallucination prevention
+- [Grounded context](./patterns/grounded-context.md) - Structure the context, enforce it, keep it current
 - [Control Planes vs Prompts](./control-planes-vs-prompts.md) - Deterministic safety
 - [Silent Swarm](./silent-swarm.md) - Security by silence
