@@ -603,7 +603,7 @@ def check_health():
 
 ## Anti-Patterns to Avoid
 
-### ❌ No Router (Direct to LLM)
+### No Router (Direct to LLM)
 
 ```python
 # Bad: Every request goes to LLM
@@ -611,7 +611,7 @@ def handle(request):
     return llm.generate(request)  # Expensive, slow
 ```
 
-### ❌ Router Without Constraints
+### Router Without Constraints
 
 ```python
 # Bad: Router decides but no limits
@@ -620,7 +620,7 @@ def route(request):
         return reason(request)  # No budget limit
 ```
 
-### ❌ Ignoring Metrics
+### Ignoring Metrics
 
 ```python
 # Bad: Not tracking what's happening

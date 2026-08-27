@@ -877,7 +877,7 @@ event_bus.publish(Event(
 ))
 
 # OrgGraph automatically rebuilds
-# Next query about "Who does Alice report to?" 
+# Next query about "Who does Alice report to?"
 # Gets correct answer immediately
 ```
 

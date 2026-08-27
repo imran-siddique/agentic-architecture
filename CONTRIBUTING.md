@@ -111,8 +111,4 @@ Links to related patterns in this repo.
 
 ## Questions?
 
-Open an issue with the `question` label. We're happy to help!
-
----
-
-Thank you for helping make agentic systems better for everyone! 🚀
+Open an issue with the `question` label.
