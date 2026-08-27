@@ -406,14 +406,38 @@ Everything else this pattern is credited with, latency, cost, predictability,
 follows from the routing ratio and from your unit prices. Those are
 measurements you take, not properties you inherit.
 
+### What the budget does not do
+
+Writing the test for the invariant above surfaced its limit, so it belongs here
+rather than in a footnote.
+
+A blocked request is recorded as a lookup. That lowers the ratio, which restores
+headroom, so a caller who is refused and simply asks again eventually reaches
+the reasoning path. The budget is a **rate limit with immediate recovery**, not
+an access control.
+
+That is correct for a cost control and wrong for a security boundary. If
+something must never happen, it belongs in a capability check that does not
+recover, not in a ratio. See [The Mute Agent](../mute-agent.md).
+
+`tests/test_routing_invariants.py::test_a_denied_caller_gets_through_by_retrying`
+pins this, so it cannot quietly become something people rely on.
+
 ## The test
 
-`tests/` should cover, at minimum:
+`tests/test_routing_invariants.py` covers:
 
-- The budget refuses a reasoning call once the ratio is exceeded.
-- A request with an exact match never reaches classification.
-- A reasoning result is written back and the same request routes to lookup next time.
-- An unclassifiable request takes the safe path rather than the expensive one.
+- The budget engages at all, so the rest of the suite is not vacuous.
+- While the budget is spent, four phrasings, two of which read as social
+  engineering, all fail to reach the reasoning engine. Asserted against a spy on
+  the handler, not against the returned dict.
+- A blocked request says why rather than answering.
+- The retry path above, deliberately.
+- A known answer never reaches the reasoning path.
+- A reasoning result is written back and serves the next caller, asserted by
+  call count rather than by output.
+- An unclassifiable request takes the cheap path.
+- A factual miss returns nothing rather than reasoning about it.
 
 ## When not to use this
 
