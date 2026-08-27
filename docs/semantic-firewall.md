@@ -128,14 +128,14 @@ class TemporalFact:
     
 # Example:
 # (John Smith) -[works_for]-> (Acme Corp)
-#   valid_from: 2020-01-01
-#   valid_until: 2023-06-30
-#   confidence: 0.95
+# valid_from: 2020-01-01
+# valid_until: 2023-06-30
+# confidence: 0.95
 #
 # (John Smith) -[works_for]-> (Beta Inc)
-#   valid_from: 2023-07-01
-#   valid_until: None (current)
-#   confidence: 0.98
+# valid_from: 2023-07-01
+# valid_until: None (current)
+# confidence: 0.98
 ```
 
 ### 3. Confidence & Provenance Dimension
@@ -169,10 +169,10 @@ class ContextualRelationship:
     
 # Example:
 # (Python) -[related_to]-> (Programming)
-#   context: technical, domain: computer_science
+# context: technical, domain: computer_science
 #
 # (Python) -[related_to]-> (Snake)
-#   context: zoology, domain: biology
+# context: zoology, domain: biology
 ```
 
 ## Firewall Validation Rules
@@ -509,8 +509,8 @@ def validate_multi_hop_reasoning(chain: List[Fact]) -> bool:
 
 # Example:
 # Claim: "Python was created by Guido, who worked at Google"
-# Validate: Python -> created_by -> Guido [✓]
-# Validate: Guido -> worked_at -> Google [✓]
+# Validate: Python -> created_by -> Guido []
+# Validate: Guido -> worked_at -> Google []
 ```
 
 ### Probabilistic Validation

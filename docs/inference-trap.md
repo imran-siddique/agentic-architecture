@@ -22,7 +22,7 @@ The Inference Trap occurs when engineers use expensive reasoning models (with ch
 
 ### Examples of the Inference Trap
 
-#### ❌ Bad: Using Reasoning for Simple Lookup
+#### Bad: Using Reasoning for Simple Lookup
 
 ```python
 # Falling into the Inference Trap
@@ -43,7 +43,7 @@ This is wasteful because:
 - You're paying for compute when you should pay for lookup
 - The latency is 100x higher than necessary
 
-#### ✅ Good: Using Lookup for Retrieval
+#### Good: Using Lookup for Retrieval
 
 ```python
 # Avoiding the Inference Trap
@@ -337,7 +337,7 @@ class AdvancedGuardrailRouter:
 
 ## Anti-Patterns
 
-### ❌ The Philosophy Major Agent
+### The Philosophy Major Agent
 
 ```python
 # Agent that "thinks" about everything
@@ -351,7 +351,7 @@ class PhilosophyMajor:
         return reflection  # 8 seconds for "What is 2+2?"
 ```
 
-### ❌ The Unconstrained Agent
+### The Unconstrained Agent
 
 ```python
 # Agent with no boundaries
@@ -361,7 +361,7 @@ class UnconstrainedAgent:
         return mega_llm.handle_everything(request)
 ```
 
-### ❌ The Reasoning-First Approach
+### The Reasoning-First Approach
 
 ```python
 # Always reason, never lookup
@@ -375,7 +375,7 @@ class ReasoningFirst:
 
 ## Best Practices
 
-### ✅ Lookup-First, Reasoning-Last
+### Lookup-First, Reasoning-Last
 
 ```python
 def process(query):
@@ -398,7 +398,7 @@ def process(query):
     return result
 ```
 
-### ✅ Explicit Constraints
+### Explicit Constraints
 
 ```python
 class ConstrainedDocAgent:
@@ -414,7 +414,7 @@ class ConstrainedDocAgent:
         return self.lookup(task_type, request)
 ```
 
-### ✅ Metrics-Driven Optimization
+### Metrics-Driven Optimization
 
 ```python
 class MetricsAwareAgent:

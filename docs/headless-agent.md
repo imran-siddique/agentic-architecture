@@ -39,9 +39,9 @@ Natural language is ambiguous. Structured data is not.
 # - How early is "morning"?
 
 # Precise: {
-#   action: "send_report",
-#   recipient_id: "john_smith_12345",
-#   scheduled_time: "2024-01-08T09:00:00Z"
+# action: "send_report",
+# recipient_id: "john_smith_12345",
+# scheduled_time: "2024-01-08T09:00:00Z"
 # }
 ```
 
@@ -519,7 +519,7 @@ class AnomalyDetectionSwarm:
 
 ## When to Use Headless Agents
 
-### ✅ Use Headless When:
+### Use Headless When:
 
 - High-throughput processing required
 - Cost efficiency is critical
@@ -528,7 +528,7 @@ class AnomalyDetectionSwarm:
 - No human needs to read agent communication
 - Performance > explainability
 
-### ❌ Use Conversational When:
+### Use Conversational When:
 
 - Human-in-the-loop workflows
 - Debugging/development phase

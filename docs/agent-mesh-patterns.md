@@ -94,14 +94,14 @@ credential = await mesh.issue_credential(
 ```python
 score = engine.get_agent_score("did:mesh:my-agent")
 # {
-#   "total": 847,
-#   "dimensions": {
-#     "policy_compliance": 95,
-#     "resource_efficiency": 82,
-#     "output_quality": 88,
-#     "security_posture": 91,
-#     "collaboration_health": 84
-#   }
+# "total": 847,
+# "dimensions": {
+# "policy_compliance": 95,
+# "resource_efficiency": 82,
+# "output_quality": 88,
+# "security_posture": 91,
+# "collaboration_health": 84
+# }
 # }
 ```
 

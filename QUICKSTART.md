@@ -264,14 +264,14 @@ Current: _______
 
 ## Anti-Patterns to Avoid
 
-### ❌ Don't: Use LLM for Everything
+### Don't: Use LLM for Everything
 ```python
 # Bad: Every query hits expensive LLM
 def answer(question):
     return llm.generate(question)  # $0.01, 2000ms
 ```
 
-### ✅ Do: Lookup First, Compute Last
+### Do: Lookup First, Compute Last
 ```python
 # Good: Tiered fallback strategy
 def answer(question):
@@ -286,7 +286,7 @@ def answer(question):
     return result
 ```
 
-### ❌ Don't: Hope LLM Doesn't Hallucinate
+### Don't: Hope LLM Doesn't Hallucinate
 ```python
 # Bad: No validation
 def get_facts(query):
@@ -294,7 +294,7 @@ def get_facts(query):
     return facts  # Might be hallucinated!
 ```
 
-### ✅ Do: Validate Against Knowledge
+### Do: Validate Against Knowledge
 ```python
 # Good: Validate all facts
 def get_facts(query):
@@ -307,14 +307,14 @@ def get_facts(query):
         return fallback_to_known_facts()
 ```
 
-### ❌ Don't: Use Natural Language Between Agents
+### Don't: Use Natural Language Between Agents
 ```python
 # Bad: Agents chat with each other
 agent1.send("I found 5 customers matching criteria")
 agent2.parse("5 customers")  # Expensive, error-prone
 ```
 
-### ✅ Do: Use Structured Data
+### Do: Use Structured Data
 ```python
 # Good: Agents exchange typed data
 agent1.send(CustomerSearchResult(

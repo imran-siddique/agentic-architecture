@@ -1,7 +1,6 @@
 # Agentic Architecture
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/imran-siddique/agentic-architecture?style=social)](https://github.com/imran-siddique/agentic-architecture/stargazers)
 [![GitHub last commit](https://img.shields.io/github/last-commit/imran-siddique/agentic-architecture)](https://github.com/imran-siddique/agentic-architecture/commits/main)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/imran-siddique/agentic-architecture/pulls)
 
@@ -11,17 +10,17 @@ A guide to agentic system design patterns, with dependency-free examples and exe
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
-- [Why This Matters](#-why-this-matters)
-- [Core Concepts](#-core-concepts)
-- [Architecture Overview](#-architecture-overview)
-- [Quick Start](#-quick-start)
-- [Benefits](#-benefits)
-- [Examples](#-examples)
-- [Contributing](#-contributing)
-- [Philosophy](#-philosophy)
+- [Why This Matters](#why-this-matters)
+- [Core Concepts](#core-concepts)
+- [Architecture Overview](#architecture-overview)
+- [Quick Start](#quick-start)
+- [Benefits](#benefits)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [Philosophy](#philosophy)
 
 ---
 
@@ -29,7 +28,7 @@ A guide to agentic system design patterns, with dependency-free examples and exe
 
 This repository documents architectural patterns for building agent systems that are easier to constrain, observe, and verify. The examples are reference implementations, not production components. Benchmark and threat-model them in your own environment before adopting their targets.
 
-## 🎯 Why This Matters
+## Why This Matters
 
 | Traditional Approach | Agentic Architecture |
 |---------------------|---------------------|
@@ -45,9 +44,9 @@ This repository documents architectural patterns for building agent systems that
 - Make policy violations fail closed at an enforcement boundary
 - Bind consequential actions to independently verifiable evidence
 
-Numbers printed by the examples are illustrative simulations, not benchmark results. See [Evidence and claims](#-evidence-and-claims).
+Numbers printed by the examples are illustrative simulations, not benchmark results. See [Evidence and claims](#evidence-and-claims).
 
-## 🧠 Core Concepts
+## Core Concepts
 
 ### 1. [The Inference Trap](./docs/inference-trap.md)
 **Why "Thinking" is a Technical Debt.**
@@ -161,7 +160,7 @@ As AI agents become capable of writing code, the human role shifts to knowledge 
 
 **Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.
 
-### 10. [The Mute Agent](./docs/mute-agent.md) 🆕
+### 10. [The Mute Agent](./docs/mute-agent.md)
 **Capability-Based Execution: Return NULL, Don't Hallucinate.**
 
 The most reliable agent is one that knows when to say nothing. This pattern implements capability-based execution where agents return NULL for out-of-scope requests instead of fabricating answers:
@@ -173,7 +172,7 @@ The most reliable agent is one that knows when to say nothing. This pattern impl
 
 **Key Insight**: An agent that returns NULL when uncertain is infinitely more valuable than one that confidently hallucinates.
 
-### 11. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) 🆕
+### 11. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md)
 **Why Deterministic Infrastructure Beats Probabilistic Prompting.**
 
 Stop trying to "prompt engineer" your way to safety. This pattern establishes control plane architecture for AI governance:
@@ -185,14 +184,14 @@ Stop trying to "prompt engineer" your way to safety. This pattern establishes co
 
 **Key Insight**: You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts.
 
-### 12. [The Evidence Plane](./docs/evidence-plane.md) 🆕
+### 12. [The Evidence Plane](./docs/evidence-plane.md)
 **Trust the receipt, not the label.**
 
 An agent saying an action is verified does not make it so. This pattern binds workload identity, policy decision, action, and artifact digest into a receipt that can be checked outside the producing agent.
 
 **Key Insight**: Verification is a property of evidence and a verifier, not a word in an agent's response.
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 These concepts work together to form a complete architectural philosophy:
 
@@ -293,7 +292,7 @@ flowchart TB
 
 **Key Insight**: The system doesn't need manual updates. Agent failures signal knowledge gaps. The Analyst System detects patterns and triggers automatic healing.
 
-## 🚀 Quick Start
+## Quick Start
 
 <details>
 <summary><b>👨‍💻 For Developers</b></summary>
@@ -364,7 +363,7 @@ python semantic_firewall_example.py
 
 </details>
 
-## 📊 Benefits
+## Benefits
 
 Systems designed with these principles achieve:
 
@@ -377,7 +376,7 @@ Systems designed with these principles achieve:
 | Observability | Structured telemetry | Trace completeness and dropped-event rate |
 | Predictability | Deterministic paths where possible | Replay agreement and failure distribution |
 
-## 💡 Examples
+## Examples
 
 All patterns include working Python examples:
 
@@ -392,7 +391,7 @@ examples/
 └── recursive_ontology_example.py  # Self-healing systems
 ```
 
-## 🧪 Evidence and Claims
+## Evidence and Claims
 
 The repository separates three kinds of statements:
 
@@ -402,7 +401,7 @@ The repository separates three kinds of statements:
 
 Pull requests that add quantitative or security claims should include the command, fixture or dataset, environment, and raw result needed to reproduce them. CI compiles every example, runs the executable checks, and smoke-tests each example.
 
-## 🤝 Contributing
+## Contributing
 
 This is a living document. Contributions welcome:
 
@@ -413,7 +412,7 @@ This is a living document. Contributions welcome:
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
-## 📚 Learn More
+## Learn More
 
 Each concept document includes:
 - Detailed explanations with diagrams
@@ -423,7 +422,7 @@ Each concept document includes:
 - Metrics to track
 - Common anti-patterns to avoid
 
-## 💭 Philosophy
+## Philosophy
 
 <table>
 <tr><td>
@@ -465,19 +464,11 @@ Each concept document includes:
 
 ---
 
-## 🔗 Related Projects
+## Related Projects
 
 - **[Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit)** - Policy kernel and agent mesh work, where the Agent OS and AgentMesh prototypes now live
 
-## 📚 Additional Documentation
+## Additional Documentation
 
 - **[Agent Mesh Patterns](./docs/agent-mesh-patterns.md)** - Identity, Trust, Governance, Reward patterns
 - **[Production Deployment Guide](./docs/production-deployment-guide.md)** - CI/CD, observability, operational best practices
-
----
-
-<p align="center">
-  <b>Built with ❤️ for the future of agentic systems</b>
-  <br><br>
-  <a href="https://github.com/imran-siddique/agentic-architecture/stargazers">⭐ Star this repo</a> if you find it useful!
-</p>

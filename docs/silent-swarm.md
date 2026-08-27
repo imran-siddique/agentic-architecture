@@ -298,7 +298,7 @@ deployment_agent.execute(request)
 
 # No conversation means:
 # • No confusion
-# • No social engineering  
+# • No social engineering
 # • No jailbreak surface
 # • Just ruthless validation
 ```
@@ -698,8 +698,8 @@ silent_swarm = {
 }
 
 # If Experience Agent is compromised:
-# Traditional: Attacker has tool access → System compromised
-# Silent Swarm: Attacker has no tools → Request rejected by Doer agents
+# Traditional: Attacker has tool access  System compromised
+# Silent Swarm: Attacker has no tools  Request rejected by Doer agents
 ```
 
 ### 4. Reliability: Zero Ambiguity
@@ -799,7 +799,7 @@ metrics = {
 
 ## Anti-Patterns to Avoid
 
-### ❌ Don't: Give Tools to Conversational Agents
+### Don't: Give Tools to Conversational Agents
 ```python
 # Bad: Talker with tools
 class BadAgent:
@@ -807,7 +807,7 @@ class BadAgent:
     tools = [deploy_code, delete_database]  # DANGEROUS
 ```
 
-### ✅ Do: Separate Conversation from Execution
+### Do: Separate Conversation from Execution
 ```python
 # Good: Talker with no tools
 class ExperienceAgent:
@@ -818,14 +818,14 @@ class DeploymentAgent:
     system_prompt = None  # NO PERSONALITY
 ```
 
-### ❌ Don't: Add Personality to Doers
+### Don't: Add Personality to Doers
 ```python
 # Bad: Doer trying to be helpful
 def execute(request):
     return "Sure thing! I'd be happy to deploy that for you! 🚀"
 ```
 
-### ✅ Do: Return Pure Data
+### Do: Return Pure Data
 ```python
 # Good: Structured output only
 def execute(request):

@@ -266,21 +266,21 @@ def suggest_code(context):
 
 ## Anti-Patterns to Avoid
 
-### ❌ LLM-First Design
+### LLM-First Design
 ```python
 # Every operation hits the LLM
 def process(input):
     return llm.process(input)
 ```
 
-### ❌ No Caching
+### No Caching
 ```python
 # Recomputing same results
 def get_answer(question):
     return expensive_computation(question)  # No cache check
 ```
 
-### ❌ Unstructured Knowledge
+### Unstructured Knowledge
 ```python
 # Dumping raw text into LLM context
 def answer(question):
@@ -288,7 +288,7 @@ def answer(question):
     return llm.answer(question, all_docs)  # Inefficient
 ```
 
-### ✅ Lookup-First Design
+### Lookup-First Design
 ```python
 # Lookup first, compute only when necessary
 def process(input):
