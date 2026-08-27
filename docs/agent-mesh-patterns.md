@@ -1,6 +1,6 @@
 # Agent Mesh Patterns: Identity, Trust, Governance, Reward
 
-> **Learnings from [AgentMesh](https://github.com/imran-siddique/agent-mesh) and [Agent-OS](https://github.com/imran-siddique/agent-os)**
+> **Learnings from the AgentMesh and Agent-OS prototypes, both now merged into [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit)**
 
 ## The Problem: Agent Identity Crisis
 
@@ -199,8 +199,7 @@ pip install agentmesh-platform[agent-os]
 
 ## Further Reading
 
-- [AgentMesh Repository](https://github.com/imran-siddique/agent-mesh) - Full implementation
-- [Agent-OS Repository](https://github.com/imran-siddique/agent-os) - Kernel architecture
+- [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit) - The maintained implementation of the mesh and kernel work described here
 - [Control Planes vs Prompts](./control-planes-vs-prompts.md) - Why deterministic beats probabilistic
 - [Mute Agent Pattern](./mute-agent.md) - Capability-based execution
 

@@ -1,6 +1,6 @@
 # Production Deployment Guide
 
-> **Operational learnings from [Agent-OS](https://github.com/imran-siddique/agent-os) and [AgentMesh](https://github.com/imran-siddique/agent-mesh)**
+> **Operational learnings from the Agent-OS and AgentMesh prototypes, both now merged into [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit)**
 
 ## Overview
 
@@ -255,7 +255,7 @@ os.environ["AGENTMESH_TRACE"] = "1"
 
 ## Further Reading
 
-- [Agent-OS CI Pipeline](.github/workflows/ci.yml) - Reference implementation
+- [Agent Governance Toolkit workflows](https://github.com/microsoft/agent-governance-toolkit/tree/main/.github/workflows) - Reference CI implementation
 - [Agent Mesh Patterns](./agent-mesh-patterns.md) - Architecture patterns
 - [Control Planes vs Prompts](./control-planes-vs-prompts.md) - Safety patterns
 
