@@ -418,7 +418,7 @@ an access control.
 
 That is correct for a cost control and wrong for a security boundary. If
 something must never happen, it belongs in a capability check that does not
-recover, not in a ratio. See [The Mute Agent](../mute-agent.md).
+recover, not in a ratio. See [Silent execution](./silent-execution.md).
 
 `tests/test_routing_invariants.py::test_a_denied_caller_gets_through_by_retrying`
 pins this, so it cannot quietly become something people rely on.
@@ -500,7 +500,7 @@ is a constant in the file.
 ## Related patterns
 
 - [Grounded context](./grounded-context.md), for building the retrieval path and policing what it returns
-- [The Silent Swarm](../silent-swarm.md), for what happens after the route is chosen
+- [Silent execution](./silent-execution.md), for what happens after the route is chosen
 - [The Evidence Plane](../evidence-plane.md), for making the decision checkable afterwards
 
 The remaining patterns have not been merged into this catalog yet. The

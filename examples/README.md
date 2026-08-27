@@ -287,6 +287,5 @@ class OptimalAgenticSystem:
 
 - [Routing before reasoning](../docs/patterns/routing.md)
 - [Grounded context](../docs/patterns/grounded-context.md)
-- [Headless Agent Documentation](../docs/headless-agent.md)
-- [Silent Swarm Documentation](../docs/silent-swarm.md)
+- [Silent execution](../docs/patterns/silent-execution.md)
 - [Cognitive Systems Architect Documentation](../docs/cognitive-systems-architect.md)

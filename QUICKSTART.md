@@ -79,11 +79,9 @@ when reasoning is worth it, or you want to cut cost and latency:**
 your knowledge goes stale faster than anyone can curate it:**
 → Read [Grounded context](./docs/patterns/grounded-context.md)
 
-**If inter-agent coordination is slow:**
-→ Read [Headless Agent](./docs/headless-agent.md)
-
-**If you need security-focused agent architecture:**
-→ Read [Silent Swarm](./docs/silent-swarm.md)
+**If inter-agent coordination is slow, or you want an agent architecture whose
+security is structural rather than a prompt:**
+→ Read [Silent execution](./docs/patterns/silent-execution.md)
 
 **If you're designing a new system:**
 → Read [Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
@@ -318,7 +316,7 @@ agent1.send(CustomerSearchResult(
 ### Documentation
 - [Compute-to-Lookup Ratio](./docs/patterns/routing.md) - Full guide
 - [Semantic Firewall](./docs/patterns/grounded-context.md) - Validation patterns
-- [Headless Agent](./docs/headless-agent.md) - Silent swarm architecture
+- [Silent execution](./docs/patterns/silent-execution.md) - Silent swarm architecture
 - [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) - The new role
 
 ### Examples

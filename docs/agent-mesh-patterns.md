@@ -205,7 +205,7 @@ pip install agentmesh-platform[agent-os]
 
 - [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit) - The maintained implementation of the mesh and kernel work described here
 - [Control Planes vs Prompts](./control-planes-vs-prompts.md) - Why deterministic beats probabilistic
-- [Mute Agent Pattern](./mute-agent.md) - Capability-based execution
+- [Silent execution](./patterns/silent-execution.md) - Language at the boundary, capability at the workers
 
 ---
 

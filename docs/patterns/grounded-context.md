@@ -1356,5 +1356,5 @@ can fail.
 ## Related patterns
 
 - [Routing before reasoning](./routing.md), for deciding what reaches this path
-- [The Silent Swarm](../silent-swarm.md), for who is allowed to act on the result
+- [Silent execution](./silent-execution.md), for who is allowed to act on the result
 - [The Evidence Plane](../evidence-plane.md), for making a block provable
