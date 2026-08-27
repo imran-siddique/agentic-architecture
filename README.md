@@ -48,43 +48,24 @@ Numbers printed by the examples are illustrative simulations, not benchmark resu
 
 ## Core Concepts
 
-### 1. [The Inference Trap](./docs/inference-trap.md)
-**Why "Thinking" is a Technical Debt.**
+The [pattern catalog](./docs/README.md) lists these with the shared template:
+problem, mechanism, invariant, test, when not to use, reference implementation.
 
-Engineers are falling into the Inference Trap: throwing massive reasoning models at problems that are actually just retrieval problems. This document explores:
-- The misconception that AI and Search are independent
-- Why reasoning must have a "reason" (compute and latency costs)
-- The Scale by Subtraction philosophy (removing capabilities)
-- The missing component: The Guardrail Router
-- The target ratio: 80-90% Lookup, 10-20% Reasoning
+### 1. [Routing before reasoning](./docs/patterns/routing.md)
+**Classify the request before you answer it.**
 
-**Key Insight**: If your agent is "thinking" for every request, you haven't built an agent; you've built a philosophy major. In production, we need engineers, not philosophers.
+Merges what were three documents: The Inference Trap, The Guardrail Router, and
+The Compute-to-Lookup Ratio. They described one pattern from three angles.
 
-### 2. [The Guardrail Router](./docs/guardrail-router.md)
-**The Decision Module That Prevents the Inference Trap.**
+- Why "reasoning" is the default when nothing else can answer, and what that costs
+- The router that decides which path a request takes, without calling a model to decide
+- Enforcing the ratio as a constraint that can refuse, rather than a metric that drifts
+- The invariant: when the reasoning budget is exhausted, no request reaches the reasoning path
+- When this pattern is the wrong choice
 
-The Guardrail Router is a critical component that sits before your AI system and decides: "Does this actually require reasoning?" This document covers:
-- Request classification without expensive processing
-- Constraint enforcement to maintain healthy ratios
-- Smart routing between lookup and reasoning paths
-- Metrics tracking and optimization
-- Real-world implementation patterns
+**Key Insight**: the smartest systems are not the ones that compute the most. They are the ones that know when not to compute.
 
-**Key Insight**: The smartest systems aren't the ones that compute the most. They're the ones that know when NOT to compute.
-
-### 3. [The Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md)
-**Why 90% of your agent's work should be "dumb" lookup, not "smart" reasoning.**
-
-Modern agentic systems achieve optimal performance by prioritizing fast, reliable lookups over expensive LLM computation. This document explores:
-- The 90/10 rule for lookup vs. computation
-- Performance and cost benefits
-- Implementation strategies (caching, knowledge graphs, semantic indexing)
-- Where the ratio comes from, and what to measure to find your own
-- Metrics to track and optimize
-
-**Key Insight**: The smartest agents aren't the ones that think the hardest. They're the ones that know where to look.
-
-### 4. [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md)
+### 2. [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md)
 **Beyond Flat Context: Scale by Subtraction Using Graph Constraints.**
 
 Context is not just a pile of documents in a Vector Database. RAG is flat. It finds similar words but doesn't understand the structure of reality. This document covers:
@@ -97,7 +78,7 @@ Context is not just a pile of documents in a Vector Database. RAG is flat. It fi
 
 **Key Insight**: The Graph doesn't answer questions. It eliminates wrong answers. By filtering the universe through dimensional constraints, we subtract 99% of noise using deterministic graph logic, leaving the AI with the easy job of summarizing the 1% of signal that remains.
 
-### 5. [The Semantic Firewall](./docs/semantic-firewall.md)
+### 3. [The Semantic Firewall](./docs/semantic-firewall.md)
 **Using Multidimensional Knowledge Graphs to block hallucinations before they happen.**
 
 A defense-in-depth architecture that prevents AI hallucinations through structural validation against knowledge graphs. This document covers:
@@ -109,7 +90,7 @@ A defense-in-depth architecture that prevents AI hallucinations through structur
 
 **Key Insight**: Don't detect hallucinations after generation. Prevent them structurally before they reach users.
 
-### 6. [The "Headless" Agent](./docs/headless-agent.md)
+### 4. [The "Headless" Agent](./docs/headless-agent.md)
 **Why the best agents are the ones that can't talk (Silent Swarms).**
 
 Challenging the assumption that agents must communicate through natural language, this document presents:
@@ -122,7 +103,7 @@ Challenging the assumption that agents must communicate through natural language
 
 **Key Insight**: Language is for humans. Code is for machines. Keep them separate.
 
-### 7. [The Silent Swarm](./docs/silent-swarm.md)
+### 5. [The Silent Swarm](./docs/silent-swarm.md)
 **Function Over Form: Scale by Subtraction Through "Security by Silence".**
 
 The AI industry suffers from a "Chatbot Hangover". We design systems as if conversation is mandatory. This document challenges that assumption:
@@ -134,7 +115,7 @@ The AI industry suffers from a "Chatbot Hangover". We design systems as if conve
 
 **Key Insight**: Stop judging agents by how well they chat. Start judging them by how well they shut up and work.
 
-### 8. [Recursive Ontologies](./docs/recursive-ontologies.md)
+### 6. [Recursive Ontologies](./docs/recursive-ontologies.md)
 **Self-Updating Semantic Firewalls (Part 4).**
 
 Static systems die. In a world where data changes every second, knowledge graphs cannot remain static. This document introduces recursive ontologies, systems that update themselves:
@@ -147,7 +128,7 @@ Static systems die. In a world where data changes every second, knowledge graphs
 
 **Key Insight**: When an agent fails to find an answer, that is not an error. It is a signal. The system heals its own knowledge gaps based on the friction points of the agents living inside it.
 
-### 9. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
+### 7. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 **The new role that replaces the traditional Software Engineer.**
 
 As AI agents become capable of writing code, the human role shifts to knowledge architecture and system design. This document explores:
@@ -160,7 +141,7 @@ As AI agents become capable of writing code, the human role shifts to knowledge 
 
 **Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.
 
-### 10. [The Mute Agent](./docs/mute-agent.md)
+### 8. [The Mute Agent](./docs/mute-agent.md)
 **Capability-Based Execution: Return NULL, Don't Hallucinate.**
 
 The most reliable agent is one that knows when to say nothing. This pattern implements capability-based execution where agents return NULL for out-of-scope requests instead of fabricating answers:
@@ -172,7 +153,7 @@ The most reliable agent is one that knows when to say nothing. This pattern impl
 
 **Key Insight**: An agent that returns NULL when uncertain is infinitely more valuable than one that confidently hallucinates.
 
-### 11. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md)
+### 9. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md)
 **Why Deterministic Infrastructure Beats Probabilistic Prompting.**
 
 Stop trying to "prompt engineer" your way to safety. This pattern establishes control plane architecture for AI governance:
@@ -184,7 +165,7 @@ Stop trying to "prompt engineer" your way to safety. This pattern establishes co
 
 **Key Insight**: You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts.
 
-### 12. [The Evidence Plane](./docs/evidence-plane.md)
+### 10. [The Evidence Plane](./docs/evidence-plane.md)
 **Trust the receipt, not the label.**
 
 An agent saying an action is verified does not make it so. This pattern binds workload identity, policy decision, action, and artifact digest into a receipt that can be checked outside the producing agent.
@@ -302,21 +283,20 @@ Read the concepts in order:
 
 | # | Concept | Learn |
 |---|---------|-------|
-| 1 | [The Inference Trap](./docs/inference-trap.md) | Why "thinking" is technical debt |
-| 2 | [The Guardrail Router](./docs/guardrail-router.md) | Prevent expensive reasoning misuse |
-| 3 | [Compute-to-Lookup Ratio](./docs/compute-to-lookup-ratio.md) | The 90/10 performance foundation |
-| 4 | [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md) | Constraint-based filtering |
-| 5 | [Semantic Firewall](./docs/semantic-firewall.md) | Structural hallucination prevention |
-| 6 | [Headless Agent](./docs/headless-agent.md) | Efficient coordination |
-| 7 | [Silent Swarm](./docs/silent-swarm.md) | Security by silence |
-| 8 | [Recursive Ontologies](./docs/recursive-ontologies.md) | Self-updating knowledge |
-| 9 | [The Mute Agent](./docs/mute-agent.md) | Capability-based execution |
-| 10 | [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) | Deterministic safety |
-| 11 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
+| 1 | [Routing before reasoning](./docs/patterns/routing.md) | Classify before you answer, and enforce the budget |
+| 2 | [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md) | Constraint-based filtering |
+| 3 | [Semantic Firewall](./docs/semantic-firewall.md) | Blocking unsupported claims before release |
+| 4 | [Headless Agent](./docs/headless-agent.md) | Coordination without generation |
+| 5 | [Silent Swarm](./docs/silent-swarm.md) | Language at the boundary, capability at the workers |
+| 6 | [Recursive Ontologies](./docs/recursive-ontologies.md) | Self-updating knowledge |
+| 7 | [The Mute Agent](./docs/mute-agent.md) | Capability-based execution |
+| 8 | [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) | Putting the rule where the model cannot reach it |
+| 9 | [The Evidence Plane](./docs/evidence-plane.md) | Receipts a third party can check |
+| 10 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
 
 ### 2. Assess Your Current System
-- [ ] Are you falling into the Inference Trap?
-- [ ] What's your compute-to-lookup ratio?
+- [ ] What share of your requests actually needs a model?
+- [ ] Is that share enforced, or only measured?
 - [ ] Where are hallucinations possible?
 - [ ] How much do inter-agent LLM calls cost?
 - [ ] Is your knowledge architecture documented?
@@ -324,9 +304,8 @@ Read the concepts in order:
 ### 3. Implement Incrementally
 ```bash
 # Start with the examples
-cd examples/
-python guardrail_router_example.py
-python semantic_firewall_example.py
+python examples/guardrail_router_example.py
+python examples/semantic_firewall_example.py
 ```
 
 </details>

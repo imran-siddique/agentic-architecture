@@ -509,6 +509,5 @@ The best agents do not think harder. They filter better.
 ## Further Reading
 
 - [Semantic Firewall](./semantic-firewall.md) - Validation and verification patterns
-- [Compute-to-Lookup Ratio](./compute-to-lookup-ratio.md) - Optimization strategies
-- [Guardrail Router](./guardrail-router.md) - Intelligent routing
+- [Routing before reasoning](./patterns/routing.md) - Classify the request before answering it
 - [Cognitive Systems Architect](./cognitive-systems-architect.md) - The role that builds these systems

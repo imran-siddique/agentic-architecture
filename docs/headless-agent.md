@@ -632,6 +632,6 @@ The best agents are not the ones that talk the most. They are the ones that get 
 ## Further Reading
 
 - [Silent Swarm Architecture](./silent-swarm.md) - Security-focused implementation with separation of concerns
-- [Compute-to-Lookup Ratio](./compute-to-lookup-ratio.md)
+- [Routing before reasoning](./patterns/routing.md) - Classify the request before answering it
 - [Semantic Firewall Architecture](./semantic-firewall.md)
 - [Cognitive Systems Architect Role](./cognitive-systems-architect.md)
