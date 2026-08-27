@@ -1,5 +1,9 @@
 # The Semantic Firewall: Using Multidimensional Knowledge Graphs to Block Hallucinations Before They Happen
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 The **Semantic Firewall** is a defense-in-depth architecture pattern that prevents AI hallucinations by validating LLM outputs against structured knowledge representations before they reach end users. Unlike traditional approaches that detect hallucinations after generation, the Semantic Firewall blocks them proactively.
@@ -14,7 +18,15 @@ Large Language Models (LLMs) can generate plausible-sounding but factually incor
 - **Prompt engineering**: Asking the LLM to "be careful" (unreliable)
 - **Fine-tuning**: Training on correct data (expensive, still not guaranteed)
 
-The Semantic Firewall provides a **structural guarantee** that outputs are grounded in verifiable knowledge.
+The Semantic Firewall moves the check before the user rather than after, and
+makes the check a property of the graph rather than of the model.
+
+Be precise about the scope. It guarantees that **every claim the extractor
+turns into a checkable fact is checked against the graph before release**. It
+does not guarantee the output is true. Two gaps stay open: a claim the
+extractor fails to recognise passes through unchecked, and a wrong fact in the
+graph is enforced as confidently as a right one. The firewall inherits the
+correctness of your knowledge, it does not create it.
 
 ## Architecture
 
@@ -419,9 +431,10 @@ else:
 ## Benefits
 
 ### 1. Proactive Protection
-- Blocks hallucinations before they reach users
-- No post-hoc detection needed
-- Structural guarantee of accuracy
+- Blocks unsupported claims before they reach users rather than flagging them after
+- No post-hoc detection pass needed
+- The check is deterministic and testable, so it can be regression tested
+- Bounded by extraction coverage and graph correctness, both of which you must measure
 
 ### 2. Transparency
 - Clear audit trail of validated facts

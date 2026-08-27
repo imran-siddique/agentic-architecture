@@ -1,5 +1,9 @@
 # Recursive Ontologies: Self-Updating Semantic Firewalls
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 We have built the constraints (Part 1), the firewall (Part 2), and the headless protocols (Part 3). But static systems die. In a world where data changes every second, how do we keep our "Semantic Firewall" from becoming a legacy blocker?
@@ -8,7 +12,7 @@ The answer is **Recursive Ontologies**. The system must update itself.
 
 ## The Problem with Static Knowledge
 
-Traditional knowledge graphs are treated like databases—immutable truths that need manual curation. This creates three critical problems:
+Traditional knowledge graphs are treated like databases, immutable truths that need manual curation. This creates three critical problems:
 
 1. **Knowledge Rot**: Information becomes stale as reality changes
 2. **Manual Bottlenecks**: Every update requires human intervention
@@ -21,7 +25,7 @@ In production, this manifests as:
 
 ## The Feedback Loop: Agents as Telemetry
 
-When an agent fails to find an answer, that is not an error—**it is a signal**.
+When an agent fails to find an answer, that is not an error. **It is a signal**.
 
 ### Traditional Approach (Error)
 ```
@@ -336,7 +340,7 @@ class ContextGraph:
 
 If the system evolves itself, where does the human fit?
 
-We cannot have humans reviewing every node update—that defeats the purpose of AI. But we cannot have AI rewriting its own logic without oversight—that creates drift.
+We cannot have humans reviewing every node update, that defeats the purpose of AI. But we cannot have AI rewriting its own logic without oversight, that creates drift.
 
 The solution is **Sampling for Wisdom**.
 

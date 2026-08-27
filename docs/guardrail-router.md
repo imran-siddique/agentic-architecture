@@ -1,10 +1,14 @@
 # The Guardrail Router: Deciding Between Lookup and Reasoning
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 The **Guardrail Router** is a critical architectural component that sits between user requests and your AI system, making intelligent decisions about whether a task requires expensive reasoning or can be solved with fast, reliable lookup operations.
 
-This pattern is the practical solution to **The Inference Trap**—preventing engineers from using expensive reasoning models for simple retrieval tasks.
+This pattern is the practical solution to **The Inference Trap**, which is engineers spending a reasoning model on a retrieval task.
 
 ## The Problem
 
@@ -650,9 +654,12 @@ The Guardrail Router is the missing piece in modern AI architectures. It prevent
 3. **Tracking metrics** to enable optimization
 4. **Caching results** to convert reasoning to lookup over time
 
-**Result**: Systems that are 10x faster, 90% cheaper, and significantly more reliable.
+**Result**: a system where the cost of a request is a function of its class,
+and where that classification is visible and testable rather than emergent.
+The size of the saving is set by your traffic mix, so measure the ratio before
+and after rather than adopting a number from this document.
 
-**Remember**: If your agent is "thinking" for every request, you haven't built an agent—you've built a philosophy major. The Guardrail Router ensures you build an engineer instead.
+**Remember**: if your agent is "thinking" for every request, you have not built an agent, you have built a philosophy major. The Guardrail Router is how you build an engineer instead.
 
 ## Further Reading
 

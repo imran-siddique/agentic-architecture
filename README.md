@@ -80,7 +80,7 @@ Modern agentic systems achieve optimal performance by prioritizing fast, reliabl
 - The 90/10 rule for lookup vs. computation
 - Performance and cost benefits
 - Implementation strategies (caching, knowledge graphs, semantic indexing)
-- Real-world examples with 10x performance improvements
+- Where the ratio comes from, and what to measure to find your own
 - Metrics to track and optimize
 
 **Key Insight**: The smartest agents aren't the ones that think the hardest. They're the ones that know where to look.
@@ -117,8 +117,8 @@ Challenging the assumption that agents must communicate through natural language
 - The performance bottleneck of conversational interfaces
 - Headless architecture with structured data exchange
 - Silent Swarm patterns for agent coordination
-- 10-100x performance improvements
-- 90%+ cost reduction through eliminating inter-agent LLM calls
+- What coordination costs when every hop is a generation
+- Why model spend then tracks boundary count rather than agent count
 - When to use headless vs. conversational patterns
 
 **Key Insight**: Language is for humans. Code is for machines. Keep them separate.
@@ -169,7 +169,7 @@ The most reliable agent is one that knows when to say nothing. This pattern impl
 - NULL responses: Silence is better than hallucination
 - POSIX-inspired permissions: Fine-grained access control
 - Policy enforcement: Deterministic rules, not probabilistic guardrails
-- The 0% violation guarantee: Structural safety over prompt engineering
+- Why an out-of-scope request should return nothing rather than a guess
 
 **Key Insight**: An agent that returns NULL when uncertain is infinitely more valuable than one that confidently hallucinates.
 
@@ -467,8 +467,7 @@ Each concept document includes:
 
 ## 🔗 Related Projects
 
-- **[Agent OS](https://github.com/microsoft/agent-governance-toolkit)** - Safety-First Kernel implementing these patterns (0% policy violations)
-- **[AgentMesh](https://github.com/microsoft/agent-governance-toolkit)** - The Secure Nervous System for Cloud-Native Agent Ecosystems
+- **[Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit)** - Policy kernel and agent mesh work, where the Agent OS and AgentMesh prototypes now live
 
 ## 📚 Additional Documentation
 

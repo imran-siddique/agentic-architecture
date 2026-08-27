@@ -1,5 +1,9 @@
 # The Compute-to-Lookup Ratio: Why 90% of Your Agent's Work Should Be "Dumb" Lookup, Not "Smart" Reasoning
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 The **Compute-to-Lookup Ratio** is a foundational principle in agentic architecture that challenges the conventional wisdom of AI system design. Rather than focusing on complex reasoning and computation, effective agents should prioritize efficient information retrieval and lookup operations.
@@ -196,7 +200,7 @@ def handle_support_ticket(ticket):
         solution = llm.generate_solution(ticket, solutions)  # 2s (rare)
     else:
         solution = solutions[0]  # 0ms (common)
-    # Average: 200ms, 10x faster, 10x cheaper
+    # Most requests take the retrieval path; only the low-confidence tail reaches the model
 ```
 
 ### Example 2: Code Assistant
@@ -304,14 +308,21 @@ def process(input):
 
 ## Conclusion
 
-The Compute-to-Lookup Ratio is not about eliminating intelligent reasoning—it's about using it strategically. By structuring your agentic systems to prioritize fast, reliable lookups, you create systems that are:
+The Compute-to-Lookup Ratio is not about eliminating reasoning. It is about
+using it where it earns its cost. Structuring a system to answer from an index
+first changes four properties:
 
-- **10x faster**: Lookups are orders of magnitude quicker
-- **10x cheaper**: Reduce LLM costs by 90%
-- **10x more reliable**: Fewer hallucinations and errors
-- **Infinitely more scalable**: Lookups scale horizontally with ease
+- **Latency**: a cache or index hit returns in the time of a read, not a generation
+- **Cost**: spend follows the reasoning share rather than total traffic
+- **Reliability**: a lookup that misses returns nothing, it does not invent
+- **Scalability**: reads scale horizontally, model concurrency does not
 
-Remember: The smartest agents aren't the ones that think the hardest—they're the ones that know where to look.
+The size of each change depends on your traffic mix and your unit prices.
+Measure your own ratio first. A workload where every request is genuinely
+novel will not benefit from this at all.
+
+Remember: the smartest agents are not the ones that think the hardest. They
+are the ones that know where to look.
 
 ## Further Reading
 

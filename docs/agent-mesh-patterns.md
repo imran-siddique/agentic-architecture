@@ -2,6 +2,10 @@
 
 > **Learnings from the AgentMesh and Agent-OS prototypes, both now merged into [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit)**
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## The Problem: Agent Identity Crisis
 
 As AI agents proliferate in enterprise environments, a critical gap emerges:

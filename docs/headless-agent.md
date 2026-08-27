@@ -1,5 +1,9 @@
 # The "Headless" Agent: Why the Best Agents Are the Ones That Can't Talk (Silent Swarms)
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 The **Headless Agent** pattern challenges the assumption that AI agents must have conversational interfaces. The most effective agent systems often operate silently in the background, coordinating through structured data rather than natural language. These "Silent Swarms" accomplish complex tasks without ever generating human-readable text.
@@ -54,7 +58,8 @@ annual_cost = $0.002 * 50 * 10000 * 365 = $365,000
 # Cheap: Direct API calls
 cost_per_call = $0.0001
 annual_cost = $0.0001 * 10000 * 365 = $365
-# 1000x cheaper!
+# The ratio here is entirely a function of the two assumed unit prices above.
+# Substitute your own before quoting it.
 ```
 
 ## The Headless Agent Architecture
@@ -361,7 +366,8 @@ headless_system:
   - 10,000 requests/day
   - Cost: $20/day = $7,300/year
 
-savings: $175,200/year (96% reduction)
+savings: $175,200/year, on the assumed call counts and unit prices above.
+# This is arithmetic on assumptions, not an observed result.
 ```
 
 ### 3. Reliability
@@ -443,7 +449,7 @@ Agent4: "Understanding 'processing payment'..."  # Ambiguous!
   "transaction_id": "TXN789"
 }
 
-# 100x faster, 100% unambiguous
+# No language parsing step, and no ambiguity to parse
 ```
 
 ### Example 2: Data Pipeline
@@ -610,13 +616,16 @@ if metrics['failure_rate'] > 0.05:
 
 The Headless Agent pattern recognizes that **natural language is a user interface concern, not an implementation detail**. By restricting language generation to system boundaries and using structured data internally, systems achieve:
 
-- **10-100x performance improvement**: No LLM overhead between agents
-- **90%+ cost reduction**: Minimal LLM usage
-- **Zero ambiguity**: Type-safe communication
-- **Infinite scalability**: Stateless, parallel execution
-- **Perfect observability**: Structured telemetry
+- **No inter-agent model overhead**: coordination costs a function call, not a generation
+- **Spend at the boundaries only**: model cost is bounded by boundary count, not agent count
+- **No ambiguity to parse**: the contract is a schema, so a malformed message fails loudly
+- **Stateless and parallel**: workers hold no conversation state
+- **Structured telemetry**: every hop emits a typed record rather than prose
 
-The best agents aren't the ones that talk the most—they're the ones that get work done silently and efficiently.
+The first two are ratios, and their size depends on how many hops your current
+design spends on language. Count those hops before quoting a multiplier.
+
+The best agents are not the ones that talk the most. They are the ones that get work done silently.
 
 **Remember**: Language is for humans. Code is for machines. Keep them separate.
 

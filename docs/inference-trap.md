@@ -1,12 +1,16 @@
 # The Inference Trap: Why "Thinking" is a Technical Debt
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 The **Inference Trap** is a critical anti-pattern in modern AI system design where engineers fall into the trap of throwing massive reasoning models at problems that are fundamentally retrieval problems. This pattern represents a misunderstanding of when to use AI computation versus when to use structured lookup and retrieval.
 
 ## The Misconception
 
-There is a widespread misconception that AI and Search are independent systems—or worse, that AI is a replacement for Search. This is fundamentally incorrect.
+There is a widespread misconception that AI and Search are independent systems, or worse, that AI replaces Search. This is fundamentally incorrect.
 
 **The Reality**: Better Search must precede better AI.
 
@@ -35,7 +39,7 @@ def get_api_documentation(endpoint):
 
 This is wasteful because:
 - The answer already exists in documentation
-- No "reasoning" is required—just retrieval
+- No "reasoning" is required, only retrieval
 - You're paying for compute when you should pay for lookup
 - The latency is 100x higher than necessary
 
@@ -58,7 +62,7 @@ If I ask a model, "What is 2 + 2?" and it initiates a deep research agent to ver
 
 ## Reasoning Must Have a "Reason"
 
-We need to be honest about the internals of these systems. "Reasoning" (like chain-of-thought processing) is expensive—both in compute and latency.
+We need to be honest about the internals of these systems. "Reasoning" (like chain-of-thought processing) is expensive, in both compute and latency.
 
 ### When Reasoning is Appropriate
 
@@ -156,13 +160,13 @@ class ConstrainedAgent:
 1. **Define Boundaries**: Explicitly state what the AI is allowed to do
 2. **Remove Capabilities**: Disable everything not needed for the task
 3. **Enforce Constraints**: Use technical guardrails to prevent misuse
-4. **Be Strict**: Don't be impressed by breadth—focus on reliability
+4. **Be Strict**: Do not be impressed by breadth, focus on reliability
 
 **We need to stop being impressed by the breadth of what AI can do and start being strict about what we allow it to do.**
 
 ## The Solution: The Guardrail Router
 
-The missing component in modern AI stacks is **The Guardrail Router**—a module that sits before the model and decides: **Does this actually require reasoning?**
+The missing component in modern AI stacks is **The Guardrail Router**, a module that sits before the model and decides: **Does this actually require reasoning?**
 
 ### Decision Logic
 
@@ -312,14 +316,14 @@ class AdvancedGuardrailRouter:
 ## Benefits of Avoiding the Inference Trap
 
 ### 1. Performance
-- **10-100x faster** response times
+- Lookup latency replaces generation latency on the routed share of traffic
 - Predictable latency characteristics
-- Better user experience
+- Measure: p50 and p99 latency split by route
 
 ### 2. Cost
-- **90%+ cost reduction** from minimizing reasoning calls
-- Sustainable at scale
-- Better ROI on AI investments
+- Cost tracks the reasoning share, not total request volume
+- Adding traffic that routes to lookup does not add model spend
+- Measure: cost per successfully completed task
 
 ### 3. Reliability
 - Fewer hallucinations (lookups don't hallucinate)
@@ -328,8 +332,8 @@ class AdvancedGuardrailRouter:
 
 ### 4. Scalability
 - Lookups scale horizontally
-- No compute bottlenecks
-- Can handle 10-100x more traffic
+- Throughput is bounded by your index and cache, not by model concurrency
+- Measure: saturation point under load test, before and after routing
 
 ## Anti-Patterns
 
@@ -449,14 +453,17 @@ class MetricsAwareAgent:
 
 The Inference Trap is one of the most expensive anti-patterns in modern AI systems. By recognizing when tasks are actually retrieval problems rather than reasoning problems, we can build systems that are:
 
-- **10-100x faster**: Through lookup optimization
-- **90%+ cheaper**: By minimizing reasoning calls
-- **More reliable**: Fewer hallucinations and deterministic behavior
-- **Easier to scale**: Lookups scale horizontally with ease
+- **Faster on the routed share**: lookup latency instead of generation latency
+- **Cheaper per task**: spend follows the reasoning share, not request volume
+- **More reliable**: a lookup that misses returns nothing, it does not invent
+- **Easier to scale**: lookups scale horizontally
+
+How much faster and how much cheaper depends entirely on your traffic mix.
+Measure the ratio before claiming a number.
 
 **Remember**: If you're using a screwdriver to hammer a nail, getting a bigger screwdriver doesn't solve the problem. You need the right tool for the job.
 
-**The goal is not to eliminate reasoning—it's to use it only when truly necessary.**
+**The goal is not to eliminate reasoning. It is to use it only when necessary.**
 
 ## Further Reading
 

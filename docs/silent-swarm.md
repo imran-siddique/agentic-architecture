@@ -1,5 +1,9 @@
 # The Silent Swarm: Scale by Subtraction Through "Function Over Form"
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 The AI industry is suffering from a **"Chatbot Hangover."** Because this technology started with ChatGPT, we are still designing systems as if the primary interface must be a conversation.
@@ -38,7 +42,7 @@ Agent: "Hello! I'd be happy to help you with that code review.
 ### 2. Latency from Conversational Overhead
 Every time an agent generates natural language:
 - **200-2000ms added latency** for language generation
-- **10-100x more tokens** than structured output
+- **More tokens than the equivalent structured payload**, since prose carries framing the schema does not
 - **Stochastic variance** in response format requires parsing
 
 ### 3. Security Vulnerabilities Through Conversation
@@ -636,7 +640,7 @@ class SilentSwarmOrchestrator:
 
 ## Benefits of Silent Swarm
 
-### 1. Performance: 10-100x Faster
+### 1. Performance: coordination stops costing generations
 
 ```python
 # Traditional: Everything talks
@@ -654,10 +658,12 @@ time_silent = (
 )
 # Example: 2000ms + (10ms * 10) + 2000ms = 4,100ms = 4.1 seconds
 
-speedup = time_traditional / time_silent  # 24x faster
+speedup = time_traditional / time_silent
+# 24x on these assumed inputs. The inputs are the claim, not the ratio.
+# Substitute your own agent count, message count, and model latency.
 ```
 
-### 2. Cost: 90-99% Reduction
+### 2. Cost: spend is bounded by boundary count, not agent count
 
 ```python
 # Traditional: Every agent generates language
@@ -747,27 +753,21 @@ def main():
 ### Metrics
 
 ```python
+# Record these for your own system. Do not inherit numbers from a document.
+# Latency and cost are measurements: state the workload and the environment.
+# Surface count is a structural property you can count from the design.
+
 metrics = {
-    "request_latency": {
-        "traditional": "45s (multiple LLM calls)",
-        "silent_swarm": "4.2s (2 LLM calls only)",
-        "improvement": "10.7x faster"
-    },
-    "cost_per_review": {
-        "traditional": "$0.42 (10 agents chatting)",
-        "silent_swarm": "$0.02 (2 boundaries)",
-        "savings": "95%"
-    },
-    "security": {
-        "traditional": "10 jailbreak surfaces",
-        "silent_swarm": "1 surface (no tools)",
-        "improvement": "90% reduction in attack surface"
-    },
-    "reliability": {
-        "traditional": "87% (parsing errors)",
-        "silent_swarm": "99.9% (type-safe)",
-        "improvement": "14.8% more reliable"
-    }
+    "request_latency_p50_ms": {"before": None, "after": None},
+    "request_latency_p99_ms": {"before": None, "after": None},
+    "cost_per_completed_review": {"before": None, "after": None},
+
+    # Countable from the architecture, not measured:
+    # how many components accept free text AND hold a capability.
+    "components_with_text_input_and_tools": {"before": None, "after": None},
+
+    # Requires an adversarial suite, not an estimate.
+    "prompt_injection_suite_pass_rate": {"before": None, "after": None},
 }
 ```
 
@@ -842,7 +842,7 @@ We need to stop judging agents by how well they chat and start judging them by *
 
 1. **Function Over Form**: Execute the logic, not the personality
 2. **Security by Silence**: Talkers have no tools, Doers don't converse
-3. **90% Silent**: Most agents should be mute
+3. **Mostly silent**: give language to the boundary, not to the workers
 4. **Boundaries Only**: Language only at user interface boundaries
 5. **Ruthless Execution**: Valid → execute, Invalid → reject, no conversation
 
@@ -850,7 +850,7 @@ We need to stop judging agents by how well they chat and start judging them by *
 
 The future of Agentic AI isn't a chat window. It's a **silent backend process** that works like us, not sounds like us.
 
-**Remember**: The best agents aren't the ones that talk the most—they're the ones that shut up and work.
+**Remember**: The best agents are not the ones that talk the most. They are the ones that shut up and work.
 
 ## Further Reading
 

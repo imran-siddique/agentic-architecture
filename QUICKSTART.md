@@ -18,9 +18,9 @@ This repository teaches you revolutionary patterns for building production-grade
 
 ### Step 1: Understand the Philosophy (1 minute)
 
-The core insight: **If your agent is "thinking" for every request, you haven't built an agent—you've built a philosophy major.**
+The core insight: **If your agent is "thinking" for every request, you have not built an agent, you have built a philosophy major.**
 
-But there's more: **If your knowledge graph needs manual updates, you haven't built a system—you've built a maintenance nightmare.**
+But there's more: **If your knowledge graph needs manual updates, you have not built a system, you have built a maintenance nightmare.**
 
 Traditional AI systems (The Inference Trap):
 ```
@@ -53,13 +53,19 @@ python examples/silent_swarm_example.py
 python examples/recursive_ontology_example.py  # New: Self-updating systems
 ```
 
-You'll see:
-- 10-100x performance improvements
-- 90%+ cost reduction
-- Zero hallucinations through validation
-- Intelligent routing preventing the Inference Trap
-- Security by Silence architecture
-- Self-updating knowledge graphs that never become stale
+Each example prints a simulated walkthrough of its pattern. The latencies and
+costs are constants written into the example so the control flow is readable.
+They are not measurements of anything, and nothing here calls a model.
+
+What the examples actually show you:
+- How a router decides between the lookup path and the reasoning path
+- How a validator rejects a claim the knowledge graph does not support
+- How agents coordinate over typed messages instead of prose
+- How a receipt fails verification when the artifact or the decision changes
+- How a knowledge graph is rebuilt from failure signals
+
+Only `examples/evidence_plane_example.py` is backed by tests that can fail.
+See `tests/test_evidence_plane.py`.
 
 ### Step 3: Read One Concept (2 minutes)
 
@@ -92,9 +98,13 @@ Pick the concept most relevant to your current challenge:
 **If you're designing a new system:**
 → Read [Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 
-## Common Use Cases
+## Worked Scenarios
 
-### Use Case 1: Customer Support Bot
+These are illustrations of how the patterns compose, not case studies. Nobody
+ran these systems. Each one ends with what you would have to measure to know
+whether it worked.
+
+### Scenario 1: Customer Support Bot
 
 **Problem**: Slow responses, hallucinated information, expensive LLM costs
 
@@ -113,12 +123,12 @@ if validation.passed:
     result = silent_swarm.execute(workflow)
 ```
 
-**Results**:
-- 95% of queries answered from cache (50ms avg)
-- Zero hallucinated customer data
-- 90% cost reduction
+**What to measure**:
+- Share of queries served from cache, and p50 and p99 latency for each route
+- Rate at which the firewall blocks a response, and how many blocks were correct
+- Cost per resolved ticket, not cost per call
 
-### Use Case 2: E-commerce Recommendation
+### Scenario 2: E-commerce Recommendation
 
 **Problem**: Recommendations take 3-5 seconds to generate
 
@@ -135,12 +145,13 @@ def get_recommendations(user_id):
     return cached_recommendations[similar_users]  # Lookup
 ```
 
-**Results**:
-- 3000ms → 50ms response time (60x faster)
-- Same quality recommendations
-- 95% cost reduction
+**What to measure**:
+- End to end latency, including the nightly precompute you now depend on
+- Recommendation quality against your existing metric, since precomputation
+  trades freshness for speed and that trade can lose you money
+- Cost of the precompute job, which is real and often forgotten
 
-### Use Case 3: Medical Diagnosis Assistant
+### Scenario 3: Clinical Decision Support
 
 **Problem**: Can't afford hallucinations in healthcare
 
@@ -166,10 +177,16 @@ if not validation.passed:
     return safe_fallback_response()
 ```
 
-**Results**:
-- Zero hallucinated medical facts
-- Full audit trail for compliance
-- Trusted by healthcare providers
+**What this does and does not give you**:
+- It blocks claims the graph cannot support. It does not make the graph correct,
+  and a confidence threshold is not a safety argument.
+- It produces an audit trail. Whether that trail satisfies a given regulator is
+  a question for that regulator, not for this pattern.
+- A high threshold shifts the failure mode from wrong answers to refused
+  answers. In a clinical setting that trade needs its own review.
+
+Do not deploy this pattern in a clinical setting on the strength of a
+repository of architecture notes.
 
 ## Implementation Checklist
 
@@ -332,26 +349,19 @@ agent1.send(CustomerSearchResult(
 4. **Iterate and optimize** based on metrics
 5. **Share your results** to help others
 
-## Success Stories
+## Report what you find
 
-### Reduced Response Time by 95%
-> "We went from 3.5s average response time to 180ms by implementing the compute-to-lookup pattern. Our users love the speed improvement."
-> 
-> — E-commerce platform, 1M+ daily users
+There are no case studies here yet. When there are, they will name the
+workload, the environment, and the measurement, because a quote without those
+is not evidence.
 
-### Cut LLM Costs by 92%
-> "The semantic firewall not only eliminated hallucinations but also reduced unnecessary LLM calls. Our monthly OpenAI bill went from $50K to $4K."
->
-> — Customer support system, 50K tickets/month
-
-### Achieved 99.9% Accuracy
-> "By validating all medical facts against our knowledge graph, we eliminated hallucinations completely. This was critical for healthcare compliance."
->
-> — Medical diagnosis assistant, healthcare provider
+If you run one of these patterns, open an
+[experience report](https://github.com/imran-siddique/agentic-architecture/issues/new?template=experience-report.yml).
+The parts worth reading are usually the parts that did not work.
 
 ## Remember
 
-The goal isn't to eliminate AI—it's to use it strategically:
+The goal is not to eliminate AI. It is to use it deliberately:
 - **90% of work**: Fast, reliable lookups
 - **10% of work**: Smart reasoning for novel cases
 - **100% of output**: Validated against knowledge
