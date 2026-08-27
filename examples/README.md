@@ -4,6 +4,18 @@ This directory contains working code examples demonstrating the key agentic arch
 
 ## Available Examples
 
+### 0. Evidence Plane (`evidence_plane_example.py`)
+
+Demonstrates signed receipts that bind an actor, policy decision, action, and artifact digest. The tests show that altered claims, substituted artifacts, unknown keys, and denied actions fail verification.
+
+**Run:**
+```bash
+python examples/evidence_plane_example.py
+python -m unittest tests.test_evidence_plane -v
+```
+
+This is a dependency-free teaching example. Its shared-secret HMAC must be replaced by asymmetric, protected key custody in production.
+
 ### 1. Guardrail Router (`guardrail_router_example.py`)
 
 Demonstrates how to implement a Guardrail Router that prevents the Inference Trap by intelligently routing requests between lookup and reasoning operations.
@@ -186,12 +198,12 @@ python examples/recursive_ontology_example.py
 
 ### Performance
 
-These examples demonstrate:
+These examples illustrate mechanisms to evaluate:
 - **Avoiding the Inference Trap**: Intelligent routing prevents unnecessary reasoning
-- **10-100x speedup**: Through lookup optimization and eliminating language overhead
-- **90%+ cost reduction**: By minimizing expensive LLM calls
+- **Potential speedup**: Through lookup optimization and eliminating language overhead
+- **Potential cost reduction**: By minimizing expensive LLM calls
 - **Predictable performance**: Deterministic behavior with structured data
-- **Zero hallucinations**: Through structural validation
+- **Narrower unsupported-output paths**: Through structural validation of modeled facts
 - **Self-updating systems**: Knowledge graphs that evolve automatically
 
 ### Architecture Patterns
