@@ -474,6 +474,10 @@ def main():
     print("=" * 70)
     print("Guardrail Router Example: Preventing the Inference Trap")
     print("=" * 70)
+    print("SIMULATION. No model is called. Every latency and cost printed below")
+    print("is a constant written into this file so the control flow is readable.")
+    print("None of it is a measurement. See CONTRIBUTING.md for the standard.")
+    print()
     
     # Create router with 20% max reasoning ratio
     router = GuardrailRouter(max_reasoning_ratio=0.2)
@@ -591,15 +595,17 @@ def main():
         print("   → Recommendation: Expand knowledge base coverage")
         print("   → Recommendation: Review request classification rules")
     
-    print("\n   Cost Efficiency:")
-    print(f"      If all requests used reasoning: ${metrics['total_requests'] * 0.01:.2f}")
-    print(f"      Actual cost with Guardrail Router: ${metrics['total_cost']:.2f}")
-    print(f"      Savings: ${(metrics['total_requests'] * 0.01) - metrics['total_cost']:.2f}")
-    
-    print("\n   Performance:")
+    print("")
+    print("   Simulated cost, on the constants at the top of this file:")
+    print(f"      If every request had used reasoning: ${metrics['total_requests'] * 0.01:.2f}")
+    print(f"      With the router:                     ${metrics['total_cost']:.2f}")
+    print("")
+    print("   Simulated latency, against an assumed 2000ms reasoning call:")
     print(f"      Avg response time: {metrics['avg_latency_ms']:.0f}ms")
-    print("      vs All-Reasoning approach: 2000ms")
-    print(f"      Speedup: {(2000 / metrics['avg_latency_ms']):.1f}x faster")
+    print("")
+    print("   Both figures follow arithmetically from the constants. They tell you")
+    print("   the router routed; they tell you nothing about your workload. The")
+    print("   number that transfers is the ratio, and you have to measure yours.")
     
     print("\n5. Conclusion")
     print("=" * 70)
@@ -609,7 +615,8 @@ def main():
     print("   • Caching reasoning results for future lookups")
     print("   • Maintaining 80-90% lookup ratio for optimal performance")
     print()
-    print("   Result: Faster, cheaper, and more reliable AI systems")
+    print("   Result: request cost becomes a function of request class,")
+    print("   and that classification is visible and testable.")
     print("=" * 70)
 
 

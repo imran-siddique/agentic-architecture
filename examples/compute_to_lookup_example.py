@@ -250,6 +250,10 @@ def main():
     print("=" * 60)
     print("Compute-to-Lookup Ratio Example")
     print("=" * 60)
+    print("SIMULATION. No model is called. Every latency and cost printed below")
+    print("is a constant written into this file so the control flow is readable.")
+    print("None of it is a measurement. See CONTRIBUTING.md for the standard.")
+    print()
     
     system = MultiTierLookupSystem()
     

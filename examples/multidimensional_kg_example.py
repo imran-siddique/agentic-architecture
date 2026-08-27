@@ -692,6 +692,10 @@ def main():
     print("="*70)
     print("MULTIDIMENSIONAL KNOWLEDGE GRAPH EXAMPLE")
     print("="*70)
+    print("SIMULATION. No model is called. Every latency and cost printed below")
+    print("is a constant written into this file so the control flow is readable.")
+    print("None of it is a measurement. See CONTRIBUTING.md for the standard.")
+    print()
     print("\nDemonstrating: 'Scale by Subtraction' via Constraint-Based Filtering")
     print("Real-world query: 'What pending items do I have on my plate?'")
     
@@ -745,8 +749,8 @@ def main():
     
     print("\n5. Production Benefits:")
     print("   • 99% noise reduction (10 items → 4 items)")
-    print("   • 10x faster query time (500ms → 50ms)")
-    print("   • 20x cheaper ($0.08 → $0.004)")
+    print("   • Smaller context reaches the model, so latency and cost fall with it")
+    print("   • By how much depends on your corpus. This run measured nothing.")
     print("   • Zero hallucinations (filtered facts only)")
     print("   • Full explainability (dimension-by-dimension)")
     
