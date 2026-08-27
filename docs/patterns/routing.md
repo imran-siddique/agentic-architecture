@@ -406,9 +406,9 @@ Everything else this pattern is credited with, latency, cost, predictability,
 follows from the routing ratio and from your unit prices. Those are
 measurements you take, not properties you inherit.
 
-### What the budget does not do
+## What this does not do
 
-Writing the test for the invariant above surfaced its limit, so it belongs here
+Writing the test for the invariant surfaced its limit, so it belongs here
 rather than in a footnote.
 
 A blocked request is recorded as a lookup. That lowers the ratio, which restores
