@@ -280,6 +280,6 @@ Safety is not a suggestion. It is infrastructure.
 ---
 
 **Related Patterns:**
-- [The Mute Agent](./mute-agent.md) - Capability-based execution
+- [Silent execution](./patterns/silent-execution.md) - Language at the boundary, capability at the workers
 - [Grounded context](./patterns/grounded-context.md) - Structure the context, enforce it, keep it current
 - [Routing before reasoning](./patterns/routing.md) - Classify the request before answering it

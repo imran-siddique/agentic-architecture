@@ -80,32 +80,21 @@ stages.
 
 **Key Insight**: the graph does not answer the question. It eliminates the wrong answers, and it inherits whatever the graph itself gets wrong.
 
-### 3. [The "Headless" Agent](./docs/headless-agent.md)
-**Why the best agents are the ones that can't talk (Silent Swarms).**
+### 3. [Silent execution](./docs/patterns/silent-execution.md)
+**Language at the boundary, capability at the workers, never in the same component.**
 
-Challenging the assumption that agents must communicate through natural language, this document presents:
-- The performance bottleneck of conversational interfaces
-- Headless architecture with structured data exchange
-- Silent Swarm patterns for agent coordination
-- What coordination costs when every hop is a generation
-- Why model spend then tracks boundary count rather than agent count
-- When to use headless vs. conversational patterns
+Merges what were three documents: The Headless Agent, The Silent Swarm, and The
+Mute Agent. They were one pattern from three distances.
 
-**Key Insight**: Language is for humans. Code is for machines. Keep them separate.
+- Why every conversational hop is a generation, a parse, and an attack surface
+- The face reads text and holds nothing; the hands hold tools and read no text
+- Capability manifests, and returning NULL rather than attempting out of scope
+- Two invariants, both asserted by inspecting objects rather than reading prose
+- A fail-open default in the example gateway, pinned by a test rather than hidden
 
-### 4. [The Silent Swarm](./docs/silent-swarm.md)
-**Function Over Form: Scale by Subtraction Through "Security by Silence".**
+**Key Insight**: the security claim is countable. How many components both read free text and hold a capability?
 
-The AI industry suffers from a "Chatbot Hangover". We design systems as if conversation is mandatory. This document challenges that assumption:
-- The Code Review Paradox: We want the work, not the worker's personality
-- Separation of Concerns: "The Face" (can talk, no tools) vs. "The Hands" (can execute, no talk)
-- Security by Silence: Jailbreak-resistant architecture
-- 90% of agents should be mute
-- Function over form in multi-agent coordination
-
-**Key Insight**: Stop judging agents by how well they chat. Start judging them by how well they shut up and work.
-
-### 5. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
+### 4. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 **The new role that replaces the traditional Software Engineer.**
 
 As AI agents become capable of writing code, the human role shifts to knowledge architecture and system design. This document explores:
@@ -118,19 +107,7 @@ As AI agents become capable of writing code, the human role shifts to knowledge 
 
 **Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.
 
-### 6. [The Mute Agent](./docs/mute-agent.md)
-**Capability-Based Execution: Return NULL, Don't Hallucinate.**
-
-The most reliable agent is one that knows when to say nothing. This pattern implements capability-based execution where agents return NULL for out-of-scope requests instead of fabricating answers:
-- Capability manifests: What the agent CAN do (not what it might try)
-- NULL responses: Silence is better than hallucination
-- POSIX-inspired permissions: Fine-grained access control
-- Policy enforcement: Deterministic rules, not probabilistic guardrails
-- Why an out-of-scope request should return nothing rather than a guess
-
-**Key Insight**: An agent that returns NULL when uncertain is infinitely more valuable than one that confidently hallucinates.
-
-### 7. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md)
+### 5. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md)
 **Why Deterministic Infrastructure Beats Probabilistic Prompting.**
 
 Stop trying to "prompt engineer" your way to safety. This pattern establishes control plane architecture for AI governance:
@@ -142,7 +119,7 @@ Stop trying to "prompt engineer" your way to safety. This pattern establishes co
 
 **Key Insight**: You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts.
 
-### 8. [The Evidence Plane](./docs/evidence-plane.md)
+### 6. [The Evidence Plane](./docs/evidence-plane.md)
 **Trust the receipt, not the label.**
 
 An agent saying an action is verified does not make it so. This pattern binds workload identity, policy decision, action, and artifact digest into a receipt that can be checked outside the producing agent.
@@ -262,12 +239,10 @@ Read the concepts in order:
 |---|---------|-------|
 | 1 | [Routing before reasoning](./docs/patterns/routing.md) | Classify before you answer, and enforce the budget |
 | 2 | [Grounded context](./docs/patterns/grounded-context.md) | Filter by rule, block unsupported claims, heal from failures |
-| 3 | [Headless Agent](./docs/headless-agent.md) | Coordination without generation |
-| 4 | [Silent Swarm](./docs/silent-swarm.md) | Language at the boundary, capability at the workers |
-| 5 | [The Mute Agent](./docs/mute-agent.md) | Capability-based execution |
-| 6 | [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) | Putting the rule where the model cannot reach it |
-| 7 | [The Evidence Plane](./docs/evidence-plane.md) | Receipts a third party can check |
-| 8 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
+| 3 | [Silent execution](./docs/patterns/silent-execution.md) | Language at the boundary, capability at the workers |
+| 4 | [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) | Putting the rule where the model cannot reach it |
+| 5 | [The Evidence Plane](./docs/evidence-plane.md) | Receipts a third party can check |
+| 6 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
 
 ### 2. Assess Your Current System
 - [ ] What share of your requests actually needs a model?

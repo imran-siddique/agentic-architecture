@@ -870,4 +870,4 @@ This role bridges traditional software engineering, data architecture, AI/ML eng
 
 - [Routing before reasoning](./patterns/routing.md) - Classify the request before answering it
 - [Grounded context](./patterns/grounded-context.md) - Structure the context, enforce it, keep it current
-- [Headless Agent Patterns](./headless-agent.md)
+- [Silent execution](./patterns/silent-execution.md) - Language at the boundary, capability at the workers

@@ -8,7 +8,7 @@ where to look in the next:
 | The problem | What goes wrong without this, concretely |
 | The mechanism | What the system does differently. Not the benefit, the mechanism |
 | The invariant | One thing that must hold, phrased so it can fail |
-| What this does not do | The limits of the invariant, stated rather than implied |
+| What this does not do | The limits of that invariant, stated rather than implied |
 | The test | What a suite has to cover for the invariant to mean anything |
 | When not to use this | At least one situation where this is the wrong choice |
 | What to measure | The signals that tell you whether it worked here |
@@ -27,17 +27,16 @@ and has not been through the template yet.
 |---|---|---|
 | [Routing before reasoning](./patterns/routing.md) | Decide what deserves computation | Consolidated |
 | [Grounded context](./patterns/grounded-context.md) | Constrain with structure | Consolidated |
-| [The Headless Agent](./headless-agent.md) | Silence and capability | Standalone |
-| [The Silent Swarm](./silent-swarm.md) | Silence and capability | Standalone |
-| [The Mute Agent](./mute-agent.md) | Silence and capability | Standalone |
+| [Silent execution](./patterns/silent-execution.md) | Silence and capability | Consolidated |
 | [Control Planes vs Prompts](./control-planes-vs-prompts.md) | Enforce and prove | Standalone |
 | [The Evidence Plane](./evidence-plane.md) | Enforce and prove | Standalone |
 
-Five earlier documents are now stubs pointing at the consolidated pattern that
+Nine earlier documents are now stubs pointing at the consolidated pattern that
 absorbed them, so links published before the merge still land somewhere useful:
 `inference-trap.md`, `guardrail-router.md`, `compute-to-lookup-ratio.md`,
-`semantic-firewall.md`, `multidimensional-knowledge-graphs.md`, and
-`recursive-ontologies.md`.
+`semantic-firewall.md`, `multidimensional-knowledge-graphs.md`,
+`recursive-ontologies.md`, `headless-agent.md`, `silent-swarm.md`, and
+`mute-agent.md`.
 
 Three documents are not patterns and are not going into `patterns/`:
 
