@@ -1486,4 +1486,4 @@ fail.
 
 - [Routing before reasoning](./routing.md), for what decides a request reaches here
 - [Grounded context](./grounded-context.md), for what a worker is allowed to claim
-- [The Evidence Plane](../evidence-plane.md), for proving the capability check ran
+- [Enforcement and evidence](./enforcement-and-evidence.md), for proving the capability check ran
