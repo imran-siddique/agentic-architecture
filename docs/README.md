@@ -20,23 +20,31 @@ template says the same thing.
 ## Patterns
 
 `Consolidated` means the document lives in `patterns/` and follows the template
-above. `Standalone` means it is still in its original form at its original path,
-and has not been through the template yet.
+above. `Standalone` would mean a document still in its original form at its
+original path. There are none left: all four families are through the template.
 
 | Pattern | Family | Catalog state |
 |---|---|---|
 | [Routing before reasoning](./patterns/routing.md) | Decide what deserves computation | Consolidated |
 | [Grounded context](./patterns/grounded-context.md) | Constrain with structure | Consolidated |
 | [Silent execution](./patterns/silent-execution.md) | Silence and capability | Consolidated |
-| [Control Planes vs Prompts](./control-planes-vs-prompts.md) | Enforce and prove | Standalone |
-| [The Evidence Plane](./evidence-plane.md) | Enforce and prove | Standalone |
+| [Enforcement and evidence](./patterns/enforcement-and-evidence.md) | Enforce and prove | Consolidated |
 
-Nine earlier documents are now stubs pointing at the consolidated pattern that
-absorbed them, so links published before the merge still land somewhere useful:
-`inference-trap.md`, `guardrail-router.md`, `compute-to-lookup-ratio.md`,
-`semantic-firewall.md`, `multidimensional-knowledge-graphs.md`,
-`recursive-ontologies.md`, `headless-agent.md`, `silent-swarm.md`, and
-`mute-agent.md`.
+Eleven earlier documents are now stubs pointing at the consolidated pattern
+that absorbed them, so links published before the merge still land somewhere
+useful:
+
+| Stub | Absorbed into |
+|---|---|
+| `inference-trap.md`, `guardrail-router.md`, `compute-to-lookup-ratio.md` | Routing before reasoning |
+| `multidimensional-knowledge-graphs.md`, `semantic-firewall.md`, `recursive-ontologies.md` | Grounded context |
+| `headless-agent.md`, `silent-swarm.md`, `mute-agent.md` | Silent execution |
+| `control-planes-vs-prompts.md`, `evidence-plane.md` | Enforcement and evidence |
+
+Eleven documents totalling roughly 5,800 lines became four totalling roughly
+3,800, with every unique implementation section retained. The reduction is the
+Overview, Benefits, Anti-Patterns, Conclusion, and Further Reading sections
+that each document repeated.
 
 Three documents are not patterns and are not going into `patterns/`:
 
@@ -67,3 +75,7 @@ emit evidence somebody else can check.
 | `tests/test_routing_invariants.py` | No request reaches the reasoning path while the budget is spent, and the retry hole that leaves |
 | `tests/test_silence_invariants.py` | No component both reads free text and holds a capability |
 | `tests/test_grounding_invariants.py` | The six firewall rules, and the two limits the pattern claims |
+
+Every consolidated pattern has a suite. That was not true before the catalog
+existed, and it is the reason the template puts `The invariant` above `The
+test` rather than after it.

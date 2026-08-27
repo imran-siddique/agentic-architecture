@@ -94,7 +94,22 @@ Mute Agent. They were one pattern from three distances.
 
 **Key Insight**: the security claim is countable. How many components both read free text and hold a capability?
 
-### 4. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
+### 4. [Enforcement and evidence](./docs/patterns/enforcement-and-evidence.md)
+**Put the rule where the model cannot argue with it, then prove it ran.**
+
+Merges what were two documents: Control Planes vs Prompts and The Evidence
+Plane. Enforcement without evidence leaves you trusting a log written by the
+system you are checking.
+
+- Why a system prompt is a suggestion delivered in the same channel as the attack
+- Policies as code with tests, evaluated outside the model process
+- Receipts that bind actor, versioned policy, action, and artifact digest
+- The invariant: change the action, decision, or artifact and verification fails
+- Four things a receipt does not prove, including that the policy was correct
+
+**Key Insight**: verification is a property of evidence and a verifier, not a word in an agent's response.
+
+### 5. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 **The new role that replaces the traditional Software Engineer.**
 
 As AI agents become capable of writing code, the human role shifts to knowledge architecture and system design. This document explores:
@@ -106,25 +121,6 @@ As AI agents become capable of writing code, the human role shifts to knowledge 
 - Transition guide for software engineers
 
 **Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.
-
-### 5. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md)
-**Why Deterministic Infrastructure Beats Probabilistic Prompting.**
-
-Stop trying to "prompt engineer" your way to safety. This pattern establishes control plane architecture for AI governance:
-- Prompts are suggestions, policies are laws
-- Kernel-level enforcement: Safety below the LLM layer
-- Permission systems: What agents CAN do, not what they SHOULD do
-- Audit trails: Every action logged, every decision traceable
-- Rollback capability: Undo any agent action
-
-**Key Insight**: You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts.
-
-### 6. [The Evidence Plane](./docs/evidence-plane.md)
-**Trust the receipt, not the label.**
-
-An agent saying an action is verified does not make it so. This pattern binds workload identity, policy decision, action, and artifact digest into a receipt that can be checked outside the producing agent.
-
-**Key Insight**: Verification is a property of evidence and a verifier, not a word in an agent's response.
 
 ## Architecture Overview
 
@@ -240,9 +236,8 @@ Read the concepts in order:
 | 1 | [Routing before reasoning](./docs/patterns/routing.md) | Classify before you answer, and enforce the budget |
 | 2 | [Grounded context](./docs/patterns/grounded-context.md) | Filter by rule, block unsupported claims, heal from failures |
 | 3 | [Silent execution](./docs/patterns/silent-execution.md) | Language at the boundary, capability at the workers |
-| 4 | [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) | Putting the rule where the model cannot reach it |
-| 5 | [The Evidence Plane](./docs/evidence-plane.md) | Receipts a third party can check |
-| 6 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
+| 4 | [Enforcement and evidence](./docs/patterns/enforcement-and-evidence.md) | Put the rule outside the model, then prove it ran |
+| 5 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
 
 ### 2. Assess Your Current System
 - [ ] What share of your requests actually needs a model?

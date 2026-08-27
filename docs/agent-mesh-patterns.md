@@ -204,7 +204,7 @@ pip install agentmesh-platform[agent-os]
 ## Further Reading
 
 - [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit) - The maintained implementation of the mesh and kernel work described here
-- [Control Planes vs Prompts](./control-planes-vs-prompts.md) - Why deterministic beats probabilistic
+- [Enforcement and evidence](./patterns/enforcement-and-evidence.md) - Put the rule outside the model, then prove it ran
 - [Silent execution](./patterns/silent-execution.md) - Language at the boundary, capability at the workers
 
 ---

@@ -1357,4 +1357,4 @@ can fail.
 
 - [Routing before reasoning](./routing.md), for deciding what reaches this path
 - [Silent execution](./silent-execution.md), for who is allowed to act on the result
-- [The Evidence Plane](../evidence-plane.md), for making a block provable
+- [Enforcement and evidence](./enforcement-and-evidence.md), for making a block provable

@@ -10,7 +10,7 @@ index, and it is not intended to be deployed.
 Several examples deliberately use the simplest primitive that demonstrates the
 idea rather than the primitive you should ship. `examples/evidence_plane_example.py`
 signs receipts with HMAC, which means the issuer and the verifier share the
-ability to sign. That is stated in `docs/evidence-plane.md` and is a teaching
+ability to sign. That is stated in `docs/patterns/enforcement-and-evidence.md` and is a teaching
 choice, not a defect.
 
 ## Reporting a vulnerability

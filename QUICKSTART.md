@@ -83,6 +83,10 @@ your knowledge goes stale faster than anyone can curate it:**
 security is structural rather than a prompt:**
 → Read [Silent execution](./docs/patterns/silent-execution.md)
 
+**If safety currently lives in a prompt, or you need to prove to somebody else
+that a policy actually ran:**
+→ Read [Enforcement and evidence](./docs/patterns/enforcement-and-evidence.md)
+
 **If you're designing a new system:**
 → Read [Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 

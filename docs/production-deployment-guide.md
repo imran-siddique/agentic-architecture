@@ -261,7 +261,7 @@ os.environ["AGENTMESH_TRACE"] = "1"
 
 - [Agent Governance Toolkit workflows](https://github.com/microsoft/agent-governance-toolkit/tree/main/.github/workflows) - Reference CI implementation
 - [Agent Mesh Patterns](./agent-mesh-patterns.md) - Architecture patterns
-- [Control Planes vs Prompts](./control-planes-vs-prompts.md) - Safety patterns
+- [Enforcement and evidence](./patterns/enforcement-and-evidence.md) - Safety patterns
 
 ---
 

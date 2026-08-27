@@ -501,7 +501,7 @@ is a constant in the file.
 
 - [Grounded context](./grounded-context.md), for building the retrieval path and policing what it returns
 - [Silent execution](./silent-execution.md), for what happens after the route is chosen
-- [The Evidence Plane](../evidence-plane.md), for making the decision checkable afterwards
+- [Enforcement and evidence](./enforcement-and-evidence.md), for making the decision checkable afterwards
 
 The remaining patterns have not been merged into this catalog yet. The
 [catalog index](../README.md) tracks which are done.
