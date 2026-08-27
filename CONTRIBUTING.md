@@ -15,7 +15,24 @@ Before submitting, run:
 ```bash
 python -m compileall -q examples tests
 python -m unittest discover -s tests -v
+ruff check examples tests
 ```
+
+On Windows, prefix example runs with `PYTHONIOENCODING=utf-8`.
+
+If you add a pattern, add its invariant test. The existing suites show the
+shape:
+
+| Suite | Pins |
+|---|---|
+| `tests/test_evidence_plane.py` | A receipt fails verification when the claim, artifact, key, or decision changes |
+| `tests/test_routing_invariants.py` | No request reaches the reasoning path while the budget is spent, and the retry hole that leaves |
+| `tests/test_silence_invariants.py` | No component both reads free text and holds a capability |
+| `tests/test_grounding_invariants.py` | The six firewall rules, and the two limits the doc claims |
+
+Note the pattern in the last two: tests exist for the **limits** of a claim as
+well as for the claim. A documented gap that nothing pins is a gap that gets
+quietly closed or quietly widened, and either way the document becomes wrong.
 
 First off, thank you for considering contributing! This is a living document that benefits from diverse perspectives and real-world experiences.
 

@@ -378,7 +378,9 @@ The repository separates three kinds of statements:
 - **Measurement**: produced by a named benchmark in a stated environment.
 - **Design target**: a goal that adopters must validate against their own workload and threat model.
 
-Pull requests that add quantitative or security claims should include the command, fixture or dataset, environment, and raw result needed to reproduce them. CI compiles every example, runs the executable checks, and smoke-tests each example.
+Pull requests that add quantitative or security claims should include the command, fixture or dataset, environment, and raw result needed to reproduce them. CI lints, compiles every example, runs the executable checks, and smoke-tests each example.
+
+Four patterns currently have executable invariants: the evidence plane, routing, silence and capability, and the semantic firewall. Two of those suites also pin the documented **limits** of a claim, so that a gap named in prose cannot silently close or widen.
 
 ## Contributing
 
