@@ -10,17 +10,19 @@ A guide to agentic system design patterns, with dependency-free examples and exe
 
 ---
 
-## Table of Contents
+## Contents
 
 - [Overview](#overview)
-- [Why This Matters](#why-this-matters)
-- [Core Concepts](#core-concepts)
-- [Architecture Overview](#architecture-overview)
-- [Quick Start](#quick-start)
+- [Why this matters](#why-this-matters)
+- [Core concepts](#core-concepts) - the four patterns
+- [Architecture overview](#architecture-overview) - how they compose
+- [Quick start](#quick-start)
 - [Benefits](#benefits)
 - [Examples](#examples)
+- [Evidence and claims](#evidence-and-claims)
 - [Contributing](#contributing)
 - [Philosophy](#philosophy)
+- [Reference implementations](#reference-implementations)
 
 ---
 
@@ -28,14 +30,14 @@ A guide to agentic system design patterns, with dependency-free examples and exe
 
 This repository documents architectural patterns for building agent systems that are easier to constrain, observe, and verify. The examples are reference implementations, not production components. Benchmark and threat-model them in your own environment before adopting their targets.
 
-## Why This Matters
+## Why this matters
 
 | Traditional Approach | Agentic Architecture |
 |---------------------|---------------------|
 | ❌ LLM for every request | ✅ 90% lookup, 10% reasoning |
 | ❌ Detect hallucinations after | ✅ Prevent hallucinations structurally |
-| ❌ Agents chat with each other | ✅ Silent swarms with structured data |
-| ❌ Static knowledge bases | ✅ Self-healing recursive ontologies |
+| ❌ Agents chat with each other | ✅ Typed messages between components that hold no language |
+| ❌ Static knowledge bases | ✅ Graphs rebuilt from the failures they produce |
 | ❌ Add more features | ✅ Scale by subtraction |
 
 **Design targets to measure in your environment:**
@@ -46,7 +48,7 @@ This repository documents architectural patterns for building agent systems that
 
 Numbers printed by the examples are illustrative simulations, not benchmark results. See [Evidence and claims](#evidence-and-claims).
 
-## Core Concepts
+## Core concepts
 
 The [pattern catalog](./docs/README.md) lists these with the shared template:
 problem, mechanism, invariant, test, when not to use, reference implementation.
@@ -122,111 +124,91 @@ As AI agents become capable of writing code, the human role shifts to knowledge 
 
 **Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.
 
-## Architecture Overview
+## Architecture overview
 
-These concepts work together to form a complete architectural philosophy:
+The four patterns compose. Each one hands the next a narrower problem.
 
 ```mermaid
 flowchart TB
-    subgraph UI["🖥️ User Interface Layer"]
-        User["Natural Language Boundaries"]
+    User["Person<br/><i>the only free text in the system</i>"]
+
+    subgraph P1["1. Routing before reasoning"]
+        Decision{"Does this<br/>need reasoning?"}
+        Budget["Budget refuses<br/>once the ratio is spent"]
     end
 
-    subgraph Router["🚦 Guardrail Router"]
-        Decision{"Does this need<br/>reasoning?"}
+    subgraph P2["2. Grounded context"]
+        Filters["Dimensional filters<br/><i>remove by rule, not by score</i>"]
+        Rules["Validation rules<br/><i>block what the graph cannot support</i>"]
+        Heal["Analyst rebuilds<br/>from failure signals"]
     end
 
-    subgraph Paths["Processing Paths"]
-        Lookup["📚 Lookup Path<br/><b>80-90%</b>"]
-        Reasoning["🧠 Reasoning Path<br/><b>10-20%</b>"]
+    subgraph P3["3. Silent execution"]
+        Face["Face<br/><i>reads text, holds nothing</i>"]
+        Hands["Hands<br/><i>hold tools, read no text</i>"]
     end
 
-    subgraph Firewall["🛡️ Semantic Firewall"]
-        Validate["Validation & Verification<br/>Block hallucinations structurally"]
+    subgraph P4["4. Enforcement and evidence"]
+        Policy["Policy decision<br/><i>outside the model process</i>"]
+        Receipt["Signed receipt<br/><i>actor, policy, action, digest</i>"]
     end
 
-    subgraph Swarm["🐝 Silent Swarm"]
-        Headless["Headless Agents<br/>Structured coordination"]
-    end
+    Verifier["Independent verifier<br/><i>holds the artifact, checks the receipt</i>"]
 
-    subgraph Execution["⚡ Execution Layer"]
-        L90["Lookup<br/><b>90%</b>"]
-        C10["Compute<br/><b>10%</b>"]
-    end
-
-    subgraph Knowledge["📊 Knowledge Architecture"]
-        KG["Graphs • Vectors • Indices"]
-    end
-
-    User --> Decision
-    Decision -->|"Cached/Known"| Lookup
-    Decision -->|"Novel/Complex"| Reasoning
-    Lookup --> Validate
-    Reasoning --> Validate
-    Validate --> Headless
-    Headless --> L90
-    Headless --> C10
-    L90 --> KG
-    C10 --> KG
-
-    style UI fill:#1a1a2e,stroke:#00d4ff,color:#fff
-    style Router fill:#16213e,stroke:#00d4ff,color:#fff
-    style Firewall fill:#0f3460,stroke:#e94560,color:#fff
-    style Swarm fill:#1a1a2e,stroke:#00d4ff,color:#fff
-    style Knowledge fill:#16213e,stroke:#00d4ff,color:#fff
+    User --> Face
+    Face --> Decision
+    Decision -->|"retrieval"| Filters
+    Decision -->|"reasoning"| Budget
+    Budget --> Filters
+    Filters --> Rules
+    Rules -->|"blocked"| Heal
+    Rules -->|"passed"| Policy
+    Policy -->|"allow"| Hands
+    Policy -->|"deny"| Stop["No execution"]
+    Hands --> Receipt
+    Policy --> Receipt
+    Receipt --> Verifier
+    Hands --> Face
 ```
 
-### Evolution Layer: Recursive Ontologies
+Read the flow as four questions, asked in order: does this deserve computation,
+what is this allowed to see and claim, who is allowed to act on it, and can
+anyone outside prove what happened.
 
-Static systems die. **Recursive Ontologies** add a self-updating layer:
+The share of traffic on each path is yours to measure. It is deliberately not
+drawn here, because a number on an architecture diagram becomes a target
+somebody defends.
+
+### The loop inside grounded context
+
+The third stage of pattern two is the part people skip, and the reason the
+other two stages decay without it. Failures are not errors, they are the input
+to the next version of the graph.
 
 ```mermaid
 flowchart TB
-    subgraph Telemetry["📡 Agent Telemetry"]
-        Failures["Failures as Signals<br/>Every agent contributes feedback"]
-    end
-
-    subgraph Analyst["🔍 Analyst System"]
-        Patterns["Pattern Detection<br/>& Self-Healing"]
-    end
-
-    subgraph Actions["🔧 Healing Actions"]
-        Auto["Auto Heal<br/><b>95%</b>"]
-        Human["Human Review<br/><b>5%</b>"]
-        Rebuild["Rebuild<br/>Graph Sectors"]
-    end
-
-    subgraph Graphs["📈 Ephemeral Graphs"]
-        Org["OrgGraph<br/><i>HR events</i>"]
-        Product["ProductGraph<br/><i>Git events</i>"]
-        Context["ContextGraph<br/><i>Project TTL</i>"]
-    end
+    Failures["Agent telemetry<br/><i>a query the graph could not answer</i>"]
+    Patterns["Analyst<br/><i>detects patterns across failures</i>"]
+    Auto["Rebuild automatically"]
+    Human["Queue for review<br/><i>a sampled slice, not everything</i>"]
+    Graphs["Ephemeral graphs<br/>OrgGraph, ProductGraph, ContextGraph"]
 
     Failures --> Patterns
     Patterns --> Auto
     Patterns --> Human
-    Patterns --> Rebuild
-    Auto --> Org
-    Auto --> Product
-    Auto --> Context
-    Human --> Org
-    Human --> Product
-    Human --> Context
-    Rebuild --> Org
-    Rebuild --> Product
-    Rebuild --> Context
-
-    style Telemetry fill:#1a1a2e,stroke:#00d4ff,color:#fff
-    style Analyst fill:#16213e,stroke:#e94560,color:#fff
-    style Graphs fill:#0f3460,stroke:#00d4ff,color:#fff
+    Auto --> Graphs
+    Human --> Graphs
+    Graphs --> Failures
 ```
 
-**Key Insight**: The system doesn't need manual updates. Agent failures signal knowledge gaps. The Analyst System detects patterns and triggers automatic healing.
+The sampling rate is a design choice with a real trade: review too little and
+drift compounds silently, review everything and you have rebuilt the curation
+backlog the pattern exists to remove.
 
-## Quick Start
+## Quick start
 
 <details>
-<summary><b>👨‍💻 For Developers</b></summary>
+<summary><b>For developers</b></summary>
 
 ### 1. Understand the Philosophy
 Read the concepts in order:
@@ -246,50 +228,56 @@ Read the concepts in order:
 - [ ] How much do inter-agent LLM calls cost?
 - [ ] Is your knowledge architecture documented?
 
-### 3. Implement Incrementally
+### 3. Run the checks, not just the examples
 ```bash
-# Start with the examples
+# The examples are simulations. They print no measurement.
 python examples/guardrail_router_example.py
 python examples/semantic_firewall_example.py
+
+# These are the part that can fail.
+python -m unittest discover -s tests -v
 ```
 
 </details>
 
 <details>
-<summary><b>🏛️ For Architects</b></summary>
+<summary><b>For architects</b></summary>
 
-### Design Checklist
+### Design checklist
 
-**Knowledge-First Systems:**
-- [ ] Implement Guardrail Router as first line of defense
-- [ ] Map your domain's knowledge requirements
-- [ ] Design multidimensional knowledge graphs
-- [ ] Plan pre-computation and indexing strategies
-- [ ] Define validation rules and confidence thresholds
+**Before adopting anything here:**
+- [ ] Measure what share of requests is genuinely novel. If it is most of them, routing buys you a hop and nothing else
+- [ ] Establish whether anyone in the organisation can say what is true. A graph does not settle that, it records it
+- [ ] Identify who verifies. If no party outside the producing system checks a receipt, you are building an expensive log
 
-**Optimize for Lookup:**
-- [ ] Target 80-90% lookup, 10-20% reasoning
-- [ ] Implement multi-tier caching
-- [ ] Build comprehensive indices
-- [ ] Pre-compute common queries
+**Routing:**
+- [ ] Make the reasoning share a constraint that refuses, not a metric on a dashboard
+- [ ] Keep classification cheap. A classifier that costs a model call has moved the trap, not removed it
+- [ ] Write reasoning results back, so the ratio improves without anyone tending it
 
-**Build Trust Through Structure:**
-- [ ] Implement semantic firewalls
-- [ ] Define validation rules
-- [ ] Track confidence scores
-- [ ] Maintain source attribution
+**Grounded context:**
+- [ ] Measure extraction coverage first. It bounds everything the firewall can do
+- [ ] Name an owner for the graph. An unowned graph fails silently and audits cleanly
+- [ ] Decide the human sampling rate deliberately
 
-**Coordinate Efficiently:**
-- [ ] Use headless agents for inter-system communication
-- [ ] Reserve natural language for human boundaries
-- [ ] Implement event-driven architectures
-- [ ] Design for observability with structured telemetry
+**Silent execution:**
+- [ ] Count the components that read free text and hold a capability. Drive it to zero
+- [ ] Decide whether an unmapped operation is open or closed, and write the test either way
+- [ ] Give every worker a manifest, and let it return nothing
+
+**Enforcement and evidence:**
+- [ ] Move policy evaluation out of the model process
+- [ ] Version the policy id, or the receipt binds nothing
+- [ ] Put the signing key somewhere the agent cannot reach
+- [ ] Test tampering, replay, unknown keys, denied actions, and rotation
 
 </details>
 
 ## Benefits
 
-Systems designed with these principles achieve:
+None of these are guaranteed by adopting a pattern. Each is a property you can
+go and measure once the mechanism is in place, which is why the third column
+exists.
 
 | Property | Mechanism | Evidence to collect |
 |--------|--------|-----|
@@ -302,20 +290,25 @@ Systems designed with these principles achieve:
 
 ## Examples
 
-All patterns include working Python examples:
+Every example is dependency-free, self-contained, and calls no model. Each one
+prints a banner saying so, because the numbers they print are constants in the
+file rather than measurements.
+
+| Pattern | Examples | Tests |
+|---|---|---|
+| Routing before reasoning | `guardrail_router_example.py`, `compute_to_lookup_example.py` | `test_routing_invariants.py` |
+| Grounded context | `multidimensional_kg_example.py`, `semantic_firewall_example.py`, `recursive_ontology_example.py` | `test_grounding_invariants.py` |
+| Silent execution | `headless_agent_example.py`, `silent_swarm_example.py` | `test_silence_invariants.py` |
+| Enforcement and evidence | `evidence_plane_example.py` | `test_evidence_plane.py` |
 
 ```bash
-examples/
-├── guardrail_router_example.py    # Request classification & routing
-├── compute_to_lookup_example.py   # 90/10 optimization patterns
-├── semantic_firewall_example.py   # Hallucination prevention
-├── multidimensional_kg_example.py # Knowledge graph constraints
-├── headless_agent_example.py      # Structured communication
-├── silent_swarm_example.py        # Multi-agent coordination
-└── recursive_ontology_example.py  # Self-healing systems
+python -m unittest discover -s tests -v    # 36 checks
+ruff check examples tests
 ```
 
-## Evidence and Claims
+On Windows, prefix example runs with `PYTHONIOENCODING=utf-8`.
+
+## Evidence and claims
 
 The repository separates three kinds of statements:
 
@@ -325,7 +318,7 @@ The repository separates three kinds of statements:
 
 Pull requests that add quantitative or security claims should include the command, fixture or dataset, environment, and raw result needed to reproduce them. CI lints, compiles every example, runs the executable checks, and smoke-tests each example.
 
-Four patterns currently have executable invariants: the evidence plane, routing, silence and capability, and the semantic firewall. Two of those suites also pin the documented **limits** of a claim, so that a gap named in prose cannot silently close or widen.
+All four patterns have executable invariants: routing, grounded context, silent execution, and enforcement and evidence. Two of those suites also pin the documented **limits** of a claim, so that a gap named in prose cannot silently close or widen.
 
 ## Contributing
 
@@ -338,7 +331,7 @@ This is a living document. Contributions welcome:
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
-## Learn More
+## Learn more
 
 Each concept document includes:
 - Detailed explanations with diagrams
@@ -390,11 +383,25 @@ Each concept document includes:
 
 ---
 
-## Related Projects
+## Reference implementations
 
-- **[Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit)** - Policy kernel and agent mesh work, where the Agent OS and AgentMesh prototypes now live
+Each pattern names where its ideas exist as running code, and what that code
+does not do. Collected here:
 
-## Additional Documentation
+| Project | What it is | Which pattern cites it |
+|---|---|---|
+| [TRACE](https://github.com/agentrust-io/trace-spec) | Record format plus conformance suite, so a receipt can be checked by a party that does not trust the producer | Enforcement and evidence, grounded context |
+| [cMCP](https://github.com/agentrust-io/cmcp) | Policy-enforcing MCP proxy, evaluating policy outside the model process on the tool call path | All four |
+| [Agent Manifest](https://github.com/agentrust-io/agent-manifest) | Declared capability and scope for an agent, as a verifiable document | Silent execution, routing |
+| [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit) | Policy kernel and agent mesh work, where the Agent OS and AgentMesh prototypes now live | Routing, silent execution, enforcement |
 
-- **[Agent Mesh Patterns](./docs/agent-mesh-patterns.md)** - Identity, Trust, Governance, Reward patterns
-- **[Production Deployment Guide](./docs/production-deployment-guide.md)** - CI/CD, observability, operational best practices
+These are cited because they are open, running, and independently checkable.
+None of them implements a pattern end to end, and the pattern documents say
+which half each one covers.
+
+## Additional documentation
+
+- **[Pattern catalog](./docs/README.md)** - The four patterns, the template they share, and where the eleven old documents went
+- **[Agent Mesh Patterns](./docs/agent-mesh-patterns.md)** - Identity, trust, governance, and reward notes from two prototypes
+- **[Production Deployment Guide](./docs/production-deployment-guide.md)** - CI/CD, observability, operational practice
+- **[Security policy](./SECURITY.md)** - What this repository is, and what counts as a vulnerability in it
