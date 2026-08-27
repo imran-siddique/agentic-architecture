@@ -1,5 +1,22 @@
 # Contributing to Agentic Architecture
 
+## Evidence standard
+
+Treat architectural reasoning as a hypothesis until a reproducible artifact supports it.
+
+- Label a statement as an invariant, measurement, or design target.
+- For measurements, include the command, workload or fixture, environment, and raw result.
+- For security properties, state the threat model and include at least one bypass or tampering test.
+- Prefer a CI check over a prose-only process rule.
+- Do not describe example output as a production benchmark.
+
+Before submitting, run:
+
+```bash
+python -m compileall -q examples tests
+python -m unittest discover -s tests -v
+```
+
 First off, thank you for considering contributing! This is a living document that benefits from diverse perspectives and real-world experiences.
 
 ## Ways to Contribute
