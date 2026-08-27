@@ -2,6 +2,10 @@
 
 > **Capability-Based Execution: Return NULL, Don't Hallucinate**
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## The Problem
 
 Traditional AI agents try to be helpful by answering everything. This "helpfulness" becomes a liability when:
@@ -142,25 +146,38 @@ class PolicyEnforcer:
         return PolicyDecision(allowed=True)
 ```
 
-## The 0% Violation Guarantee
+## What the capability check actually buys you
 
-Traditional prompt-based safety relies on the LLM understanding and following instructions. This fails:
-
-| Approach | Safety Violations |
-|----------|-------------------|
-| Prompt Engineering | 26.67% |
-| System Prompts | 18.33% |
-| **Mute Agent (Capability-Based)** | **0%** |
-
-The difference: **Capabilities are checked BEFORE the LLM runs.**
+Prompt-based safety asks the model to understand and follow an instruction.
+Whether it complies is a probability, and that probability moves with the
+attack. A capability check does not ask. It runs first, in ordinary code, and
+the model never sees a request it denies.
 
 ```
-Prompt-Based Safety:
-  Request → LLM (interprets safety) → Response (may violate)
+Prompt-based safety:
+  Request -> model interprets the rule -> response, which may violate it
 
-Mute Agent Safety:
-  Request → Capability Check → [DENY or LLM] → Response (guaranteed safe)
+Capability-based:
+  Request -> capability check -> deny, or a model call scoped to what was allowed
 ```
+
+The invariant is narrow and worth stating precisely:
+
+> For any action not present in the manifest, no execution path reaches the
+> tool, regardless of the request text.
+
+That is a structural property. You test it by fuzzing requests against a
+manifest and asserting no denied capability is ever invoked. It is not a
+measured violation rate, and quoting one would be dishonest, because the rate
+depends entirely on the attack suite you chose.
+
+What the invariant does not give you:
+
+- It says nothing about actions the manifest wrongly allows. A capability
+  granted too broadly is enforced exactly as faithfully as a correct one.
+- It says nothing about the content of an allowed response.
+- It holds only where the tool is genuinely unreachable except through the
+  check. One side path around it and the property is gone.
 
 ## Multi-Agent Considerations
 

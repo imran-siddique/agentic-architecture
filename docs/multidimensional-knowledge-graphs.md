@@ -1,5 +1,9 @@
 # Multidimensional Knowledge Graphs: Beyond Flat Context
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 There is a prevalent myth that "Context" is just a pile of documents dumped into a Vector Database. If you have read about Context Engineering, you know this is fundamentally wrong. Vector search (RAG) is flat. It finds words that look similar, but it doesn't understand the structure of reality.
@@ -16,11 +20,11 @@ It misses the metadata that actually governs business logic:
 - **Role-Based Weight**: Information critical to a Developer might be noise to a Product Manager.
 - **Authority**: Who authored this information? Is it from a reliable source?
 
-We aren't just talking about a single graph connecting A to B. We are talking about multiple, overlapping graphs — or a single graph with multiple distinct "views." This is the only way to model the complexity of an enterprise.
+We aren't just talking about a single graph connecting A to B. We are talking about multiple overlapping graphs, or a single graph with multiple distinct "views." This is the only way to model the complexity of an enterprise.
 
 ## The Graph as a Semantic Firewall
 
-The Knowledge Graph acts as a **Semantic Firewall** — a constraint wrapper that sits around your model (similar to how we conceptualized Cortana wrappers in the past).
+The Knowledge Graph acts as a **Semantic Firewall**, a constraint wrapper that sits around your model (similar to how we conceptualized Cortana wrappers in the past).
 
 This firewall acts as a filter. It subtracts the noise before the AI ever sees it. It enforces "Scale by Subtraction" by ensuring the AI can only "reason" about data that passes through the topological constraints of the graph.
 
@@ -325,9 +329,12 @@ See [examples/multidimensional_kg_example.py](../examples/multidimensional_kg_ex
 - Relationship-aware: Dependencies included automatically
 
 ### 3. Performance
-- **99% noise reduction** through graph filters
-- **100x faster** than processing all documents
-- **95% cost reduction** from smaller context
+- Each dimension is a deterministic filter, so context size shrinks before the model runs
+- Cost and latency fall with context size, in proportion to how much your filters remove
+- Measure: candidate count and token count at each stage of the filter chain
+
+The reduction figures in the worked example above come from that example's
+assumed corpus. Yours will differ.
 
 ### 4. Explainability
 - Clear audit trail of filtering decisions
@@ -497,7 +504,7 @@ By subtracting 99% of noise before the LLM sees anything, we:
 - Provide explainable, auditable results
 - Enable true enterprise-scale AI
 
-The best agents don't think harder—they filter better.
+The best agents do not think harder. They filter better.
 
 ## Further Reading
 

@@ -1,5 +1,9 @@
 # The Cognitive Systems Architect: The New Role That Replaces the Traditional Software Engineer
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## Overview
 
 The **Cognitive Systems Architect** is an emerging role that transcends traditional software engineering. As AI agents become capable of writing code, the human role shifts from code production to **knowledge architecture, system design, and cognitive orchestration**. This document explores what this role entails and how it differs from conventional engineering.
@@ -849,7 +853,7 @@ As AI agents become more capable, the Cognitive Systems Architect role will:
 
 ## Conclusion
 
-The Cognitive Systems Architect is not just a new job title—it's a fundamental reconception of how we build intelligent systems. As AI handles code generation, humans must excel at:
+The Cognitive Systems Architect is not just a new job title. It is a different account of how we build intelligent systems. As AI handles code generation, humans must excel at:
 
 - **Knowledge architecture**: Structuring information for optimal use
 - **Cognitive orchestration**: Designing how agents collaborate

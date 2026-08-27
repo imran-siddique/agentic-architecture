@@ -2,6 +2,10 @@
 
 > **Why Deterministic Infrastructure Beats Probabilistic Prompting**
 
+> The numbers in this document are worked examples on stated assumptions, or
+> design targets. None of them are measurements. See the evidence standard in
+> [CONTRIBUTING.md](../CONTRIBUTING.md#evidence-standard).
+
 ## The Problem
 
 The AI industry has a dangerous habit: trying to "prompt engineer" safety into existence.
@@ -98,7 +102,7 @@ class FinancialQueryPolicy:
 
 ### 3. Kernel-Level Enforcement
 
-The control plane operates like an OS kernel—the LLM is just a user-space process:
+The control plane operates like an OS kernel. The LLM is a user-space process:
 
 ```python
 class AgentKernel:
@@ -186,7 +190,7 @@ class TransactionalExecution:
 | Aspect | Prompt-Based | Control Plane |
 |--------|--------------|---------------|
 | Enforcement | Suggestions | Laws |
-| Reliability | Probabilistic (~70-80%) | Deterministic (100%) |
+| Reliability | Depends on the model and the attack | Depends on the code, and is testable |
 | Bypass | Jailbreaks work | Cannot bypass |
 | Audit | Hope LLM logged it | Every action logged |
 | Rollback | Not possible | Full undo capability |
@@ -235,13 +239,21 @@ class EnterpriseAgentControlPlane:
 
 ## The Numbers Don't Lie
 
-| Safety Approach | Violation Rate | Bypass Possible |
-|-----------------|----------------|-----------------|
-| No safety measures | 45%+ | N/A |
-| Basic prompt engineering | 26.67% | Yes (jailbreaks) |
-| Advanced system prompts | 18.33% | Yes (prompt injection) |
-| Constitutional AI | 8-12% | Yes (sophisticated attacks) |
-| **Control Plane** | **0%** | **No** |
+| Safety approach | Where the rule lives | Bypass route |
+|-----------------|----------------------|--------------|
+| No safety measures | Nowhere | Any request |
+| Prompt engineering | In the model's context | Jailbreaks |
+| System prompts | In the model's context, higher priority | Prompt injection |
+| Model-level training | In the weights | Distribution shift, novel attacks |
+| **Control plane** | **In code, outside the model process** | **Only a bug in the control plane, or a path that skips it** |
+
+The rows differ in kind, not degree. The first four put the rule somewhere the
+model can be argued out of. The last puts it somewhere the model cannot reach.
+
+Violation rates are deliberately absent from this table. Any number you have
+seen for these approaches came from one attack suite against one model, and it
+does not transfer. If you need a number, build the suite for your system and
+publish the suite alongside it.
 
 ## When to Use Each
 
@@ -263,7 +275,7 @@ class EnterpriseAgentControlPlane:
 
 > "You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts."
 
-Safety isn't a suggestion—it's infrastructure.
+Safety is not a suggestion. It is infrastructure.
 
 ---
 
