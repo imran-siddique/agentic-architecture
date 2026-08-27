@@ -221,17 +221,18 @@ outside cp1252.
 How much any of this is worth in your system is a measurement you have to take.
 No number in this directory is transferable.
 
-### Architecture Patterns
+### Which example belongs to which pattern
 
-Each example shows how to:
-1. **Prevent the Inference Trap**: Route intelligently between lookup and reasoning
-2. **Structure data for optimal retrieval**: Multi-dimensional indexing
-3. **Design type-safe protocols**: Eliminate ambiguity
-4. **Implement fallback strategies**: Graceful degradation
-5. **Track structured metrics**: Observability without log parsing
-6. **Optimize compute-to-lookup ratio**: Target 80-90% lookup, 10-20% reasoning
-7. **Validate facts proactively**: Block hallucinations before generation
-8. **Enable self-healing**: Systems that update themselves based on agent feedback
+| Pattern | Examples | Tests |
+|---|---|---|
+| [Routing before reasoning](../docs/patterns/routing.md) | `guardrail_router_example.py`, `compute_to_lookup_example.py` | `test_routing_invariants.py` |
+| [Grounded context](../docs/patterns/grounded-context.md) | `multidimensional_kg_example.py`, `semantic_firewall_example.py`, `recursive_ontology_example.py` | `test_grounding_invariants.py` |
+| [Silent execution](../docs/patterns/silent-execution.md) | `headless_agent_example.py`, `silent_swarm_example.py` | `test_silence_invariants.py` |
+| [Enforcement and evidence](../docs/patterns/enforcement-and-evidence.md) | `evidence_plane_example.py` | `test_evidence_plane.py` |
+
+Read the pattern before the example. The example shows the mechanism running;
+the pattern says what it guarantees, what it does not, and when it is the wrong
+choice.
 
 ## Integration
 
@@ -285,7 +286,9 @@ class OptimalAgenticSystem:
 
 ## Further Reading
 
+- [Pattern catalog](../docs/README.md)
 - [Routing before reasoning](../docs/patterns/routing.md)
 - [Grounded context](../docs/patterns/grounded-context.md)
 - [Silent execution](../docs/patterns/silent-execution.md)
-- [Cognitive Systems Architect Documentation](../docs/cognitive-systems-architect.md)
+- [Enforcement and evidence](../docs/patterns/enforcement-and-evidence.md)
+- [The Cognitive Systems Architect](../docs/cognitive-systems-architect.md)

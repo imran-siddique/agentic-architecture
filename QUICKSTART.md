@@ -4,15 +4,20 @@ Get started with agentic architecture patterns in 5 minutes.
 
 ## What You'll Learn
 
-This repository teaches you revolutionary patterns for building production-grade AI agent systems:
+Four patterns for building agent systems that are easier to constrain,
+observe, and verify. Each one states an invariant that can fail, and each has a
+test suite that fails with it.
 
-1. **The Inference Trap**: Why "thinking" is a technical debt and how to avoid it
-2. **The Guardrail Router**: Intelligently route between lookup and reasoning
-3. **Compute-to-Lookup Ratio**: Optimize for 80-90% lookups, 10-20% reasoning
-4. **Semantic Firewall**: Block hallucinations before they reach users
-5. **Headless Agents**: Silent swarms that communicate via structured data
-6. **Recursive Ontologies**: Self-updating knowledge systems that never become stale
-7. **Cognitive Systems Architect**: The new engineering role for AI systems
+1. **[Routing before reasoning](./docs/patterns/routing.md)**: classify the request before you answer it, and enforce the reasoning budget as a constraint rather than a metric
+2. **[Grounded context](./docs/patterns/grounded-context.md)**: filter by rule rather than by similarity, block claims the graph cannot support, and rebuild the graph from the failures it produces
+3. **[Silent execution](./docs/patterns/silent-execution.md)**: language at the boundary, capability at the workers, never in the same component
+4. **[Enforcement and evidence](./docs/patterns/enforcement-and-evidence.md)**: put the rule where the model cannot argue with it, then emit a receipt somebody else can check
+
+Plus [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md),
+a role essay rather than a pattern.
+
+Each pattern also says when not to use it, and what it does not do. Those
+sections are usually the useful ones.
 
 ## 5-Minute Quick Start
 
@@ -22,18 +27,20 @@ The core insight: **If your agent is "thinking" for every request, you have not 
 
 But there's more: **If your knowledge graph needs manual updates, you have not built a system, you have built a maintenance nightmare.**
 
-Traditional AI systems (The Inference Trap):
+Without a routing decision:
 ```
 User Query → LLM thinks hard for everything → Response (slow, expensive, unreliable)
 ```
 
-Modern agentic systems (With Guardrail Router):
+With one:
 ```
-User Query → Guardrail Router → Decision: Lookup or Reasoning?
-                                    ↓                ↓
-                              Lookup (90%)    Reasoning (10%)
-                              50-200ms        2-10 seconds
-                              $0.001          $0.01
+User Query → Router → Does this need reasoning?
+                          ↓                ↓
+                    Retrieval path    Reasoning path
+                    the large share   the small share, budgeted
+
+The split, the latencies, and the prices are yours to measure. The point is
+that there is a decision, and that it is visible and testable.
 ```
 
 ### Step 2: Run the Examples (2 minutes)

@@ -10,10 +10,11 @@
 
 As AI agents proliferate in enterprise environments, a critical gap emerges:
 
-```
-Non-human identities now outnumber human identities 40:1 to 100:1.
-AI agents are the fastest-growing, least-governed identity category.
-```
+Non-human identities outnumber human ones in most enterprises, and agents are
+the least governed category among them. Vendor reports put the ratio anywhere
+from tens to hundreds to one, which tells you the ratio is not the interesting
+part. Count your own service principals, then count how many of them any single
+person could name an owner for. That second number is the problem.
 
 Protocols like A2A (Google) give agents a common language. MCP gives agents tools. **Neither enforces trust.**
 
