@@ -65,32 +65,22 @@ The Compute-to-Lookup Ratio. They described one pattern from three angles.
 
 **Key Insight**: the smartest systems are not the ones that compute the most. They are the ones that know when not to compute.
 
-### 2. [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md)
-**Beyond Flat Context: Scale by Subtraction Using Graph Constraints.**
+### 2. [Grounded context](./docs/patterns/grounded-context.md)
+**Structure the context, enforce it, then keep it current.**
 
-Context is not just a pile of documents in a Vector Database. RAG is flat. It finds similar words but doesn't understand the structure of reality. This document covers:
-- The problem with flat context (RAG limitations)
-- The graph as a semantic firewall (constraint wrapper)
-- Six dimensions: Identity & Scope, Organizational Hierarchy, Service Ownership, Dependencies, Temporal Weight, Authority
-- Real-world example: "What pending items do I have on my plate?"
-- The constraint outcome: Subtracting 99% of noise before the LLM sees anything
-- Comparing RAG vs. Multidimensional approaches
+Merges what were three documents: Multidimensional Knowledge Graphs, The
+Semantic Firewall, and Recursive Ontologies. They were one pattern in three
+stages.
 
-**Key Insight**: The Graph doesn't answer questions. It eliminates wrong answers. By filtering the universe through dimensional constraints, we subtract 99% of noise using deterministic graph logic, leaving the AI with the easy job of summarizing the 1% of signal that remains.
+- Six dimensions that filter candidates by rule rather than by similarity score
+- Six validation rules that block a claim the graph cannot support, with a reason
+- Failure signals that rebuild the affected region instead of a curation backlog
+- The invariant: a checkable claim is released only if every rule passes
+- The two gaps this leaves, both of which are pinned by tests
 
-### 3. [The Semantic Firewall](./docs/semantic-firewall.md)
-**Using Multidimensional Knowledge Graphs to block hallucinations before they happen.**
+**Key Insight**: the graph does not answer the question. It eliminates the wrong answers, and it inherits whatever the graph itself gets wrong.
 
-A defense-in-depth architecture that prevents AI hallucinations through structural validation against knowledge graphs. This document covers:
-- Multidimensional knowledge graph design (entity, temporal, confidence, context)
-- Six validation rules for blocking hallucinations
-- Implementation patterns for proactive protection
-- Benefits over post-generation detection
-- Real-world implementation examples
-
-**Key Insight**: Don't detect hallucinations after generation. Prevent them structurally before they reach users.
-
-### 4. [The "Headless" Agent](./docs/headless-agent.md)
+### 3. [The "Headless" Agent](./docs/headless-agent.md)
 **Why the best agents are the ones that can't talk (Silent Swarms).**
 
 Challenging the assumption that agents must communicate through natural language, this document presents:
@@ -103,7 +93,7 @@ Challenging the assumption that agents must communicate through natural language
 
 **Key Insight**: Language is for humans. Code is for machines. Keep them separate.
 
-### 5. [The Silent Swarm](./docs/silent-swarm.md)
+### 4. [The Silent Swarm](./docs/silent-swarm.md)
 **Function Over Form: Scale by Subtraction Through "Security by Silence".**
 
 The AI industry suffers from a "Chatbot Hangover". We design systems as if conversation is mandatory. This document challenges that assumption:
@@ -115,20 +105,7 @@ The AI industry suffers from a "Chatbot Hangover". We design systems as if conve
 
 **Key Insight**: Stop judging agents by how well they chat. Start judging them by how well they shut up and work.
 
-### 6. [Recursive Ontologies](./docs/recursive-ontologies.md)
-**Self-Updating Semantic Firewalls (Part 4).**
-
-Static systems die. In a world where data changes every second, knowledge graphs cannot remain static. This document introduces recursive ontologies, systems that update themselves:
-- The Feedback Loop: Agents as telemetry (failures as signals)
-- Ephemeral Graphs: Event-driven, just-in-time knowledge bases
-- Human Wisdom: Statistical supervision (5% review, 95% automation)
-- The Analyst System: Pattern detection and self-healing
-- Real-world implementation of self-updating architectures
-- The death of manual knowledge curation
-
-**Key Insight**: When an agent fails to find an answer, that is not an error. It is a signal. The system heals its own knowledge gaps based on the friction points of the agents living inside it.
-
-### 7. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
+### 5. [The Cognitive Systems Architect](./docs/cognitive-systems-architect.md)
 **The new role that replaces the traditional Software Engineer.**
 
 As AI agents become capable of writing code, the human role shifts to knowledge architecture and system design. This document explores:
@@ -141,7 +118,7 @@ As AI agents become capable of writing code, the human role shifts to knowledge 
 
 **Key Insight**: The best code is no code. The best architect designs systems that don't need to compute what they can look up. And the best knowledge graph is one that updates itself.
 
-### 8. [The Mute Agent](./docs/mute-agent.md)
+### 6. [The Mute Agent](./docs/mute-agent.md)
 **Capability-Based Execution: Return NULL, Don't Hallucinate.**
 
 The most reliable agent is one that knows when to say nothing. This pattern implements capability-based execution where agents return NULL for out-of-scope requests instead of fabricating answers:
@@ -153,7 +130,7 @@ The most reliable agent is one that knows when to say nothing. This pattern impl
 
 **Key Insight**: An agent that returns NULL when uncertain is infinitely more valuable than one that confidently hallucinates.
 
-### 9. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md)
+### 7. [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md)
 **Why Deterministic Infrastructure Beats Probabilistic Prompting.**
 
 Stop trying to "prompt engineer" your way to safety. This pattern establishes control plane architecture for AI governance:
@@ -165,7 +142,7 @@ Stop trying to "prompt engineer" your way to safety. This pattern establishes co
 
 **Key Insight**: You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts.
 
-### 10. [The Evidence Plane](./docs/evidence-plane.md)
+### 8. [The Evidence Plane](./docs/evidence-plane.md)
 **Trust the receipt, not the label.**
 
 An agent saying an action is verified does not make it so. This pattern binds workload identity, policy decision, action, and artifact digest into a receipt that can be checked outside the producing agent.
@@ -284,15 +261,13 @@ Read the concepts in order:
 | # | Concept | Learn |
 |---|---------|-------|
 | 1 | [Routing before reasoning](./docs/patterns/routing.md) | Classify before you answer, and enforce the budget |
-| 2 | [Multidimensional Knowledge Graphs](./docs/multidimensional-knowledge-graphs.md) | Constraint-based filtering |
-| 3 | [Semantic Firewall](./docs/semantic-firewall.md) | Blocking unsupported claims before release |
-| 4 | [Headless Agent](./docs/headless-agent.md) | Coordination without generation |
-| 5 | [Silent Swarm](./docs/silent-swarm.md) | Language at the boundary, capability at the workers |
-| 6 | [Recursive Ontologies](./docs/recursive-ontologies.md) | Self-updating knowledge |
-| 7 | [The Mute Agent](./docs/mute-agent.md) | Capability-based execution |
-| 8 | [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) | Putting the rule where the model cannot reach it |
-| 9 | [The Evidence Plane](./docs/evidence-plane.md) | Receipts a third party can check |
-| 10 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
+| 2 | [Grounded context](./docs/patterns/grounded-context.md) | Filter by rule, block unsupported claims, heal from failures |
+| 3 | [Headless Agent](./docs/headless-agent.md) | Coordination without generation |
+| 4 | [Silent Swarm](./docs/silent-swarm.md) | Language at the boundary, capability at the workers |
+| 5 | [The Mute Agent](./docs/mute-agent.md) | Capability-based execution |
+| 6 | [Control Planes vs Prompts](./docs/control-planes-vs-prompts.md) | Putting the rule where the model cannot reach it |
+| 7 | [The Evidence Plane](./docs/evidence-plane.md) | Receipts a third party can check |
+| 8 | [Cognitive Systems Architect](./docs/cognitive-systems-architect.md) | The holistic view |
 
 ### 2. Assess Your Current System
 - [ ] What share of your requests actually needs a model?

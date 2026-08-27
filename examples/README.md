@@ -286,9 +286,7 @@ class OptimalAgenticSystem:
 ## Further Reading
 
 - [Routing before reasoning](../docs/patterns/routing.md)
-- [Multidimensional Knowledge Graphs Documentation](../docs/multidimensional-knowledge-graphs.md)
-- [Semantic Firewall Documentation](../docs/semantic-firewall.md)
+- [Grounded context](../docs/patterns/grounded-context.md)
 - [Headless Agent Documentation](../docs/headless-agent.md)
 - [Silent Swarm Documentation](../docs/silent-swarm.md)
-- [Recursive Ontologies Documentation](../docs/recursive-ontologies.md)
 - [Cognitive Systems Architect Documentation](../docs/cognitive-systems-architect.md)
