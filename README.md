@@ -21,7 +21,6 @@ A guide to agentic system design patterns, with dependency-free examples and exe
 - [Examples](#examples)
 - [Evidence and claims](#evidence-and-claims)
 - [Contributing](#contributing)
-- [Philosophy](#philosophy)
 - [Reference implementations](#reference-implementations)
 
 ---
@@ -290,9 +289,7 @@ exists.
 
 ## Examples
 
-Every example is dependency-free, self-contained, and calls no model. Each one
-prints a banner saying so, because the numbers they print are constants in the
-file rather than measurements.
+The examples run with Python 3.12+, use only the standard library, and call no model. Ruff is a development-only lint dependency. Their worked outputs illustrate mechanisms; they are not production measurements.
 
 | Pattern | Examples | Tests |
 |---|---|---|
@@ -302,11 +299,17 @@ file rather than measurements.
 | Enforcement and evidence | `evidence_plane_example.py` | `test_evidence_plane.py` |
 
 ```bash
+python -m pip install ruff==0.16.3
 python -m unittest discover -s tests -v    # 36 checks
-ruff check examples tests
+python -m ruff check examples tests
 ```
 
-On Windows, prefix example runs with `PYTHONIOENCODING=utf-8`.
+For PowerShell, set UTF-8 output before running examples:
+
+```powershell
+$env:PYTHONIOENCODING = 'utf-8'
+python examples/guardrail_router_example.py
+```
 
 ## Evidence and claims
 
@@ -318,18 +321,13 @@ The repository separates three kinds of statements:
 
 Pull requests that add quantitative or security claims should include the command, fixture or dataset, environment, and raw result needed to reproduce them. CI lints, compiles every example, runs the executable checks, and smoke-tests each example.
 
+The evidence example uses a shared HMAC key. It demonstrates integrity checks, not third-party non-repudiation, hardware attestation, or proof that an action occurred. Replaying a valid receipt is not rejected by the example verifier.
+
 All four patterns have executable invariants: routing, grounded context, silent execution, and enforcement and evidence. Two of those suites also pin the documented **limits** of a claim, so that a gap named in prose cannot silently close or widen.
 
 ## Contributing
 
-This is a living document. Contributions welcome:
-
-- 💬 Share implementation experiences
-- 🆕 Propose new patterns
-- 📋 Submit case studies
-- 📝 Improve documentation
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+Contributions should include a concrete mechanism, a falsifiable invariant, and the checks and limits that support the claim. See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ## Learn more
 
@@ -340,48 +338,6 @@ Each concept document includes:
 - Implementation checklists
 - Metrics to track
 - Common anti-patterns to avoid
-
-## Philosophy
-
-<table>
-<tr><td>
-
-> "If your agent is 'thinking' for every request, you haven't built an agent; you've built a philosophy major."
-
-</td></tr>
-<tr><td>
-
-> "The smartest systems aren't the ones that compute the most. They're the ones that know when NOT to compute."
-
-</td></tr>
-<tr><td>
-
-> "Don't detect hallucinations after generation. Prevent them structurally before they reach users."
-
-</td></tr>
-<tr><td>
-
-> "Language is for humans. Code is for machines. Keep them separate."
-
-</td></tr>
-<tr><td>
-
-> "Stop judging agents by how well they chat. Start judging them by how well they shut up and work."
-
-</td></tr>
-<tr><td>
-
-> "An agent that returns NULL when uncertain is infinitely more valuable than one that confidently hallucinates."
-
-</td></tr>
-<tr><td>
-
-> "You wouldn't secure a web app with strongly-worded comments. Don't secure AI agents with strongly-worded prompts."
-
-</td></tr>
-</table>
-
----
 
 ## Reference implementations
 
